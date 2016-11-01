@@ -1,5 +1,7 @@
 package net.kimleo.rec
 
+import net.kimleo.rec.record.parser.Configuration
+import net.kimleo.rec.record.parser.SimpleParser
 import org.junit.Assert.*
 import org.junit.Test
 

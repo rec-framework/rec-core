@@ -1,7 +1,9 @@
-package net.kimleo.rec
+package net.kimleo.rec.record.parser
 
-
-data class Configuration(val delimiter: Char = ',', val escape: Char? = '\"')
+import net.kimleo.rec.bind
+import net.kimleo.rec.orElse
+import net.kimleo.rec.record.Field
+import net.kimleo.rec.record.Record
 
 class SimpleParser(val config: Configuration = Configuration()) {
 
@@ -13,7 +15,7 @@ class SimpleParser(val config: Configuration = Configuration()) {
             fields.add(parseField(state)!!)
         }
 
-        return Record(fields)
+        return Record(fields, input)
     }
 
     private fun parseField(state: ParseState): Field? {
@@ -66,25 +68,6 @@ class SimpleParser(val config: Configuration = Configuration()) {
         assert(state.current() == null || state.current() == config.delimiter) {
             "Expect delimiter but found `${state.current()}`"
         }
-    }
-
-}
-
-class ParseState(val input: String) {
-    val size = input.length
-    var index = 0
-
-    fun current(): Char? {
-        return if (eof()) null else input[index]
-    }
-
-    fun eof(): Boolean {
-        return index >= size
-    }
-
-    fun next(): Char? {
-        index ++
-        return if (eof()) null else current()
     }
 
 }

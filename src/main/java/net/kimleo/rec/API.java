@@ -1,5 +1,10 @@
 package net.kimleo.rec;
 
+import net.kimleo.rec.accessor.AccessorFactory;
+import net.kimleo.rec.record.parser.Configuration;
+import net.kimleo.rec.record.Record;
+import net.kimleo.rec.record.parser.SimpleParser;
+
 import java.util.HashMap;
 import java.util.Map;
 

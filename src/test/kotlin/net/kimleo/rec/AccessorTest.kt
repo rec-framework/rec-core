@@ -1,10 +1,11 @@
 package net.kimleo.rec
 
 import net.kimleo.rec.API.*
+import net.kimleo.rec.accessor.lexer.Lexer.buildFieldMapPair
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class RecordAccessorTest {
+class AccessorTest {
     @Test
     fun shouldBuildAccessorMapSuccessfully() {
         val (map1, leastCapacity1) = buildFieldMapPair("name", "age", "...", "email", "{1}", "comment")
