@@ -1,6 +1,7 @@
 package net.kimleo.rec
 
 import net.kimleo.rec.accessor.AccessorFactory
+import net.kimleo.rec.record.RecordType
 import net.kimleo.rec.record.parser.Configuration
 import net.kimleo.rec.record.parser.SimpleParser
 
@@ -12,7 +13,6 @@ class RecordTypeBuilder {
             val (key, value) = it.split("=")
             configs.put(key.trim(), value.trim())
         }
-
 
         return object : RecordType {
             override val name = name
