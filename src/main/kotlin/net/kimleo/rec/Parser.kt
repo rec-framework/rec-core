@@ -5,7 +5,7 @@ data class Configuration(val delimiter: Char = ',', val escape: Char? = '\"')
 
 class SimpleParser(val config: Configuration = Configuration()) {
 
-    fun parse(input: String): Tuple? {
+    fun parse(input: String): Record? {
 
         val state = ParseState(input)
         val fields = arrayListOf<Field>()
@@ -13,7 +13,7 @@ class SimpleParser(val config: Configuration = Configuration()) {
             fields.add(parseField(state)!!)
         }
 
-        return Tuple(fields)
+        return Record(fields)
     }
 
     private fun parseField(state: ParseState): Field? {
