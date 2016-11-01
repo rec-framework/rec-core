@@ -1,5 +1,6 @@
 package net.kimleo.rec
 
+import net.kimleo.rec.API.*
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -24,10 +25,10 @@ class RecordAccessorTest {
 
     @Test
     fun shouldAccessCorrectRecord() {
-        val record = Field("Kimmy") + "Leo" + "10" + "male" + "1993/07/09"
+        val record = rec("Kimmy, Leo, 10, male, 1993/07/09")
 
-        val fact = AccessorFactory(arrayOf("first name", "...", "age", "{1}", "dob"))
-        val kimmy = fact.create(record)
+        val fact = accessor(rec("first name, {1}, age, ..., dob"))
+        val kimmy = fact.of(record)
 
         assertEquals(kimmy.get("first name"), "Kimmy")
         assertEquals(kimmy.get("age"), "10")

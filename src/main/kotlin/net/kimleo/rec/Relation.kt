@@ -103,11 +103,15 @@ class AccessorFactory(fields: Array<out String>) {
     val fieldMap = fieldMapPair.first
     val leastCapacity = fieldMapPair.second
 
+    constructor(record: Record): this(record.fields.map(Field::value).toTypedArray()) {}
+
     fun create(record: Record): RecordAccessor {
         assert(record.size >= leastCapacity)
 
         return RecordAccessor(fieldMap, record)
     }
+
+    fun of(record: Record) = create(record)
 }
 
 data class RecordAccessor(val fields: Map<String, Int>, val record: Record) {
