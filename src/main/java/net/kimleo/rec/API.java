@@ -1,9 +1,9 @@
 package net.kimleo.rec;
 
 import net.kimleo.rec.accessor.AccessorFactory;
-import net.kimleo.rec.record.RecordCollection;
-import net.kimleo.rec.record.RecordType;
-import net.kimleo.rec.record.parser.Configuration;
+import net.kimleo.rec.record.RecCollection;
+import net.kimleo.rec.record.RecType;
+import net.kimleo.rec.record.parser.ParseConfig;
 import net.kimleo.rec.record.Record;
 import net.kimleo.rec.record.parser.SimpleParser;
 
@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Map;
 
 public class API {
-    private static final Map<Configuration, SimpleParser> parsers = new HashMap<>();
+    private static final Map<ParseConfig, SimpleParser> parsers = new HashMap<>();
 
     public static Record rec(String input) {
-        return rec(input, new Configuration(',', '"'));
+        return rec(input, new ParseConfig(',', '"'));
     }
 
-    public static Record rec(String input, Configuration config) {
+    public static Record rec(String input, ParseConfig config) {
         if (!parsers.containsKey(config)) {
             parsers.put(config, new SimpleParser(config));
         }
@@ -33,7 +33,7 @@ public class API {
         return new AccessorFactory(record);
     }
 
-    public static RecordCollection collect(List<Record> records, RecordType type) {
-        return new RecordCollection(records, type);
+    public static RecCollection collect(List<Record> records, RecType type) {
+        return new RecCollection(records, type);
     }
 }

@@ -1,8 +1,8 @@
 package net.kimleo.rec.loader
 
-import net.kimleo.rec.record.RecordCollection
-import net.kimleo.rec.record.builder.RecordCollectionBuilder
-import net.kimleo.rec.record.builder.RecordTypeBuilder
+import net.kimleo.rec.record.RecCollection
+import net.kimleo.rec.record.builder.RecCollectBuilder
+import net.kimleo.rec.record.builder.RecTypeBuilder
 import java.io.File
 import java.io.FileNotFoundException
 
@@ -15,11 +15,11 @@ class RecordLoader(config: LoadingConfig) {
         }
     }
 
-    fun getRecords(): RecordCollection? {
+    fun getRecords(): RecCollection? {
         val data = dataFile.readLines()
         val rec = recFile.readLines()
 
-        val type = RecordTypeBuilder().build(rec)
-        return RecordCollectionBuilder().build(data, type)
+        val type = RecTypeBuilder().build(rec)
+        return RecCollectBuilder().build(data, type)
     }
 }

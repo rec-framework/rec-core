@@ -5,7 +5,7 @@ import net.kimleo.rec.orElse
 import net.kimleo.rec.record.Field
 import net.kimleo.rec.record.Record
 
-class SimpleParser(val config: Configuration = Configuration()) {
+class SimpleParser(val config: ParseConfig = ParseConfig()) {
 
     fun parse(input: String): Record? {
 

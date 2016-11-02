@@ -14,9 +14,9 @@ object Lexer {
             if (accessor is FieldName) {
                 accessorMap.put(accessor.name, index)
                 index ++
-            } else if (accessor is Placeholder) {
-                index += accessor.size
             } else if (accessor is Padding) {
+                index += accessor.size
+            } else if (accessor is Placeholder) {
                 if (reversed) {
                     throw UnsupportedOperationException()
                 }
@@ -29,9 +29,9 @@ object Lexer {
             if (accessor is FieldName) {
                 accessorMap.put(accessor.name, index)
                 index --
-            } else if (accessor is Placeholder) {
-                index -= accessor.size
             } else if (accessor is Padding) {
+                index -= accessor.size
+            } else if (accessor is Placeholder) {
                 if (!reversed) {
                     throw UnsupportedOperationException()
                 }
@@ -50,9 +50,9 @@ object Lexer {
                 val field1 = Regex("\\{(\\d+)\\}").find(field)
                 val toInt = field1!!.groupValues[1].toInt()
                 currentSegmentSize += toInt
-                accessors.add(Placeholder(toInt))
+                accessors.add(Padding(toInt))
             } else if (field.trim() == "...") {
-                accessors.add(Padding(field.trim()))
+                accessors.add(Placeholder(field.trim()))
                 segmentSizes += currentSegmentSize
                 currentSegmentSize = 0
             } else {

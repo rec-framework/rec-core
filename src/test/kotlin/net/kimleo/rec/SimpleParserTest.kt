@@ -1,6 +1,6 @@
 package net.kimleo.rec
 
-import net.kimleo.rec.record.parser.Configuration
+import net.kimleo.rec.record.parser.ParseConfig
 import net.kimleo.rec.record.parser.SimpleParser
 import org.junit.Assert.*
 import org.junit.Test
@@ -27,7 +27,7 @@ class SimpleParserTest {
 
     @Test
     fun should_parse_different_delimiter() {
-        val tuple = SimpleParser(Configuration('|')).parse("hello|world|    123456|\"\"\"I have a dream\"\"\"")!!
+        val tuple = SimpleParser(ParseConfig('|')).parse("hello|world|    123456|\"\"\"I have a dream\"\"\"")!!
 
         assertEquals(tuple.fields.size, 4)
         assertEquals(tuple.fields[0].value, "hello")

@@ -3,14 +3,14 @@ package net.kimleo.rec.record
 import net.kimleo.rec.accessor.AccessorFactory
 import net.kimleo.rec.orElse
 
-class RecordCollection(val records: List<Record>, val type: RecordType): Iterable<Record> {
+class RecCollection(val records: List<Record>, val type: RecType): Iterable<Record> {
     override fun iterator(): Iterator<Record> {
         return records.iterator()
     }
 
     val accessor = type.accessor
 
-    fun select(vararg keys: String): RecordCollection {
+    fun select(vararg keys: String): RecCollection {
         checkKeyExists(*keys)
         val newType = newType(keys)
         val newRecords = arrayListOf<Record>()
@@ -23,21 +23,21 @@ class RecordCollection(val records: List<Record>, val type: RecordType): Iterabl
             newRecords.add(Record(fields.map(::Field)))
         }
 
-        return RecordCollection(newRecords, newType)
+        return RecCollection(newRecords, newType)
     }
 
-    fun where(key: String, pattern: String): RecordCollection {
+    fun where(key: String, pattern: String): RecCollection {
         val filtered = records.filter { rec ->
             accessor.of(rec).get(key)?.contains(pattern).orElse { false }
         }
-        return RecordCollection(filtered, type)
+        return RecCollection(filtered, type)
     }
 
-    fun where(key: String, pattern: Regex): RecordCollection {
+    fun where(key: String, pattern: Regex): RecCollection {
         val filtered = records.filter { rec ->
             accessor.of(rec).get(key)?.contains(pattern).orElse { false }
         }
-        return RecordCollection(filtered, type)
+        return RecCollection(filtered, type)
     }
 
     private fun checkKeyExists(vararg keys: String) {
@@ -47,12 +47,12 @@ class RecordCollection(val records: List<Record>, val type: RecordType): Iterabl
     }
 
 
-    private fun newType(keys: Array<out String>): RecordType {
-        return object: RecordType {
+    private fun newType(keys: Array<out String>): RecType {
+        return object: RecType {
             override val name = "select of ${type.name}"
-            override val configuration = type.configuration
+            override val parseConfig = type.parseConfig
             override val key = type.key
-            override val format = keys.joinToString(type.configuration.delimiter.toString())
+            override val format = keys.joinToString(type.parseConfig.delimiter.toString())
             override val accessor = AccessorFactory(Record(keys.map(::Field)))
         }
     }
