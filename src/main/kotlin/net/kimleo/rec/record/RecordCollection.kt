@@ -1,11 +1,9 @@
 package net.kimleo.rec.record
 
-import com.sun.tools.corba.se.idl.StringGen
 import net.kimleo.rec.accessor.AccessorFactory
 import net.kimleo.rec.orElse
+import net.kimleo.rec.record.Record
 import net.kimleo.rec.record.RecordType
-import net.kimleo.rec.record.parser.Configuration
-import net.kimleo.rec.record.parser.SimpleParser
 
 class RecordCollection(val records: List<Record>, val type: RecordType): Iterable<Record> {
     override fun iterator(): Iterator<Record> {

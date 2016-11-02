@@ -1,6 +1,9 @@
-package net.kimleo.rec.record
+package net.kimleo.rec.record.builder
 
 import net.kimleo.rec.bind
+import net.kimleo.rec.record.Record
+import net.kimleo.rec.record.RecordCollection
+import net.kimleo.rec.record.RecordType
 import net.kimleo.rec.record.parser.SimpleParser
 
 class RecordCollectionBuilder {

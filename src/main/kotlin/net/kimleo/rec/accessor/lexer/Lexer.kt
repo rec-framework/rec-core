@@ -1,6 +1,5 @@
 package net.kimleo.rec.accessor.lexer
 
-import net.kimleo.rec.accessor.lexer.FieldType
 import net.kimleo.rec.orElse
 
 object Lexer {
@@ -10,7 +9,7 @@ object Lexer {
         val (accessors, leastCapacity) = lex(fields)
         val reversedAccessor = accessors.asReversed()
         var reversed = false
-        var index = 0;
+        var index = 0
         for (accessor in accessors) {
             if (accessor is FieldName) {
                 accessorMap.put(accessor.name, index)

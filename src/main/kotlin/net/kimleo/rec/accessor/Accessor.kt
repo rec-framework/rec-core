@@ -3,7 +3,6 @@ package net.kimleo.rec.accessor
 import net.kimleo.rec.record.Record
 
 data class Accessor(val fields: Map<String, Int>, val record: Record) {
-    val size = fields.size
 
     fun get(field: String): String? {
         if (fields.containsKey(field)) {

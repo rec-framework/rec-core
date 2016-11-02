@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class API {
-    private static Map<Configuration, SimpleParser> parsers = new HashMap<>();
+    private static final Map<Configuration, SimpleParser> parsers = new HashMap<>();
 
     public static Record rec(String input) {
         return rec(input, new Configuration(',', '"'));
