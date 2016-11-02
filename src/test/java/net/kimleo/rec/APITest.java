@@ -1,7 +1,7 @@
 package net.kimleo.rec;
 
-import net.kimleo.rec.accessor.AccessorFactory;
 import net.kimleo.rec.accessor.Accessor;
+import net.kimleo.rec.accessor.AccessorFactory;
 import net.kimleo.rec.record.Record;
 import org.junit.Test;
 

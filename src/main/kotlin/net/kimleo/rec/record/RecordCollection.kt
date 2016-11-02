@@ -2,12 +2,10 @@ package net.kimleo.rec.record
 
 import net.kimleo.rec.accessor.AccessorFactory
 import net.kimleo.rec.orElse
-import net.kimleo.rec.record.Record
-import net.kimleo.rec.record.RecordType
 
 class RecordCollection(val records: List<Record>, val type: RecordType): Iterable<Record> {
     override fun iterator(): Iterator<Record> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return records.iterator()
     }
 
     val accessor = type.accessor

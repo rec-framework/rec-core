@@ -2,7 +2,6 @@ package net.kimleo.rec
 
 import net.kimleo.rec.record.builder.RecordCollectionBuilder
 import net.kimleo.rec.record.builder.RecordTypeBuilder
-import net.kimleo.rec.record.parser.SimpleParser
 import org.junit.Test
 import java.io.BufferedReader
 import java.io.InputStreamReader
