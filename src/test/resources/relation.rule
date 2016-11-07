@@ -1,5 +1,0 @@
-# Rule
-
-unique Cust.id
-exist Order.cust_id, Cust.id
-exist Order.prod_id, Prod.id

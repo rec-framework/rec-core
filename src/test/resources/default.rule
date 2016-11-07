@@ -1,0 +1,3 @@
+unique Person[first name]
+unique Person.ID
+exist Salary.pid, Person.ID

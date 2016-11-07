@@ -12,7 +12,7 @@ import kotlin.test.assertNotNull
 class RecTypeTest {
     @Test
     fun shouldReturnType() {
-        val lines = lines("rec_test.txt.rec")
+        val lines = lines("person_test.txt.rec")
 
         val type = RecTypeBuilder().build(lines)
 
@@ -21,8 +21,8 @@ class RecTypeTest {
 
     @Test
     fun shouldParseRecord() {
-        val records = lines("rec_test.txt")
-        val rec = lines("rec_test.txt.rec")
+        val records = lines("person_test.txt")
+        val rec = lines("person_test.txt.rec")
 
         val type = RecTypeBuilder().build(rec)
 

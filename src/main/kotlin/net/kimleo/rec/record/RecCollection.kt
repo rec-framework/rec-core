@@ -10,9 +10,9 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
 
     val accessor = type.accessor
 
-    fun select(vararg keys: String): RecCollection {
-        checkKeyExists(*keys)
-        val newType = newType(keys)
+    fun select(keys: List<String>, name: String? = null): RecCollection {
+        checkKeyExists(*keys.toTypedArray())
+        val newType = newType(keys, name)
         val newRecords = arrayListOf<Record>()
         for (record in records) {
             val fields = arrayListOf<String>()
@@ -24,6 +24,10 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
         }
 
         return RecCollection(newRecords, newType)
+    }
+
+    fun select(vararg keys: String): RecCollection {
+        return select(keys.toList())
     }
 
     fun where(key: String, pattern: String): RecCollection {
@@ -47,9 +51,9 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
     }
 
 
-    private fun newType(keys: Array<out String>): RecType {
+    private fun newType(keys: List<String>, providedName: String? = null): RecType {
         return object: RecType {
-            override val name = "image of ${type.name}"
+            override val name = providedName.orElse { "image of ${type.name}" }
             override val parseConfig = type.parseConfig
             override val key = type.key
             override val format = keys.joinToString(type.parseConfig.delimiter.toString())
