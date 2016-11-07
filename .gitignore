@@ -2,3 +2,9 @@
 .gradle/
 out/
 build/
+
+/*.txt
+/*.rec
+/*.patch
+
+.DS_Store

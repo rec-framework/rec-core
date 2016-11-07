@@ -49,7 +49,7 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
 
     private fun newType(keys: Array<out String>): RecType {
         return object: RecType {
-            override val name = "select of ${type.name}"
+            override val name = "image of ${type.name}"
             override val parseConfig = type.parseConfig
             override val key = type.key
             override val format = keys.joinToString(type.parseConfig.delimiter.toString())

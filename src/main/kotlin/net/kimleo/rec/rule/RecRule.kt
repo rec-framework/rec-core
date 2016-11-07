@@ -1,7 +1,7 @@
 package net.kimleo.rec.rule
 
-import net.kimleo.rec.repository.RecRepository
+import net.kimleo.rec.record.RecCollection
 
 interface RecRule {
-    fun verify(repo: RecRepository): Pair<Boolean, List<Result>>
+    fun verify(rec: RecCollection): Pair<Boolean, List<Result>>
 }

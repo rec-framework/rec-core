@@ -24,10 +24,10 @@ class RecRepositoryTest {
 
         assertTrue(repo.from("Record").where("first name", "Kimmy").records.size == 1)
 
-        val (unique1) = UniqueRule("Record", listOf("first name")).verify(repo)
+        val (unique1) = UniqueRule().verify(collect.select("first name"))
         assertTrue(unique1)
 
-        val (unique2, result) = UniqueRule("Record", listOf("comment")).verify(repo)
+        val (unique2, result) = UniqueRule().verify(collect.select("comment"))
 
         assertFalse(unique2)
         assertTrue(result.size == 5)
