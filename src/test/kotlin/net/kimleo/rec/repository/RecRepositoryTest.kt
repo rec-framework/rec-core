@@ -2,7 +2,7 @@ package net.kimleo.rec.repository
 
 import net.kimleo.rec.record.builder.RecCollectBuilder
 import net.kimleo.rec.record.builder.RecTypeBuilder
-import net.kimleo.rec.rule.UniqueRule
+import net.kimleo.rec.rule.impl.Unique
 import org.junit.Assert.*
 import org.junit.Test
 import java.io.BufferedReader
@@ -24,10 +24,10 @@ class RecRepositoryTest {
 
         assertTrue(repo.from("Record").where("first name", "Kimmy").records.size == 1)
 
-        val (unique1) = UniqueRule().verify(collect.select("first name"))
+        val (unique1) = Unique().verify(collect.select("first name"))
         assertTrue(unique1)
 
-        val (unique2, result) = UniqueRule().verify(collect.select("comment"))
+        val (unique2, result) = Unique().verify(collect.select("comment"))
 
         assertFalse(unique2)
         assertTrue(result.size == 5)

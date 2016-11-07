@@ -1,8 +1,10 @@
-package net.kimleo.rec.rule
+package net.kimleo.rec.rule.impl
 
 import net.kimleo.rec.record.RecCollection
+import net.kimleo.rec.rule.RecRule
+import net.kimleo.rec.rule.Result
 
-class UniqueRule : RecRule {
+class Unique : RecRule {
     override fun verify(rec: RecCollection): Pair<Boolean, List<Result>> {
         val unique = rec.isUnique()
         val results = arrayListOf<Result>()

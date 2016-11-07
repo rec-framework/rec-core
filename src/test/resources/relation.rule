@@ -1,10 +1,5 @@
 # Rule
 
 unique Cust.id
-Order.cust_id in Cust.id
-Order.prod_id in Prod.id
-
-# Transform
-
-OrderCustRelation: Order.id, Cust.id where Cust.id == Order.cust_id
-ProdCustRelation: Prod.id, Cust.id where Order.cust_id == Cust.id and Order.prod_id == Prod.id
+exist Order.cust_id, Cust.id
+exist Order.prod_id, Prod.id

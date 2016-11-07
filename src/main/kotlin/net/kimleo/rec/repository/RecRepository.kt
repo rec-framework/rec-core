@@ -1,7 +1,12 @@
 package net.kimleo.rec.repository
 
+import net.kimleo.rec.bind
+import net.kimleo.rec.orElse
 import net.kimleo.rec.record.RecCollection
 import net.kimleo.rec.record.RecType
+import net.kimleo.rec.repository.selector.MultipleCollectionSelector
+import net.kimleo.rec.repository.selector.Selector
+import net.kimleo.rec.repository.selector.expr.SelectorExpr
 import java.util.*
 
 class RecRepository(val collections: List<RecCollection>) {
@@ -17,4 +22,9 @@ class RecRepository(val collections: List<RecCollection>) {
                 .map(RecType::name)
                 .zip(collections).toMap()
     }
+
+    fun select(expr: String): List<RecCollection> {
+        return SelectorExpr(expr).buildSelector().findAll(this)
+    }
 }
+
