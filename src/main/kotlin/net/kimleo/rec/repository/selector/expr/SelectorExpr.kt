@@ -1,10 +1,10 @@
 package net.kimleo.rec.repository.selector.expr
 
-import net.kimleo.rec.repository.selector.MultipleCollectionSelector
+import net.kimleo.rec.repository.selector.CombinedSelector
 import net.kimleo.rec.repository.selector.Selector
 
-class SelectorExpr(val expr: String) {
-    fun buildSelector(): Selector {
+class SelectorExpr {
+    fun buildSelector(expr: String): Selector {
         val selectors = parseSelectorExpr(expr)
         return combine(selectors)
     }
@@ -16,9 +16,7 @@ class SelectorExpr(val expr: String) {
 
 
     private fun combine(selectors: List<Selector>): Selector {
-        val fieldMap = hashMapOf<String, List<String>>()
-
-        return MultipleCollectionSelector(fieldMap)
+        return CombinedSelector(selectors)
     }
 
 }

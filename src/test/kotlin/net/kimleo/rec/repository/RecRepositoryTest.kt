@@ -2,6 +2,7 @@ package net.kimleo.rec.repository
 
 import net.kimleo.rec.record.builder.RecCollectBuilder
 import net.kimleo.rec.record.builder.RecTypeBuilder
+import net.kimleo.rec.rule.RuleLoader
 import net.kimleo.rec.rule.impl.Unique
 import org.junit.Assert.*
 import org.junit.Test
@@ -9,10 +10,11 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 class RecRepositoryTest {
+    val records = lines("rec_test.txt")
+    val rec = lines("rec_test.txt.rec")
+
     @Test
     fun testRepository() {
-        val records = lines("rec_test.txt")
-        val rec = lines("rec_test.txt.rec")
 
         val type = RecTypeBuilder().build(rec)
 
@@ -24,13 +26,27 @@ class RecRepositoryTest {
 
         assertTrue(repo.from("Record").where("first name", "Kimmy").records.size == 1)
 
-        val (unique1) = Unique().verify(collect.select("first name"))
+        val (unique1) = Unique().verify(listOf(collect.select("first name")))
         assertTrue(unique1)
 
-        val (unique2, result) = Unique().verify(collect.select("comment"))
+        val (unique2, result) = Unique().verify(listOf(collect.select("comment")))
 
         assertFalse(unique2)
         assertTrue(result.size == 5)
+
+        val names = repo.select("Record[first name], Record[comment]")
+
+        assertTrue(names.size == 2)
+        assertTrue(names[1].records.size == 5)
+
+        val ruleResult = RuleLoader()
+                .load(listOf("unique: Record[first name]", "unique: Record[comment]")).map {
+            it.runOn(repo)
+        }.toList()
+
+        assert(ruleResult.size == 2)
+
+        assert(ruleResult[1].second.size == 5)
     }
     private fun lines(file: String): List<String> {
         val stream = javaClass.classLoader.getResourceAsStream(file)

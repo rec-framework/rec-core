@@ -1,10 +1,10 @@
 package net.kimleo.rec.rule.impl
 
 import net.kimleo.rec.record.RecCollection
-import net.kimleo.rec.rule.RecRelation
+import net.kimleo.rec.rule.RecRule
 import net.kimleo.rec.rule.Result
 
-class Exist: RecRelation {
+class Exist: RecRule {
     override fun verify(recs: List<RecCollection>): Pair<Boolean, List<Result>> {
         assert(recs.size == 2)
 

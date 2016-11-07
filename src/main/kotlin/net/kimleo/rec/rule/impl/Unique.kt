@@ -5,7 +5,9 @@ import net.kimleo.rec.rule.RecRule
 import net.kimleo.rec.rule.Result
 
 class Unique : RecRule {
-    override fun verify(rec: RecCollection): Pair<Boolean, List<Result>> {
+    override fun verify(recs: List<RecCollection>): Pair<Boolean, List<Result>> {
+        assert(recs.size == 1)
+        val rec = recs.first()
         val unique = rec.isUnique()
         val results = arrayListOf<Result>()
         if (!unique) {

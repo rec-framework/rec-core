@@ -3,5 +3,5 @@ package net.kimleo.rec.rule
 import net.kimleo.rec.record.RecCollection
 
 interface RecRule {
-    fun verify(rec: RecCollection): Pair<Boolean, List<Result>>
+    fun verify(recs: List<RecCollection>): Pair<Boolean, List<Result>>
 }
