@@ -6,5 +6,6 @@ build/
 /*.txt
 /*.rec
 /*.patch
+/default.rule
 
 .DS_Store
