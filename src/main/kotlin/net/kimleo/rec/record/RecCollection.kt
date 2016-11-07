@@ -56,4 +56,8 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
             override val accessor = AccessorFactory(Record(keys.map(::Field)))
         }
     }
+
+    fun isUnique(): Boolean {
+        return records.toSet().size == records.size
+    }
 }
