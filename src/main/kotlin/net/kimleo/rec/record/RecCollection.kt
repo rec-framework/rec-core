@@ -64,4 +64,8 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
     fun isUnique(): Boolean {
         return records.toSet().size == records.size
     }
+
+    fun get(name: String): RecCollection {
+        return select(name)
+    }
 }

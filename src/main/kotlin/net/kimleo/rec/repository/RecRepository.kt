@@ -22,5 +22,9 @@ class RecRepository(val collections: List<RecCollection>) {
     fun select(expr: String): List<RecCollection> {
         return SelectorExpr().buildSelector(expr).findAll(this)
     }
+
+    fun get(expr: String): List<RecCollection> {
+        return SelectorExpr().buildSelector(expr).findAll(this)
+    }
 }
 
