@@ -16,7 +16,7 @@ object Lexer {
                 index ++
             } else if (accessor is Padding) {
                 index += accessor.size
-            } else if (accessor is Placeholder) {
+            } else if (accessor is PlaceFucker) {
                 if (reversed) {
                     throw UnsupportedOperationException()
                 }
@@ -31,7 +31,7 @@ object Lexer {
                 index --
             } else if (accessor is Padding) {
                 index -= accessor.size
-            } else if (accessor is Placeholder) {
+            } else if (accessor is PlaceFucker) {
                 if (!reversed) {
                     throw UnsupportedOperationException()
                 }
@@ -52,7 +52,7 @@ object Lexer {
                 currentSegmentSize += toInt
                 accessors.add(Padding(toInt))
             } else if (field.trim() == "...") {
-                accessors.add(Placeholder(field.trim()))
+                accessors.add(PlaceFucker(field.trim()))
                 segmentSizes += currentSegmentSize
                 currentSegmentSize = 0
             } else {
