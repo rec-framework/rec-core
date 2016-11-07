@@ -1,6 +1,7 @@
 package net.kimleo.rec.rule.impl
 
 import net.kimleo.rec.record.RecCollection
+import net.kimleo.rec.record.Record
 import net.kimleo.rec.rule.RecRule
 import net.kimleo.rec.rule.Result
 
@@ -12,8 +13,9 @@ class Unique : RecRule {
         val results = arrayListOf<Result>()
         if (!unique) {
             val collect = rec
-            collect.groupBy({ it }).filter { e -> e.value.size > 1 }.forEach { rec, recs ->
-                recs.forEach {
+            collect.groupBy({ it }).filter { e -> e.value.size > 1 }.forEach { entry ->
+                val (key, vals) = entry
+                vals.forEach {
                     results.add(object : Result {
                         override val details = "duplicate record found with ${collect.type.format}: ${it.text}"
                     })

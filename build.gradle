@@ -13,6 +13,19 @@ version = '0.1.0'
 apply plugin: 'kotlin'
 apply plugin: 'application'
 
+mainClassName = "net.kimleo.rec.app.AppKt"
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Rec data processor',
+                'Implementation-Version': version,
+                'Main-Class': 'net.kimleo.rec.app.AppKt'
+    }
+    baseName = project.name + '-standalone'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 repositories {
     mavenCentral()
 }
