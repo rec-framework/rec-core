@@ -41,7 +41,7 @@ public class API {
         return new RecCollection(records, type);
     }
 
-    public static RecType type(String name, String format) {
+    public static RecType type(final String name, final String format) {
         return new RecType() {
             @NotNull
             @Override
