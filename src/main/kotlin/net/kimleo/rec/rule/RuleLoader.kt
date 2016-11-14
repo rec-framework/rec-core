@@ -1,6 +1,6 @@
 package net.kimleo.rec.rule
 
-import net.kimleo.rec.repository.selector.expr.SelectorExpr
+import net.kimleo.rec.repository.selector.Selector
 
 class RuleLoader(val ruleRepository: RuleRepository = RuleRepository()) {
     fun load(lines: List<String>): List<RuleRunner> {
@@ -9,7 +9,7 @@ class RuleLoader(val ruleRepository: RuleRepository = RuleRepository()) {
             val rule = split[0].trim()
             val selector = split[1].trim()
 
-            RuleRunner(ruleRepository.rule(rule), SelectorExpr().buildSelector(selector))
+            RuleRunner(ruleRepository.rule(rule), Selector.of(selector))
         }
     }
 }

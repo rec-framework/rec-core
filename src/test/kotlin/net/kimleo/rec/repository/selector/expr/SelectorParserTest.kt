@@ -4,11 +4,11 @@ import net.kimleo.rec.repository.selector.FieldSelector
 import org.junit.Assert.*
 import org.junit.Test
 
-class SelectorExprParserTest {
+class SelectorParserTest {
     @Test
     fun testParser() {
-        val lex = SelectorExprLexer().lex("cust, prod.world, i2b[name, pass], intj")
-        val parse = SelectorExprParser().parse(lex)
+        val lex = SelectorParser.lex("cust, prod.world, i2b[name, pass], intj")
+        val parse = SelectorParser.parse(lex)
 
         assertTrue(parse.size == 4)
         assertTrue((parse[1] as FieldSelector).properties.size == 1)

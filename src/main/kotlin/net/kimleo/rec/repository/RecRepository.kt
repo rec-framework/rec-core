@@ -2,6 +2,7 @@ package net.kimleo.rec.repository
 
 import net.kimleo.rec.record.RecCollection
 import net.kimleo.rec.record.RecType
+import net.kimleo.rec.repository.selector.Selector
 import net.kimleo.rec.repository.selector.expr.SelectorExpr
 import java.util.*
 
@@ -25,7 +26,7 @@ class RecRepository(val collections: List<RecCollection>): Iterable<RecCollectio
     }
 
     fun select(expr: String): RecRepository {
-        return RecRepository(SelectorExpr().buildSelector(expr).findAll(this))
+        return RecRepository(Selector.of(expr).findAll(this))
     }
 
     operator fun get(expr: String): RecRepository {
