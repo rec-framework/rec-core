@@ -25,7 +25,7 @@ class RecRepositoryTest {
 
         assertNotNull(repo)
 
-        assertTrue(repo.from("Person").where("first name", "Kimmy").records.size == 1)
+        assertTrue(repo.from("Person").where("first name") { contains("Kimmy") }.records.size == 1)
 
         val (unique1) = Unique().verify(listOf(collect.select("first name")))
         assertTrue(unique1)

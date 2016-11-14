@@ -30,8 +30,8 @@ class RecTypeTest {
 
         assertNotNull(collect)
 
-        assertEquals(collect.where("first name", "Kim").records.size, 3)
-        assertEquals(collect.where("first name", "Kimm").records.size, 1)
+        assertEquals(collect.where("first name"){contains("Kim")}.records.size, 3)
+        assertEquals(collect.where("first name"){contains("Kimm")}.records.size, 1)
 
     }
 

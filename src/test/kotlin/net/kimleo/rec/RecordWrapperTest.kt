@@ -35,8 +35,8 @@ class RecordWrapperTest {
         // operator fun get:
         assertEquals(kimmy["first name"], "Kimmy")
 
-        assertEquals(kimmy.get("age"), "10")
-        assertEquals(kimmy.get("dob"), "1993/07/09")
+        assertEquals(kimmy["age"], "10")
+        assertEquals(kimmy["dob"], "1993/07/09")
     }
 
 

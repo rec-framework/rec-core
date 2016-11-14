@@ -7,13 +7,13 @@ import net.kimleo.rec.repository.selector.Selector
 
 object SelectorParser {
 
-    val keywordsMap: Map<String, SelectorTokenType> = mapOf<String, SelectorTokenType>(
+    val keywordsMap: Map<String, SelectorTokenType> = mapOf(
             Pair("is", SelectorTokenType.IS),
             Pair("matches", SelectorTokenType.MATCHES)
     )
 
     fun lex(expr: String): List<SelectorToken> {
-        val specialCharsMap = mapOf<Char, SelectorToken>(
+        val specialCharsMap = mapOf(
                 Pair('[', SelectorToken(SelectorTokenType.LEFT_SQUARE)),
                 Pair(']', SelectorToken(SelectorTokenType.RIGHT_SQUARE)),
                 Pair('|', SelectorToken(SelectorTokenType.PIPE)),
