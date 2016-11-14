@@ -33,15 +33,21 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
     }
 
     fun where(key: String, pattern: String): RecCollection {
-        val filtered = records.filter { rec ->
-            accessor.of(rec)[key]?.contains(pattern).orElse { false }
+        return where(key) {
+            contains(pattern)
         }
-        return RecCollection(filtered, type)
     }
 
     fun where(key: String, pattern: Regex): RecCollection {
+        return where(key) {
+            matches(pattern)
+        }
+    }
+
+    fun where(key: String, assertion: String.() -> Boolean): RecCollection {
+        checkKeyExists(key)
         val filtered = records.filter { rec ->
-            accessor.of(rec)[key]?.contains(pattern).orElse { false }
+            accessor.of(rec)[key].bind(assertion).orElse { false }
         }
         return RecCollection(filtered, type)
     }

@@ -5,8 +5,13 @@ import net.kimleo.rec.record.RecType
 import net.kimleo.rec.repository.selector.expr.SelectorExpr
 import java.util.*
 
-class RecRepository(collections: List<RecCollection>) {
+class RecRepository(val collections: List<RecCollection>): Iterable<RecCollection> {
+    override fun iterator(): Iterator<RecCollection> {
+        return collections.iterator()
+    }
+
     val repo: Map<String, RecCollection> = toRepoMap(collections)
+    val size = collections.size
 
     fun from(name: String): RecCollection = repo.getOrElse(name) {
         throw NoSuchElementException("Cannot found the collection $name.")
@@ -19,12 +24,16 @@ class RecRepository(collections: List<RecCollection>) {
                 .zip(collections).toMap()
     }
 
-    fun select(expr: String): List<RecCollection> {
-        return SelectorExpr().buildSelector(expr).findAll(this)
+    fun select(expr: String): RecRepository {
+        return RecRepository(SelectorExpr().buildSelector(expr).findAll(this))
     }
 
-    operator fun get(expr: String): List<RecCollection> {
-        return SelectorExpr().buildSelector(expr).findAll(this)
+    operator fun get(expr: String): RecRepository {
+        return select(expr)
+    }
+
+    operator fun get(index: Int): RecCollection {
+        return collections[index]
     }
 }
 
