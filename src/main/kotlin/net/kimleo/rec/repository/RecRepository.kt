@@ -3,7 +3,6 @@ package net.kimleo.rec.repository
 import net.kimleo.rec.record.RecCollection
 import net.kimleo.rec.record.RecType
 import net.kimleo.rec.repository.selector.Selector
-import net.kimleo.rec.repository.selector.expr.SelectorExpr
 import java.util.*
 
 class RecRepository(val collections: List<RecCollection>): Iterable<RecCollection> {
