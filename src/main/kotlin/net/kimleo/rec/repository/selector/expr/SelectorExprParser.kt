@@ -7,7 +7,7 @@ import net.kimleo.rec.repository.selector.Selector
 class SelectorExprParser {
 
     fun parse(tokens: List<SelectorToken>): List<Selector> {
-        var selectors = arrayListOf<Selector>()
+        val selectors = arrayListOf<Selector>()
 
         var index = 0
 

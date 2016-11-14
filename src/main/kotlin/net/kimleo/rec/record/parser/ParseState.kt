@@ -17,5 +17,4 @@ class ParseState(val input: String) {
         index ++
         return if (eof()) null else current()
     }
-
 }

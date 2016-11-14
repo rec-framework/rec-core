@@ -5,5 +5,4 @@ import net.kimleo.rec.repository.RecRepository
 
 interface Selector {
     fun findAll(repo: RecRepository): List<RecCollection>
-
 }

@@ -10,5 +10,4 @@ class CombinedSelector(val selectors: List<Selector>) : Selector {
             left + right
         }
     }
-
 }

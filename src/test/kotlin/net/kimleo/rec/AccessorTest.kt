@@ -2,6 +2,7 @@ package net.kimleo.rec
 
 import net.kimleo.rec.API.*
 import net.kimleo.rec.accessor.lexer.Lexer.buildFieldMapPair
+import net.kimleo.rec.record.parser.ParseConfig
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -35,4 +36,5 @@ class AccessorTest {
         assertEquals(kimmy.get("age"), "10")
         assertEquals(kimmy.get("dob"), "1993/07/09")
     }
+
 }

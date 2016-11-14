@@ -5,7 +5,7 @@ import net.kimleo.rec.record.RecType
 import net.kimleo.rec.repository.selector.expr.SelectorExpr
 import java.util.*
 
-class RecRepository(val collections: List<RecCollection>) {
+class RecRepository(collections: List<RecCollection>) {
     val repo: Map<String, RecCollection> = toRepoMap(collections)
 
     fun from(name: String): RecCollection = repo.getOrElse(name) {
