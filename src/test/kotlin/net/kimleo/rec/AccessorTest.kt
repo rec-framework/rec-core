@@ -43,7 +43,7 @@ class AccessorTest {
     fun shouldAccessBlankSeparatorRecord() {
         val record = rec("[INFO] 2015-02-10 12:35:20PM+8:00 net.kimleo.rec.Application \"hello world\"", ParseConfig(' ', '"'))
 
-        val fact = accessor(rec("level, datae, time, class, message"))
+        val fact = accessor(rec("level, date, ..., message"))
         val kimmy = fact.of(record)
 
         assertEquals(kimmy.get("level"), "[INFO]")
