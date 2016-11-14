@@ -20,7 +20,7 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
             val fields = arrayListOf<String>()
             val accessor = accessor.of(record)
             for (key in keys) {
-                fields.add(accessor.get(key).orEmpty())
+                fields.add(accessor[key].orEmpty())
             }
             newRecords.add(Record(fields.map(::Field)))
         }
@@ -34,14 +34,14 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
 
     fun where(key: String, pattern: String): RecCollection {
         val filtered = records.filter { rec ->
-            accessor.of(rec).get(key)?.contains(pattern).orElse { false }
+            accessor.of(rec)[key]?.contains(pattern).orElse { false }
         }
         return RecCollection(filtered, type)
     }
 
     fun where(key: String, pattern: Regex): RecCollection {
         val filtered = records.filter { rec ->
-            accessor.of(rec).get(key)?.contains(pattern).orElse { false }
+            accessor.of(rec)[key]?.contains(pattern).orElse { false }
         }
         return RecCollection(filtered, type)
     }
@@ -64,7 +64,7 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
     }
 
 
-    fun get(name: String): RecCollection {
+    operator fun get(name: String): RecCollection {
         return select(name)
     }
 

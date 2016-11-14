@@ -23,7 +23,7 @@ class RecRepository(collections: List<RecCollection>) {
         return SelectorExpr().buildSelector(expr).findAll(this)
     }
 
-    fun get(expr: String): List<RecCollection> {
+    operator fun get(expr: String): List<RecCollection> {
         return SelectorExpr().buildSelector(expr).findAll(this)
     }
 }

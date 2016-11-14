@@ -35,7 +35,7 @@ class RecRepositoryTest {
         assertFalse(unique2)
         assertTrue(result.size == 5)
 
-        val names = repo.select("Person[first name], Person[comment]")
+        val names = repo["Person[first name], Person[comment]"]
 
         assertTrue(names.size == 2)
         assertTrue(names[1].records.size == 5)

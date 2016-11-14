@@ -26,8 +26,8 @@ class DefaultRecType(
 
             val format = configs["format"]!!
             val config = ParseConfig(
-                    configs["delimiter"]?.get(0).orElse { ',' },
-                    configs["escape"]?.get(0).orElse { '"' })
+                    configs["delimiter"]?.first().orElse { ',' },
+                    configs["escape"]?.first().orElse { '"' })
 
             return DefaultRecType(name, format, config, configs["key"], Accessor(SimpleParser().parse(format)))
         }

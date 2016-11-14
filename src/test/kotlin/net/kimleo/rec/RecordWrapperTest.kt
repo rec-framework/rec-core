@@ -32,7 +32,9 @@ class RecordWrapperTest {
         val fact = accessor(rec("first name, {1}, age, ..., dob"))
         val kimmy = fact.of(record)
 
-        assertEquals(kimmy.get("first name"), "Kimmy")
+        // operator fun get:
+        assertEquals(kimmy["first name"], "Kimmy")
+
         assertEquals(kimmy.get("age"), "10")
         assertEquals(kimmy.get("dob"), "1993/07/09")
     }
@@ -46,8 +48,8 @@ class RecordWrapperTest {
         val fact = accessor(rec("level, date, ..., message"))
         val kimmy = fact.of(record)
 
-        assertEquals(kimmy.get("level"), "[INFO]")
-        assertEquals(kimmy.get("message"), "hello world")
+        assertEquals(kimmy["level"], "[INFO]")
+        assertEquals(kimmy["message"], "hello world")
     }
 
 }

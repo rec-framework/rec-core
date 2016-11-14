@@ -4,7 +4,7 @@ import net.kimleo.rec.record.Record
 
 data class RecordWrapper(val fields: Map<String, Int>, val record: Record) {
 
-    fun get(field: String): String? {
+    operator fun get(field: String): String? {
         if (fields.containsKey(field)) {
             return getByIndex(fields[field]!!, record)
         }
