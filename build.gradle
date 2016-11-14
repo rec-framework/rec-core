@@ -11,9 +11,6 @@ buildscript {
 version = '0.1.0'
 
 apply plugin: 'kotlin'
-apply plugin: 'application'
-
-mainClassName = "net.kimleo.rec.app.AppKt"
 
 task fatJar(type: Jar) {
     manifest {
