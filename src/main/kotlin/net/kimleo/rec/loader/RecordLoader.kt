@@ -15,7 +15,7 @@ class RecordLoader(config: LoadingConfig) {
         }
     }
 
-    fun getRecords(): RecCollection? {
+    fun getRecords(): RecCollection {
         val data = dataFile.readLines()
         val rec = recFile.readLines()
 

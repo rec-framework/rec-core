@@ -12,7 +12,7 @@ import java.io.InputStreamReader
 fun main(args: Array<String>) {
     if (args.isEmpty()) {
         val configs = DefaultLoadingStrategy().configs
-        val collects = configs.map { RecordLoader(it).getRecords()!! }
+        val collects = configs.map { RecordLoader(it).getRecords() }
         val repo = RecRepository(collects)
 
         val rules = lines("./default.rule")

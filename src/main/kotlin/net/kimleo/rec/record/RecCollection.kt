@@ -1,6 +1,6 @@
 package net.kimleo.rec.record
 
-import net.kimleo.rec.accessor.AccessorFactory
+import net.kimleo.rec.accessor.Accessor
 import net.kimleo.rec.orElse
 
 class RecCollection(val records: List<Record>, val type: RecType): Iterable<Record> {
@@ -57,7 +57,7 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
             override val parseConfig = type.parseConfig
             override val key = type.key
             override val format = keys.joinToString(type.parseConfig.delimiter.toString())
-            override val accessor = AccessorFactory(Record(keys.map(::Field)))
+            override val accessor = Accessor(Record(keys.map(::Field)))
         }
     }
 

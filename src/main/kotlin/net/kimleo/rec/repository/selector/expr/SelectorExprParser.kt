@@ -1,6 +1,5 @@
 package net.kimleo.rec.repository.selector.expr
 
-import com.sun.xml.internal.bind.v2.model.core.ID
 import net.kimleo.rec.repository.selector.FieldSelector
 import net.kimleo.rec.repository.selector.Selector
 

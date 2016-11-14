@@ -7,18 +7,18 @@ import net.kimleo.rec.record.Record
 
 class SimpleParser(val config: ParseConfig = ParseConfig()) {
 
-    fun parse(input: String): Record? {
+    fun parse(input: String): Record {
 
         val state = ParseState(input)
         val fields = arrayListOf<Field>()
         while (!state.eof()) {
-            fields.add(parseField(state)!!)
+            fields.add(parseField(state))
         }
 
         return Record(fields, input)
     }
 
-    private fun parseField(state: ParseState): Field? {
+    private fun parseField(state: ParseState): Field {
         val builder = StringBuilder()
         var c = state.current()
         while (c != null && c != config.delimiter) {

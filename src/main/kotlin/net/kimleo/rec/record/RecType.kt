@@ -1,6 +1,6 @@
 package net.kimleo.rec.record
 
-import net.kimleo.rec.accessor.AccessorFactory
+import net.kimleo.rec.accessor.Accessor
 import net.kimleo.rec.record.parser.ParseConfig
 
 interface RecType {
@@ -8,5 +8,5 @@ interface RecType {
     val parseConfig: ParseConfig
     val key: String?
     val format: String
-    val accessor: AccessorFactory
+    val accessor: Accessor
 }

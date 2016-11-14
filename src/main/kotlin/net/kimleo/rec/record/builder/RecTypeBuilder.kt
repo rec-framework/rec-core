@@ -1,7 +1,8 @@
 package net.kimleo.rec.record.builder
 
-import net.kimleo.rec.accessor.AccessorFactory
+import net.kimleo.rec.accessor.Accessor
 import net.kimleo.rec.orElse
+import net.kimleo.rec.record.DefaultRecType
 import net.kimleo.rec.record.RecType
 import net.kimleo.rec.record.parser.ParseConfig
 import net.kimleo.rec.record.parser.SimpleParser
@@ -15,14 +16,11 @@ class RecTypeBuilder {
             configs.put(key.trim(), value.trim())
         }
 
-        return object : RecType {
-            override val name = name
-            override val parseConfig = ParseConfig(
-                    configs["delimiter"]?.get(0).orElse { ',' },
-                    configs["escape"]?.get(0).orElse { '"' })
-            override val key = configs["key"]
-            override val format = configs["format"]!!
-            override val accessor = AccessorFactory(SimpleParser().parse(format)!!)
-        }
+        val format = configs["format"]!!
+        val config = ParseConfig(
+                configs["delimiter"]?.get(0).orElse { ',' },
+                configs["escape"]?.get(0).orElse { '"' })
+
+        return DefaultRecType(name, format, config, configs["key"], Accessor(SimpleParser().parse(format)))
     }
 }

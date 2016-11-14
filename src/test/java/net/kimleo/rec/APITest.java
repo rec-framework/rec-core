@@ -1,7 +1,7 @@
 package net.kimleo.rec;
 
+import net.kimleo.rec.accessor.RecordWrapper;
 import net.kimleo.rec.accessor.Accessor;
-import net.kimleo.rec.accessor.AccessorFactory;
 import net.kimleo.rec.record.Record;
 import org.junit.Test;
 
@@ -15,9 +15,9 @@ public class APITest {
     public void testRecord() throws Exception {
         Record record = rec("Kimmy, Leo, male, 10, 1999/99/99");
 
-        AccessorFactory accessor = accessor(rec("first name, ..., gender, {1}, dob"));
+        Accessor accessor = accessor(rec("first name, ..., gender, {1}, dob"));
 
-        Accessor kimmy = accessor.of(record);
+        RecordWrapper kimmy = accessor.of(record);
 
         assertThat(kimmy.get("first name"), is("Kimmy"));
         assertThat(kimmy.get("gender"), is("male"));
