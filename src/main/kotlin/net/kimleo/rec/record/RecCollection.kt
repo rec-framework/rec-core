@@ -1,7 +1,9 @@
 package net.kimleo.rec.record
 
 import net.kimleo.rec.accessor.Accessor
+import net.kimleo.rec.bind
 import net.kimleo.rec.orElse
+import net.kimleo.rec.record.parser.SimpleParser
 
 class RecCollection(val records: List<Record>, val type: RecType): Iterable<Record> {
     override fun iterator(): Iterator<Record> {
@@ -44,12 +46,33 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
         return RecCollection(filtered, type)
     }
 
+    companion object {
+        fun loadData(lines: List<String>, type: RecType): RecCollection {
+            val parser = SimpleParser(type.parseConfig)
+            val records = arrayListOf<Record>()
+            for (line in lines) {
+                val record = parser.parse(line)
+                record.bind { records.add(it) }
+            }
+
+            return RecCollection(records, type)
+        }
+    }
+
+    fun isUnique(): Boolean {
+        return records.toSet().size == records.size
+    }
+
+
+    fun get(name: String): RecCollection {
+        return select(name)
+    }
+
     private fun checkKeyExists(vararg keys: String) {
         for (key in keys) {
             assert(key in accessor.fieldMap.keys)
         }
     }
-
 
     private fun newType(keys: List<String>, providedName: String? = null): RecType {
         return object: RecType {
@@ -59,13 +82,5 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
             override val format = keys.joinToString(type.parseConfig.delimiter.toString())
             override val accessor = Accessor(Record(keys.map(::Field)))
         }
-    }
-
-    fun isUnique(): Boolean {
-        return records.toSet().size == records.size
-    }
-
-    fun get(name: String): RecCollection {
-        return select(name)
     }
 }

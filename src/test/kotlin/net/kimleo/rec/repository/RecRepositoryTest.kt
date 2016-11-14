@@ -1,7 +1,7 @@
 package net.kimleo.rec.repository
 
-import net.kimleo.rec.record.builder.RecCollectBuilder
-import net.kimleo.rec.record.builder.RecTypeBuilder
+import net.kimleo.rec.record.DefaultRecType
+import net.kimleo.rec.record.RecCollection
 import net.kimleo.rec.rule.RuleLoader
 import net.kimleo.rec.rule.impl.Unique
 import org.junit.Assert.*
@@ -17,9 +17,9 @@ class RecRepositoryTest {
     @Test
     fun testRepository() {
 
-        val type = RecTypeBuilder().build(rec)
+        val type = DefaultRecType.makeTypeFrom(rec)
 
-        val collect = RecCollectBuilder().build(records, type)
+        val collect = RecCollection.loadData(records, type)
 
         val repo = RecRepository(listOf(collect))
 

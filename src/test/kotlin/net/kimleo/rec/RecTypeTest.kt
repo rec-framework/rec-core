@@ -1,7 +1,7 @@
 package net.kimleo.rec
 
-import net.kimleo.rec.record.builder.RecCollectBuilder
-import net.kimleo.rec.record.builder.RecTypeBuilder
+import net.kimleo.rec.record.DefaultRecType
+import net.kimleo.rec.record.RecCollection
 import org.junit.Test
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -14,7 +14,7 @@ class RecTypeTest {
     fun shouldReturnType() {
         val lines = lines("person_test.txt.rec")
 
-        val type = RecTypeBuilder().build(lines)
+        val type = DefaultRecType.makeTypeFrom(lines)
 
         assertNotNull(type)
     }
@@ -24,9 +24,9 @@ class RecTypeTest {
         val records = lines("person_test.txt")
         val rec = lines("person_test.txt.rec")
 
-        val type = RecTypeBuilder().build(rec)
+        val type = DefaultRecType.makeTypeFrom(rec)
 
-        val collect = RecCollectBuilder().build(records, type)
+        val collect = RecCollection.loadData(records, type)
 
         assertNotNull(collect)
 
