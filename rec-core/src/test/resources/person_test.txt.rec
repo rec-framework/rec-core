@@ -1,0 +1,5 @@
+Person
+delimiter=|
+escape="
+key=ID
+format=first name, last name, {2}, ID, ..., comment
