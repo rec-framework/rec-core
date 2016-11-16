@@ -1,7 +1,16 @@
+buildscript {
+    ext.kotlin_version = '1.0.0'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
 
 version = '0.1.0'
 
-apply plugin: 'java'
+apply plugin: 'kotlin'
 
 task fatJar(type: Jar) {
     manifest {
@@ -16,10 +25,11 @@ task fatJar(type: Jar) {
 
 repositories {
     mavenCentral()
-    maven { url "https://jitpack.io" }
 }
 
 dependencies {
-    compile "net.kimleo.rec:rec-core:v0.1.0"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testCompile 'junit:junit:4.11'
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 }
 
