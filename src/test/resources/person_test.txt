@@ -1,5 +1,0 @@
-Kimmy | Leo | 1999/99/99 | self | 1000001 |  not married | this is just a test data
-Kimbryo | Leo | 1999/99/99 | brother | 1000002 | not married | this is just a test data
-Kim | Leo | 1999/99/99 | brother | 1000003 | married | this is just a test data
-Lisa | Leo | 1999/99/99 | sister | 1000004 | not married | this is just a test data
-Amanda | Leo | 1999/99/99 | cusion | 1000005 | married | this is just a test data

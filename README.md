@@ -24,9 +24,9 @@ salary.txt
 1000008 | 3t
 ```
 
-if you provide following rec files, it will check and tell you the details:
+if you provide following net.kimleo.rec files, it will check and tell you the details:
 
-person.txt.rec
+person.txt.net.kimleo.rec
 ```
 Person
 delimiter=|
@@ -34,7 +34,7 @@ escape="
 key=ID
 format=first name, last name, {2}, ID, ..., comment
 ```
-salary.txt.rec
+salary.txt.net.kimleo.rec
 ```
 Salary
 delimiter=|

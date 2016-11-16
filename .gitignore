@@ -4,8 +4,9 @@ out/
 loadData/
 
 /*.txt
-/*.rec
+/*.net.kimleo.rec
 /*.patch
 /default.rule
 
 .DS_Store
+build
