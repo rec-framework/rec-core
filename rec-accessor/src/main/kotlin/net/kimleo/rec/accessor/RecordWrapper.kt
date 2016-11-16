@@ -1,5 +1,7 @@
 package net.kimleo.rec.accessor
 
+import net.kimleo.rec.concept.Indexible
+
 data class RecordWrapper<T>(val fieldNames: Map<String, Int>, val record: Indexible<T>) {
 
     operator fun get(field: String): T? {

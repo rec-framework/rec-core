@@ -1,7 +1,7 @@
 package net.kimleo.rec
 
-import net.kimleo.rec.record.DefaultRecType
-import net.kimleo.rec.record.RecCollection
+import net.kimleo.rec.loader.DefaultRecType
+import net.kimleo.rec.loader.RecCollection
 import org.junit.Test
 import java.io.BufferedReader
 import java.io.InputStreamReader

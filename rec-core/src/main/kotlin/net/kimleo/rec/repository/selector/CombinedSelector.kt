@@ -1,6 +1,6 @@
 package net.kimleo.rec.repository.selector
 
-import net.kimleo.rec.record.RecCollection
+import net.kimleo.rec.loader.RecCollection
 import net.kimleo.rec.repository.RecRepository
 
 class CombinedSelector(val selectors: List<Selector>) : Selector {

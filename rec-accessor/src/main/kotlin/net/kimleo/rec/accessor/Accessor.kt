@@ -1,6 +1,7 @@
 package net.kimleo.rec.accessor
 
 import net.kimleo.rec.accessor.lexer.Lexer
+import net.kimleo.rec.concept.Indexible
 
 class Accessor<T>(fields: Array<out String>) {
     val fieldMapPair = Lexer.buildFieldMapPair(*fields)

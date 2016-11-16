@@ -1,6 +1,6 @@
 package net.kimleo.rec.record
 
-import net.kimleo.rec.accessor.Indexible
+import net.kimleo.rec.concept.Indexible
 import net.kimleo.rec.sepval.SepValEntry
 
 data class Record(val fields: List<Field>, val text: String): Indexible<String> {

@@ -1,8 +1,10 @@
 package net.kimleo.rec.sepval
 
-data class SepValEntry(val values: List<String>, val source: String) {
+import net.kimleo.rec.concept.Indexible
 
-    val size = values.size
+data class SepValEntry(val values: List<String>, val source: String): Indexible<String> {
 
-    operator fun get(index: Int) = values.get(index)
+    override val size = values.size
+
+    override operator fun get(index: Int) = values.get(index)
 }

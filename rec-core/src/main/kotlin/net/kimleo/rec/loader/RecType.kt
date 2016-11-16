@@ -1,4 +1,4 @@
-package net.kimleo.rec.record
+package net.kimleo.rec.loader
 
 import net.kimleo.rec.accessor.Accessor
 import net.kimleo.rec.sepval.parser.ParseConfig

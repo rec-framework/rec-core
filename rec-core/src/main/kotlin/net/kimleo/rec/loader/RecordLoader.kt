@@ -1,7 +1,7 @@
 package net.kimleo.rec.loader
 
-import net.kimleo.rec.record.DefaultRecType
-import net.kimleo.rec.record.RecCollection
+import net.kimleo.rec.loader.DefaultRecType
+import net.kimleo.rec.loader.RecCollection
 import java.io.File
 import java.io.FileNotFoundException
 

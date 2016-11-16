@@ -1,8 +1,11 @@
-package net.kimleo.rec.record
+package net.kimleo.rec.loader
 
 import net.kimleo.rec.accessor.Accessor
 import net.kimleo.rec.bind
 import net.kimleo.rec.orElse
+import net.kimleo.rec.record.Field
+import net.kimleo.rec.record.Record
+import net.kimleo.rec.record.toRecord
 import net.kimleo.rec.sepval.parser.SimpleParser
 
 class RecCollection(val records: List<Record>, val type: RecType): Iterable<Record> {
