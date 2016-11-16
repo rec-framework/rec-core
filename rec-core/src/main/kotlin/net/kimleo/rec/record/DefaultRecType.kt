@@ -2,15 +2,15 @@ package net.kimleo.rec.record
 
 import net.kimleo.rec.accessor.Accessor
 import net.kimleo.rec.orElse
-import net.kimleo.rec.record.parser.ParseConfig
-import net.kimleo.rec.record.parser.SimpleParser
+import net.kimleo.rec.sepval.parser.ParseConfig
+import net.kimleo.rec.sepval.parser.SimpleParser
 
 class DefaultRecType(
         override var name: String,
         override var format: String,
         override var parseConfig: ParseConfig = ParseConfig(),
         override var key: String? = null,
-        override var accessor: Accessor = Accessor(SimpleParser().parse(format))) : RecType {
+        override var accessor: Accessor<String> = Accessor(SimpleParser().parse(format).values.toTypedArray())) : RecType {
     companion object {
         fun create(name: String, format: String): RecType {
             return DefaultRecType(name, format)
@@ -29,7 +29,7 @@ class DefaultRecType(
                     configs["delimiter"]?.first().orElse { ',' },
                     configs["escape"]?.first().orElse { '"' })
 
-            return DefaultRecType(name, format, config, configs["key"], Accessor(SimpleParser().parse(format)))
+            return DefaultRecType(name, format, config, configs["key"], Accessor(SimpleParser().parse(format).values.toTypedArray()))
         }
     }
 }

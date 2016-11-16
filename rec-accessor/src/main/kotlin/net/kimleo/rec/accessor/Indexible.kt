@@ -1,5 +1,6 @@
 package net.kimleo.rec.accessor
 
 interface Indexible<T> {
-    fun get(index: Int): T
+    operator fun get(index: Int): T
+    val size: Int
 }

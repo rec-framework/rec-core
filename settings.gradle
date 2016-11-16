@@ -1,1 +1,1 @@
-include "common", "rec-core", "rec-accessor", "rec-sepval"
+include "common", "rec-core", "rec-accessor", "rec-sepval", "java-api"

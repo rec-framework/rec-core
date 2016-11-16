@@ -1,24 +1,23 @@
-package net.kimleo.rec.record.parser
+package net.kimleo.rec.sepval.parser
 
 import net.kimleo.rec.bind
 import net.kimleo.rec.orElse
-import net.kimleo.rec.record.Field
-import net.kimleo.rec.record.Record
+import net.kimleo.rec.sepval.SepValEntry
 
 class SimpleParser(val config: ParseConfig = ParseConfig()) {
 
-    fun parse(input: String): Record {
+    fun parse(input: String): SepValEntry {
 
         val state = ParseState(input)
-        val fields = arrayListOf<Field>()
+        val fields = arrayListOf<String>()
         while (!state.eof()) {
             fields.add(parseField(state))
         }
 
-        return Record(fields, input)
+        return SepValEntry(fields, input)
     }
 
-    private fun parseField(state: ParseState): Field {
+    private fun parseField(state: ParseState): String {
         val builder = StringBuilder()
         var c = state.current()
         while (c != null && c != config.delimiter) {
@@ -28,14 +27,14 @@ class SimpleParser(val config: ParseConfig = ParseConfig()) {
                     continue
                 }
                 if (c == config.escape) {
-                    return Field(parseEscaped(state))
+                    return parseEscaped(state)
                 }
             }
             builder.append(c)
             c = state.next()
         }
         state.next()
-        return Field(builder.toString().trim())
+        return builder.toString().trim()
     }
 
     private fun isSpace(c: Char?): Boolean {
@@ -71,3 +70,4 @@ class SimpleParser(val config: ParseConfig = ParseConfig()) {
     }
 
 }
+

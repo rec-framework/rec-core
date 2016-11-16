@@ -1,7 +1,7 @@
 package net.kimleo.rec
 
-import net.kimleo.rec.record.parser.ParseConfig
-import net.kimleo.rec.record.parser.SimpleParser
+import net.kimleo.rec.sepval.parser.ParseConfig
+import net.kimleo.rec.sepval.parser.SimpleParser
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -12,26 +12,26 @@ class SimpleParserTest {
     fun should_parse_single_csv() {
         val tuple = parser.parse("a, b, c")
 
-        assertEquals(tuple.fields.size, 3)
-        assertEquals(tuple.fields[1].value, "b")
+        assertEquals(tuple.values.size, 3)
+        assertEquals(tuple[1], "b")
     }
 
     @Test
     fun should_parse_quoted_string() {
         val tuple = parser.parse("\"abc\",    \" \"\" \t\r\n\\\b def \"    , g")
 
-        assertEquals(tuple.fields.size, 3)
-        assertEquals(tuple.fields[1].value, " \" \t\r\n\\\b def ")
-        assertEquals(tuple.fields[2].value, "g")
+        assertEquals(tuple.size, 3)
+        assertEquals(tuple[1], " \" \t\r\n\\\b def ")
+        assertEquals(tuple[2], "g")
     }
 
     @Test
     fun should_parse_different_delimiter() {
         val tuple = SimpleParser(ParseConfig('|')).parse("hello|world|    123456|\"\"\"I have a dream\"\"\"")
 
-        assertEquals(tuple.fields.size, 4)
-        assertEquals(tuple.fields[0].value, "hello")
-        assertEquals(tuple.fields[2].value, "123456")
-        assertEquals(tuple.fields[3].value, "\"I have a dream\"")
+        assertEquals(tuple.size, 4)
+        assertEquals(tuple[0], "hello")
+        assertEquals(tuple[2], "123456")
+        assertEquals(tuple[3], "\"I have a dream\"")
     }
 }

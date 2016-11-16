@@ -2,7 +2,7 @@ package net.kimleo.rec
 
 import net.kimleo.rec.API.*
 import net.kimleo.rec.accessor.lexer.Lexer.buildFieldMapPair
-import net.kimleo.rec.record.parser.ParseConfig
+import net.kimleo.rec.sepval.parser.ParseConfig
 import org.junit.Test
 import kotlin.test.assertEquals
 

@@ -3,7 +3,7 @@ package net.kimleo.rec.record
 import net.kimleo.rec.accessor.Accessor
 import net.kimleo.rec.bind
 import net.kimleo.rec.orElse
-import net.kimleo.rec.record.parser.SimpleParser
+import net.kimleo.rec.sepval.parser.SimpleParser
 
 class RecCollection(val records: List<Record>, val type: RecType): Iterable<Record> {
     override fun iterator(): Iterator<Record> {
@@ -46,7 +46,7 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
             val records = arrayListOf<Record>()
             for (line in lines) {
                 val record = parser.parse(line)
-                record.bind { records.add(it) }
+                record.bind { records.add(it.toRecord()) }
             }
 
             return RecCollection(records, type)
@@ -74,7 +74,7 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
             override val parseConfig = type.parseConfig
             override val key = type.key
             override val format = keys.joinToString(type.parseConfig.delimiter.toString())
-            override val accessor = Accessor(Record(keys.map(::Field)))
+            override val accessor = Accessor<String>(keys.toTypedArray())
         }
     }
 }

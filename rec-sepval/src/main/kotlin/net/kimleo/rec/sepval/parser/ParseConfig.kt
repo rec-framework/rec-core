@@ -1,3 +1,3 @@
-package net.kimleo.rec.record.parser
+package net.kimleo.rec.sepval.parser
 
 data class ParseConfig(val delimiter: Char = ',', val escape: Char? = '\"')

@@ -1,4 +1,4 @@
-package net.kimleo.rec.record.parser
+package net.kimleo.rec.sepval.parser
 
 
 class ParseState(val input: String) {

@@ -15,7 +15,7 @@ public class APITest {
     public void testRecord() throws Exception {
         Record record = rec("Kimmy, Leo, male, 10, 1999/99/99");
 
-        Accessor accessor = accessor(rec("first name, ..., gender, {1}, dob"));
+        Accessor<String> accessor = accessor(rec("first name, ..., gender, {1}, dob"));
 
         RecordWrapper kimmy = accessor.of(record);
 
