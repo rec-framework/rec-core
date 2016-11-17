@@ -1,1 +1,1 @@
-include "common", "rec-core", "rec-accessor", "rec-sepval", "rec-selector"
+include "common", "rec-core", "rec-accessor", "rec-sepval", "rec-selector", "kotlin-api", "rec-app", "rec-loader"

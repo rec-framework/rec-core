@@ -1,6 +1,6 @@
 package net.kimleo.rec.repository.selector
 
-import net.kimleo.rec.loader.RecCollection
+import net.kimleo.rec.repository.RecCollection
 import net.kimleo.rec.repository.RecRepository
 import net.kimleo.rec.repository.selector.expr.SelectorParser
 

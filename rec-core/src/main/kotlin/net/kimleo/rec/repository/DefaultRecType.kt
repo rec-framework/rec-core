@@ -1,4 +1,4 @@
-package net.kimleo.rec.loader
+package net.kimleo.rec.repository
 
 import net.kimleo.rec.accessor.Accessor
 import net.kimleo.rec.orElse

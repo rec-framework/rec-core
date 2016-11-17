@@ -1,9 +1,9 @@
 package net.kimleo.rec;
 
 import net.kimleo.rec.accessor.Accessor;
-import net.kimleo.rec.loader.DefaultRecType;
-import net.kimleo.rec.loader.RecCollection;
-import net.kimleo.rec.loader.RecType;
+import net.kimleo.rec.repository.DefaultRecType;
+import net.kimleo.rec.repository.RecCollection;
+import net.kimleo.rec.repository.RecType;
 import net.kimleo.rec.record.*;
 import net.kimleo.rec.sepval.parser.ParseConfig;
 import net.kimleo.rec.sepval.parser.SimpleParser;

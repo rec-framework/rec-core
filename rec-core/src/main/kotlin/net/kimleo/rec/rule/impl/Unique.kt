@@ -1,6 +1,6 @@
 package net.kimleo.rec.rule.impl
 
-import net.kimleo.rec.loader.RecCollection
+import net.kimleo.rec.repository.RecCollection
 import net.kimleo.rec.rule.RecRule
 import net.kimleo.rec.rule.Result
 

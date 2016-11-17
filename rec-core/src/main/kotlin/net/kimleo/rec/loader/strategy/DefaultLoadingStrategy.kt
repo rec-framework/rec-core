@@ -8,7 +8,7 @@ class DefaultLoadingStrategy: LoadingStrategy {
     override val configs: List<LoadingConfig>
         get() {
             val lists = File(".").list()
-            val recs = lists.filter({ it.endsWith(".net.kimleo.rec") })
+            val recs = lists.filter({ it.endsWith(".rec") })
 
             recs.forEach {
                 if (!lists.contains(it.dropLast(4))) {

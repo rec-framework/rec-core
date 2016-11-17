@@ -1,4 +1,4 @@
-package net.kimleo.rec.loader
+package net.kimleo.rec.repository
 
 import net.kimleo.rec.accessor.Accessor
 import net.kimleo.rec.bind
@@ -25,7 +25,7 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
             for (key in keys) {
                 fields.add(accessor[key].orEmpty())
             }
-            newRecords.add(Record(fields.map(::Field)))
+            newRecords.add(net.kimleo.rec.record.Record(fields.map(::Field)))
         }
 
         return RecCollection(newRecords, newType)

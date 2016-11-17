@@ -1,7 +1,7 @@
 package net.kimleo.rec.repository
 
-import net.kimleo.rec.loader.DefaultRecType
-import net.kimleo.rec.loader.RecCollection
+import net.kimleo.rec.repository.DefaultRecType
+import net.kimleo.rec.repository.RecCollection
 import net.kimleo.rec.rule.RuleLoader
 import net.kimleo.rec.rule.impl.Unique
 import org.junit.Assert.*
