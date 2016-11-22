@@ -1,9 +1,7 @@
 package net.kimleo.rec
 
 import net.kimleo.rec.init.Initializer
-import net.kimleo.rec.loader.RecordLoader
 import net.kimleo.rec.loader.strategy.DefaultLoadingStrategy
-import net.kimleo.rec.repository.RecRepository
 import net.kimleo.rec.rule.RuleLoader
 import java.io.BufferedReader
 import java.io.File
@@ -35,16 +33,17 @@ fun main(args: Array<String>) {
         }
 
         else -> {
-            if (args.size != 1) { exit("You should run with a folder contains rec file") }
+            if (args.size != 1 || !Files.exists(Paths.get(args[0]))) {
+                exit("You should run with a folder contains rec files!")
+            }
+            runOverPath(args[0])
         }
     }
 }
 
 private fun runOverPath(basePath: String) {
     
-    val configs = DefaultLoadingStrategy(basePath).configs
-    val collects = configs.map { RecordLoader(it).getRecords() }
-    val repo = RecRepository(collects)
+    val repo = DefaultLoadingStrategy.repo(basePath)
 
     val rules = lines(Paths.get(basePath, "default.rule").toString())
     RuleLoader().load(rules).map {
