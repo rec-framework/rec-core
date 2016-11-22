@@ -16,7 +16,7 @@ task fatJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Rec data processor',
                 'Implementation-Version': version,
-                'Main-Class': 'net.kimleo.net.kimleo.rec.app.AppKt'
+                'Main-Class': 'net.kimleo.rec.AppKt'
     }
     baseName = project.name + '-standalone'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -31,6 +31,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile project(":common")
     compile project(":rec-core")
+    compile project(":rec-initializer")
     testCompile 'junit:junit:4.11'
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 }

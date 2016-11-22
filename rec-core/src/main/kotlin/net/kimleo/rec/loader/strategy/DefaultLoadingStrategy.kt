@@ -4,10 +4,10 @@ import net.kimleo.rec.loader.LoadingConfig
 import java.io.File
 import java.io.FileNotFoundException
 
-class DefaultLoadingStrategy: LoadingStrategy {
+class DefaultLoadingStrategy(val path: String) : LoadingStrategy {
     override val configs: List<LoadingConfig>
         get() {
-            val lists = File(".").list()
+            val lists = File(path).list()
             val recs = lists.filter({ it.endsWith(".rec") })
 
             recs.forEach {
