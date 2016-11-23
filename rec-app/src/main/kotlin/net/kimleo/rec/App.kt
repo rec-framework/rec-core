@@ -1,5 +1,6 @@
 package net.kimleo.rec
 
+import net.kimleo.rec.api.runscript
 import net.kimleo.rec.init.Initializer
 import net.kimleo.rec.loader.strategy.DefaultLoadingStrategy
 import net.kimleo.rec.rule.RuleLoader
@@ -31,7 +32,15 @@ fun main(args: Array<String>) {
 
             Initializer(file, properties).init()
         }
+        "script" -> {
+            if (args.size !=2) {
+                exit("You need only to provide a script file.")
+            }
 
+            val file = args[1]
+            if (!File(file).exists()) { exit("File <$file> cannot be found!") }
+            runscript(file)
+        }
         else -> {
             if (args.size != 1 || !Files.exists(Paths.get(args[0]))) {
                 exit("You should run with a folder contains rec files!")
@@ -42,7 +51,7 @@ fun main(args: Array<String>) {
 }
 
 private fun runOverPath(basePath: String) {
-    
+
     val repo = DefaultLoadingStrategy.repo(basePath)
 
     val rules = lines(Paths.get(basePath, "default.rule").toString())
@@ -56,7 +65,6 @@ private fun runOverPath(basePath: String) {
         }
     }
 }
-
 
 fun lines(file: String): List<String> {
     val reader = BufferedReader(InputStreamReader(FileInputStream(File(file))))

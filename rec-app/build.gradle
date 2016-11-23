@@ -28,10 +28,10 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile project(":common")
     compile project(":rec-core")
     compile project(":rec-initializer")
+    compile project(":kotlin-api")
     testCompile 'junit:junit:4.11'
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 }
