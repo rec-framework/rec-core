@@ -8,8 +8,6 @@ buildscript {
     }
 }
 
-version = '0.1.0'
-
 apply plugin: 'kotlin'
 
 repositories {
