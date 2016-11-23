@@ -16,7 +16,7 @@ task fatJar(type: Jar) {
                 'Implementation-Version': version,
                 'Main-Class': 'net.kimleo.rec.AppKt'
     }
-    baseName = project.name + '-standalone'
+    baseName = project.name
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
