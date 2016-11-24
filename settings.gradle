@@ -6,4 +6,5 @@ include("common",
         "kotlin-api",
         "rec-app",
         "rec-loader",
-        "rec-initializer")
+        "rec-initializer",
+        "bean-mapper")

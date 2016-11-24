@@ -1,9 +1,14 @@
 package net.kimleo.rec.accessor
 
 import net.kimleo.rec.concept.Indexible
+import net.kimleo.rec.concept.Mapped
 
-data class RecordWrapper<T>(val fieldNames: Map<String, Int>, val record: Indexible<T>): Indexible<T> {
-    operator fun get(field: String): T? {
+data class RecordWrapper<out T>(val fieldNames: Map<String, Int>, val record: Indexible<T>): Indexible<T>, Mapped<T> {
+    override fun keys(): List<String> {
+        return fieldNames.keys.toList()
+    }
+
+    override operator fun get(field: String): T? {
         if (fieldNames.containsKey(field)) {
             return getByIndex(fieldNames[field]!!, record)
         }
