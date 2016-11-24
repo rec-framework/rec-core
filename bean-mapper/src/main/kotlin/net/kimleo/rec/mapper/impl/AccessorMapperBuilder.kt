@@ -25,14 +25,14 @@ class AccessorMapperBuilder {
                     .joinToString("").drop(1)
         }
 
-        fun convertValue(s: String?, javaClass: Class<*>): Any {
+        fun convertValue(s: String?, javaClass: Class<*>): Any? {
             return when (javaClass) {
                 Int::class.java ->  s?.toInt()
                 Long::class.java -> s?.toLong()
                 String::class.java -> s
 
                 else -> null
-            } as Any
+            }
         }
 
     }
