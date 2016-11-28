@@ -6,21 +6,27 @@ import kotlin.reflect.KType
 import kotlin.reflect.defaultType
 
 class AccessorMapperBuilder {
+
+    val cachedMapper = hashMapOf<KClass<*>, MappedAccessorMapper<*>>()
+
+    @Suppress("UNCHECKED_CAST")
     fun <T: Any> build(kls: KClass<T>): MappedAccessorMapper<T> {
-        val cls = kls.java
         val emptyCtor = kls.constructors.firstOrNull { it.parameters.size == 0 }
         if (emptyCtor != null) {
-            return FieldBasedMappedAccessorMapper(emptyCtor, kls)
+            return cachedMapper.getOrPut(kls, { FieldBasedMappedAccessorMapper(emptyCtor, kls) })
+                    as MappedAccessorMapper<T>
         } else {
             val nonemptyCtor = kls.constructors.first()
-            return ConstructorBasedMappedAccessorMapper(nonemptyCtor, kls)
+            return cachedMapper.getOrPut(kls, { ConstructorBasedMappedAccessorMapper(nonemptyCtor, kls) })
+                    as MappedAccessorMapper<T>
+
         }
     }
 }
 
 
 fun String.javaName(): String {
-    return toStandardJavaName(this);
+    return toStandardJavaName(this)
 }
 
 fun toStandardJavaName(key: String): String {

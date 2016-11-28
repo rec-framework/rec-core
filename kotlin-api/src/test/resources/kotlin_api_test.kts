@@ -10,3 +10,6 @@ class Person {
 repo.from("Person")
         .map(Person::class)
         .forEach { println("${it.firstName} ${it.lastName}") }
+
+repo.map(Person::class)
+    .forEach { println("${it.firstName} ${it.lastName}") }
