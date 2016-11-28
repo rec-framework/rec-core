@@ -1,15 +1,17 @@
 package net.kimleo.rec.mapper.impl
 
 import net.kimleo.rec.concept.Mapped
-import net.kimleo.rec.mapper.impl.AccessorMapperBuilder.Companion.toStandardJavaName
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
-import org.junit.Ignore
 
 class AccessorMapperBuilderTest {
 
-    data class Customer(val firstName: String, val lastName: String)
+    data class Customer(val firstName: String, val lastName: String = "None")
+
+    class FieldCustomer {
+        var firstName: String? = null
+        var lastName: String? = null
+    }
 
     val builder = AccessorMapperBuilder()
 
@@ -31,12 +33,23 @@ class AccessorMapperBuilderTest {
     }
 
     @Test
-    fun build() {
-        val customer = builder.build(Customer::class).map(createNewMap())
+    fun buildCustomer() {
+        val map = createNewMap()
+        val customer = builder.build(Customer::class).map(map)
 
         assertEquals(customer.firstName, "Kimmy")
         assertEquals(customer.lastName, "Leo")
     }
+
+    @Test
+    fun buildFieldCustomer() {
+        val map = createNewMap()
+        val customer = builder.build(FieldCustomer::class).map(map)
+
+        assertEquals(customer.firstName, "Kimmy")
+        assertEquals(customer.lastName, "Leo")
+    }
+
 
     @Test
     fun testToJavaStandardName() {

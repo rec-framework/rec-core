@@ -3,16 +3,22 @@ package net.kimleo.rec.mapper.impl
 import net.kimleo.rec.bind
 import net.kimleo.rec.concept.Mapped
 import net.kimleo.rec.mapper.MappedAccessorMapper
-import java.lang.reflect.Constructor
+import kotlin.reflect.KClass
+import kotlin.reflect.KFunction
+import kotlin.reflect.KMutableProperty
+import kotlin.reflect.jvm.javaSetter
+import kotlin.reflect.memberProperties
 
-class FieldBasedMappedAccessorMapper<T>(val emptyCtor: Constructor<T>, val cls: Class<T>): MappedAccessorMapper<T> {
+class FieldBasedMappedAccessorMapper<T: Any>(val emptyCtor: KFunction<T>, val cls: KClass<T>): MappedAccessorMapper<T> {
     override fun map(mapped: Mapped<String>): T {
-        val instance = emptyCtor.newInstance()
+        val instance = emptyCtor.call()
         val keys = mapped.keys()
         for (key in keys) {
-            val name = AccessorMapperBuilder.toStandardJavaName(key)
-            cls.fields.find { it.name == name }.bind {
-                it.set(instance, AccessorMapperBuilder.convertValue(mapped[key], it.type))
+            val name = toStandardJavaName(key)
+            cls.memberProperties.find { it.name == name }.bind {
+                if (it is KMutableProperty<*>) {
+                    it.setter.call(instance, convertValue(mapped[key], it.returnType))
+                }
             }
         }
         return instance
