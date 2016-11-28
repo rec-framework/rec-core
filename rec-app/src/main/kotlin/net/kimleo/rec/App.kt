@@ -65,11 +65,3 @@ private fun runOverPath(basePath: String) {
         }
     }
 }
-
-fun lines(file: String): List<String> {
-    val reader = BufferedReader(InputStreamReader(FileInputStream(File(file))))
-
-    val lines = reader.readLines()
-    reader.close()
-    return lines
-}

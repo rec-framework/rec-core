@@ -12,7 +12,7 @@ import kotlin.test.assertNotNull
 class RecTypeTest {
     @Test
     fun shouldReturnType() {
-        val lines = lines("person_test.txt.rec")
+        val lines = linesOfRes("person_test.txt.rec")
 
         val type = DefaultRecType.makeTypeFrom(lines)
 
@@ -21,8 +21,8 @@ class RecTypeTest {
 
     @Test
     fun shouldParseRecord() {
-        val records = lines("person_test.txt")
-        val rec = lines("person_test.txt.rec")
+        val records = linesOfRes("person_test.txt")
+        val rec = linesOfRes("person_test.txt.rec")
 
         val type = DefaultRecType.makeTypeFrom(rec)
 
@@ -35,12 +35,4 @@ class RecTypeTest {
 
     }
 
-    private fun lines(file: String): List<String> {
-        val stream = javaClass.classLoader.getResourceAsStream(file)
-        val reader = BufferedReader(InputStreamReader(stream))
-
-        val lines = reader.readLines()
-        reader.close()
-        return lines
-    }
 }

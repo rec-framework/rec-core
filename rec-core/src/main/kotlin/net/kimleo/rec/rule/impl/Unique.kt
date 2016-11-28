@@ -13,8 +13,7 @@ class Unique : RecRule {
         if (!unique) {
             val collect = rec
             collect.groupBy({ it }).filter { e -> e.value.size > 1 }.forEach { entry ->
-                val (key, vals) = entry
-                vals.forEach {
+                entry.value.forEach {
                     results.add(object : Result {
                         override val details = "duplicate record found with ${collect.type.format}: ${it.text}"
                     })

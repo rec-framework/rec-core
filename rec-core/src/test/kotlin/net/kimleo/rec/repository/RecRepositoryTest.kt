@@ -1,5 +1,6 @@
 package net.kimleo.rec.repository
 
+import net.kimleo.rec.linesOfRes
 import net.kimleo.rec.repository.DefaultRecType
 import net.kimleo.rec.repository.RecCollection
 import net.kimleo.rec.rule.RuleLoader
@@ -10,8 +11,8 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 class RecRepositoryTest {
-    val records = lines("person_test.txt")
-    val rec = lines("person_test.txt.rec")
+    val records = linesOfRes("person_test.txt")
+    val rec = linesOfRes("person_test.txt.rec")
 
     @Test
     fun testRepository() {
@@ -44,14 +45,5 @@ class RecRepositoryTest {
         assert(ruleResult.size == 2)
 
         assert(ruleResult[1].second.size == 5)
-    }
-
-    private fun lines(file: String): List<String> {
-        val stream = javaClass.classLoader.getResourceAsStream(file)
-        val reader = BufferedReader(InputStreamReader(stream))
-
-        val lines = reader.readLines()
-        reader.close()
-        return lines
     }
 }
