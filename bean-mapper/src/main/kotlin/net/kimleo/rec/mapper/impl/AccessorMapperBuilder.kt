@@ -7,6 +7,9 @@ import kotlin.reflect.KType
 import kotlin.reflect.defaultType
 import kotlin.reflect.jvm.internal.impl.load.kotlin.KotlinClassFinder
 import kotlin.reflect.jvm.internal.impl.resolve.constants.KClassValue
+import kotlin.reflect.jvm.internal.impl.types.DelegatingFlexibleType
+import kotlin.reflect.jvm.internal.impl.types.DelegatingType
+import kotlin.reflect.jvm.internal.impl.types.KotlinType
 import kotlin.reflect.jvm.javaType
 
 class AccessorMapperBuilder {
@@ -36,8 +39,9 @@ fun toStandardJavaName(key: String): String {
 
 fun convertValue(s: String?, type: KType): Any? {
     var typeName = type.toString()
-    if (type.isMarkedNullable) {
-        typeName = typeName.trimEnd('?')
+
+    if (type.isMarkedNullable || typeName.endsWith("!")) {
+        typeName = typeName.trimEnd('?').trimEnd('!')
     }
     return when (typeName) {
         Int::class.defaultType.toString() ->  s?.toInt()

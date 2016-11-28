@@ -1,6 +1,7 @@
 package net.kimleo.rec.mapper.impl
 
 import net.kimleo.rec.concept.Mapped
+import net.kimleo.rec.mapper.BeanCustomer
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -45,6 +46,15 @@ class AccessorMapperBuilderTest {
     fun buildFieldCustomer() {
         val map = createNewMap()
         val customer = builder.build(FieldCustomer::class).map(map)
+
+        assertEquals(customer.firstName, "Kimmy")
+        assertEquals(customer.lastName, "Leo")
+    }
+
+    @Test
+    fun buildBeanCustomer() {
+        val map = createNewMap()
+        val customer = builder.build(BeanCustomer::class).map(map)
 
         assertEquals(customer.firstName, "Kimmy")
         assertEquals(customer.lastName, "Leo")
