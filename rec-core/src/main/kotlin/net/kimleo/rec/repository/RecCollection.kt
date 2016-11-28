@@ -25,7 +25,7 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
             for (key in keys) {
                 fields.add(accessor[key].orEmpty())
             }
-            newRecords.add(net.kimleo.rec.record.Record(fields.map(::Field)))
+            newRecords.add(Record(fields.map(::Field), record.parent()))
         }
 
         return RecCollection(newRecords, newType)

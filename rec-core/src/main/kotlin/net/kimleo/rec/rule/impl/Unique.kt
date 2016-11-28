@@ -15,7 +15,7 @@ class Unique : RecRule {
             collect.groupBy({ it }).filter { e -> e.value.size > 1 }.forEach { entry ->
                 entry.value.forEach {
                     results.add(object : Result {
-                        override val details = "duplicate record found with ${collect.type.format}: ${it.text}"
+                        override val details = "Duplicate `${collect.type.format}` in record: [${it.parent().text}]"
                     })
                 }
             }
