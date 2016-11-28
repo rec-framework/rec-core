@@ -12,15 +12,11 @@ import java.io.InputStreamReader
 class RecRepositoryTest {
     val records = lines("person_test.txt")
     val rec = lines("person_test.txt.rec")
-    val rule = lines("default.rule")
 
     @Test
     fun testRepository() {
-
         val type = DefaultRecType.makeTypeFrom(rec)
-
         val collect = RecCollection.loadData(records, type)
-
         val repo = RecRepository(listOf(collect))
 
         assertNotNull(repo)

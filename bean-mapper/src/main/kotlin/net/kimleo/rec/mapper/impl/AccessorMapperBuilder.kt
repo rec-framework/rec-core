@@ -13,7 +13,7 @@ class AccessorMapperBuilder {
             return FieldBasedMappedAccessorMapper(emptyCtor, kls)
         } else {
             val nonemptyCtor = kls.constructors.first()
-            return ConstructorBasedMappedAccessorMapper(nonemptyCtor)
+            return ConstructorBasedMappedAccessorMapper(nonemptyCtor, kls)
         }
     }
 }

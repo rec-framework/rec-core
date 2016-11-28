@@ -8,7 +8,3 @@ private var globalName: RecRepository? = null
 
 fun load(path: String): RecRepository =
         DefaultLoadingStrategy.repo(path)
-
-fun rule(on: RecRepository, function: (List<Record>) -> Boolean) {
-    println("helloworld")
-}

@@ -17,7 +17,7 @@ fun runscript(file: String) {
     if (!script.exists()) {
         exit("Expect $file but not found")
     }
-    runCompiler("-cp", jarFile, "-script", file, basePath = script.absoluteFile.parentFile)
+    runCompiler("-cp", jarFile, "-script", script.absolutePath, basePath = script.absoluteFile.parentFile)
 }
 
 private fun runCompiler(vararg arguments: String, basePath: File): Pair<String, Int> {
