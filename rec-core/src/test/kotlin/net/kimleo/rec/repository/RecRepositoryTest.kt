@@ -1,8 +1,8 @@
 package net.kimleo.rec.repository
 
 import net.kimleo.rec.linesOfRes
-import net.kimleo.rec.repository.DefaultRecType
-import net.kimleo.rec.repository.RecCollection
+import net.kimleo.rec.repository.DefaultRecConfig
+import net.kimleo.rec.repository.RecordSet
 import net.kimleo.rec.rule.RuleLoader
 import net.kimleo.rec.rule.impl.Unique
 import org.junit.Assert.*
@@ -16,8 +16,8 @@ class RecRepositoryTest {
 
     @Test
     fun testRepository() {
-        val type = DefaultRecType.makeTypeFrom(rec)
-        val collect = RecCollection.loadData(records, type)
+        val type = DefaultRecConfig.makeTypeFrom(rec)
+        val collect = RecordSet.loadData(records, type)
         val repo = RecRepository(listOf(collect))
 
         assertNotNull(repo)

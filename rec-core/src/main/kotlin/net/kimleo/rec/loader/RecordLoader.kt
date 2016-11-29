@@ -1,7 +1,7 @@
 package net.kimleo.rec.loader
 
-import net.kimleo.rec.repository.DefaultRecType
-import net.kimleo.rec.repository.RecCollection
+import net.kimleo.rec.repository.DefaultRecConfig
+import net.kimleo.rec.repository.RecordSet
 import java.io.File
 import java.io.FileNotFoundException
 
@@ -14,11 +14,11 @@ class RecordLoader(config: LoadingConfig) {
         }
     }
 
-    fun getRecords(): RecCollection {
+    fun getRecords(): RecordSet {
         val data = dataFile.readLines()
         val rec = recFile.readLines()
 
-        val type = DefaultRecType.makeTypeFrom(rec)
-        return RecCollection.loadData(data, type)
+        val type = DefaultRecConfig.makeTypeFrom(rec)
+        return RecordSet.loadData(data, type)
     }
 }

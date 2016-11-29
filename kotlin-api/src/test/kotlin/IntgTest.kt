@@ -1,7 +1,7 @@
 import net.kimleo.rec.api.map
 import net.kimleo.rec.linesOfRes
-import net.kimleo.rec.repository.DefaultRecType
-import net.kimleo.rec.repository.RecCollection
+import net.kimleo.rec.repository.DefaultRecConfig
+import net.kimleo.rec.repository.RecordSet
 import net.kimleo.rec.repository.RecRepository
 import org.junit.Test
 import java.io.BufferedReader
@@ -17,9 +17,9 @@ class IntgTest {
         val records = linesOfRes("person_test.txt")
         val rec = linesOfRes("person_test.txt.rec")
 
-        val type = DefaultRecType.makeTypeFrom(rec)
+        val type = DefaultRecConfig.makeTypeFrom(rec)
 
-        val collect = RecCollection.loadData(records, type)
+        val collect = RecordSet.loadData(records, type)
 
         val repo = RecRepository(listOf(collect))
 

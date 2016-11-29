@@ -1,11 +1,11 @@
 package net.kimleo.rec.rule.impl
 
-import net.kimleo.rec.repository.RecCollection
+import net.kimleo.rec.repository.RecordSet
 import net.kimleo.rec.rule.RecRule
 import net.kimleo.rec.rule.Result
 
 class Exist: RecRule {
-    override fun verify(recs: List<RecCollection>): Pair<Boolean, List<Result>> {
+    override fun verify(recs: List<RecordSet>): Pair<Boolean, List<Result>> {
         assert(recs.size == 2)
 
         var successful = true
@@ -21,7 +21,7 @@ class Exist: RecRule {
             if (!complete_set.contains(el)) {
                 successful = false
                 result.add(object: Result {
-                    override val details = "${el.text} of ${image.type.name} cannot be found in ${complete.type.name}"
+                    override val details = "${el.text} of ${image.config.name} cannot be found in ${complete.config.name}"
                 })
             }
         }

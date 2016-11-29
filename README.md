@@ -104,7 +104,7 @@ Kimmy, Leo, 12, 1999/99/99, male, "Chengdu, Sichuan, China", Software Engineer
 
 #### Fields
 
-Field in a format is just a field name, which can contains space
+Cell in a format is just a field name, which can contains space
 or enclosed by double quotes, this is matching to related position(column).
 
 So for the record above, this format can extract it's first name and last name
@@ -117,14 +117,14 @@ first name, last name
 
 Usually we wont care about too much details in the data file, like if
 we only focused the person's name and his address, we can just ignore
-other fields, you can using padding to **skip** these unnecessary
-fields.
+other cells, you can using padding to **skip** these unnecessary
+cells.
 
 ```
 first name, last name, {3}, address
 ```
 
-`{3}` here means there are 3 fields which just can be ignored.
+`{3}` here means there are 3 cells which just can be ignored.
 
 #### Placeholder
 
@@ -136,8 +136,8 @@ then we can just using this convention:
 ```
 first name, last name, ..., job title
 ```
-Here, the `...` means, whatever fields between last field and first
-2 fields, just ignore them.
+Here, the `...` means, whatever cells between last field and first
+2 cells, just ignore them.
 
 also you can add more reversed field, then it will work as expected:
 ```
@@ -154,7 +154,7 @@ record but 9 (exclude `...`) in total of format.
 
 But currently it is OK. what Rec will do is using the Placeholder (`...`)
 as a separator of ordered and reverse-ordered field accessor, so for this
-format it only requires not less than 5 fields-long data record, i.e. there
+format it only requires not less than 5 cells-long data record, i.e. there
 can be overlaps on both side of `...`.
 
 ## Rules
@@ -162,7 +162,7 @@ can be overlaps on both side of `...`.
 Rules is for analysis the data files. Currently there are only following
 rules:
 
-  - Unique Rule, to check if a group of data fields is unique
+  - Unique Rule, to check if a group of data cells is unique
   - Exist Rule, to check if a data field is included in another set
 
 Rules following the format:

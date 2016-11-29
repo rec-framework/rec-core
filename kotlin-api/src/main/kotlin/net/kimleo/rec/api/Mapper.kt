@@ -1,13 +1,13 @@
 package net.kimleo.rec.api
 
 import net.kimleo.rec.mapper.impl.AccessorMapperBuilder
-import net.kimleo.rec.repository.RecCollection
+import net.kimleo.rec.repository.RecordSet
 import net.kimleo.rec.repository.RecRepository
 import kotlin.reflect.KClass
 
 internal val builder = AccessorMapperBuilder()
 
-fun <T: Any> RecCollection.map(kls: KClass<T>): List<T> {
+fun <T: Any> RecordSet.map(kls: KClass<T>): List<T> {
     val mapper = builder.build(kls)
 
     return this.records

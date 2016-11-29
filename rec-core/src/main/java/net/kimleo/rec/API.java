@@ -1,9 +1,9 @@
 package net.kimleo.rec;
 
 import net.kimleo.rec.accessor.Accessor;
-import net.kimleo.rec.repository.DefaultRecType;
-import net.kimleo.rec.repository.RecCollection;
-import net.kimleo.rec.repository.RecType;
+import net.kimleo.rec.repository.DefaultRecConfig;
+import net.kimleo.rec.repository.RecordSet;
+import net.kimleo.rec.repository.RecConfig;
 import net.kimleo.rec.record.*;
 import net.kimleo.rec.sepval.parser.ParseConfig;
 import net.kimleo.rec.sepval.parser.SimpleParser;
@@ -34,18 +34,18 @@ public class API {
     }
 
     public static Accessor accessor(Record record) {
-        return new Accessor(record.getFields().stream().map(Field::getValue).collect(toList()).toArray(new String[record.getSize()]));
+        return new Accessor(record.getCells().stream().map(Cell::getValue).collect(toList()).toArray(new String[record.getSize()]));
     }
 
-    public static RecCollection collect(List<Record> records, RecType type) {
-        return new RecCollection(records, type);
+    public static RecordSet collect(List<Record> records, RecConfig type) {
+        return new RecordSet(records, type);
     }
 
-    public static RecType type(final String name, final String format) {
-        return DefaultRecType.Companion.create(name, format);
+    public static RecConfig type(final String name, final String format) {
+        return DefaultRecConfig.Companion.create(name, format);
     }
 
-    public static RecRepository repo(List<RecCollection> collects) {
+    public static RecRepository repo(List<RecordSet> collects) {
         return new RecRepository(collects);
     }
 

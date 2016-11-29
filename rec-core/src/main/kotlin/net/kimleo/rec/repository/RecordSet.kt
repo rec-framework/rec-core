@@ -2,20 +2,26 @@ package net.kimleo.rec.repository
 
 import net.kimleo.rec.accessor.Accessor
 import net.kimleo.rec.bind
+import net.kimleo.rec.concept.QuerySelector
+import net.kimleo.rec.concept.Queryable
 import net.kimleo.rec.orElse
-import net.kimleo.rec.record.Field
+import net.kimleo.rec.record.Cell
 import net.kimleo.rec.record.Record
 import net.kimleo.rec.record.toRecord
 import net.kimleo.rec.sepval.parser.SimpleParser
 
-class RecCollection(val records: List<Record>, val type: RecType): Iterable<Record> {
+class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Record>, Queryable<Record> {
+    override fun where(selector: QuerySelector<Record>, fn: Record.() -> Boolean): RecordSet {
+        throw NotImplementedError()
+    }
+
     override fun iterator(): Iterator<Record> {
         return records.iterator()
     }
 
-    val accessor = type.accessor
+    val accessor = config.accessor
 
-    fun select(keys: List<String>, name: String? = null): RecCollection {
+    fun select(keys: List<String>, name: String? = null): RecordSet {
         checkKeyExists(*keys.toTypedArray())
         val newType = newType(keys, name)
         val newRecords = arrayListOf<Record>()
@@ -25,34 +31,34 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
             for (key in keys) {
                 fields.add(accessor[key].orEmpty())
             }
-            newRecords.add(Record(fields.map(::Field), record.parent()))
+            newRecords.add(Record(fields.map(::Cell), record.parent()))
         }
 
-        return RecCollection(newRecords, newType)
+        return RecordSet(newRecords, newType)
     }
 
-    fun select(vararg keys: String): RecCollection {
+    fun select(vararg keys: String): RecordSet {
         return select(keys.toList())
     }
 
-    fun where(key: String, assertion: String.() -> Boolean): RecCollection {
+    fun where(key: String, assertion: String.() -> Boolean): RecordSet {
         checkKeyExists(key)
         val filtered = records.filter { rec ->
             accessor.of(rec)[key].bind(assertion).orElse { false }
         }
-        return RecCollection(filtered, type)
+        return RecordSet(filtered, config)
     }
 
     companion object {
-        fun loadData(lines: List<String>, type: RecType): RecCollection {
-            val parser = SimpleParser(type.parseConfig)
+        fun loadData(lines: List<String>, config: RecConfig): RecordSet {
+            val parser = SimpleParser(config.parseConfig)
             val records = arrayListOf<Record>()
             for (line in lines) {
                 val record = parser.parse(line)
                 record.bind { records.add(it.toRecord()) }
             }
 
-            return RecCollection(records, type)
+            return RecordSet(records, config)
         }
     }
 
@@ -61,7 +67,7 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
     }
 
 
-    operator fun get(name: String): RecCollection {
+    operator fun get(name: String): RecordSet {
         return select(name)
     }
 
@@ -71,12 +77,12 @@ class RecCollection(val records: List<Record>, val type: RecType): Iterable<Reco
         }
     }
 
-    private fun newType(keys: List<String>, providedName: String? = null): RecType {
-        return object: RecType {
-            override val name = providedName.orElse { "image of ${type.name}" }
-            override val parseConfig = type.parseConfig
-            override val key = type.key
-            override val format = keys.joinToString(type.parseConfig.delimiter.toString())
+    private fun newType(keys: List<String>, providedName: String? = null): RecConfig {
+        return object: RecConfig {
+            override val name = providedName.orElse { "image of ${config.name}" }
+            override val parseConfig = config.parseConfig
+            override val key = config.key
+            override val format = keys.joinToString(config.parseConfig.delimiter.toString())
             override val accessor = Accessor<String>(keys.toTypedArray())
         }
     }

@@ -3,7 +3,7 @@ package net.kimleo.rec.repository
 import net.kimleo.rec.accessor.Accessor
 import net.kimleo.rec.sepval.parser.ParseConfig
 
-interface RecType {
+interface RecConfig {
     val name: String
     val parseConfig: ParseConfig
     val key: String?

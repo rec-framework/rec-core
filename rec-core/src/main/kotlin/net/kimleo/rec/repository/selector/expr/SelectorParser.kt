@@ -92,7 +92,7 @@ object SelectorParser {
             }
 
             if (type.tokenType != SelectorTokenType.ID) {
-                throw RuntimeException("unexpected token type ${type.tokenType}")
+                throw RuntimeException("unexpected token config ${type.tokenType}")
             }
 
             index ++
