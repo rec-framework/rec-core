@@ -1,6 +1,7 @@
 package net.kimleo.rec.repository
 
 import net.kimleo.rec.accessor.Accessor
+import net.kimleo.rec.accessor.RecordWrapper
 import net.kimleo.rec.bind
 import net.kimleo.rec.concept.QuerySelector
 import net.kimleo.rec.concept.Queryable
@@ -49,6 +50,14 @@ class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Reco
         return RecordSet(filtered, config)
     }
 
+    fun where(assertion: (RecordWrapper<String>) -> Boolean): RecordSet {
+        val filtered = records.filter { rec ->
+            assertion.invoke(accessor.of(rec))
+        }
+
+        return RecordSet(filtered, config)
+    }
+
     companion object {
         fun loadData(lines: List<String>, config: RecConfig): RecordSet {
             val parser = SimpleParser(config.parseConfig)
@@ -84,6 +93,18 @@ class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Reco
             override val key = config.key
             override val format = keys.joinToString(config.parseConfig.delimiter.toString())
             override val accessor = Accessor<String>(keys.toTypedArray())
+        }
+    }
+
+    fun verify(assertion: (RecordWrapper<String>) -> Boolean) {
+        val unexpected = arrayListOf<Record>()
+        records.forEach {
+            if (!assertion.invoke(accessor.of(it)))
+                unexpected.add(it)
+        }
+
+        unexpected.forEach {
+            println("Unexpected record found [ ${it.text} ]")
         }
     }
 }
