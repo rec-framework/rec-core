@@ -2,7 +2,7 @@ include("common",
         "rec-core",
         "rec-accessor",
         "rec-sepval",
-        "kotlin-api",
+        "rec-scripting",
         "rec-app",
         "rec-initializer",
         "bean-mapper")
