@@ -34,15 +34,6 @@ fun main(args: Array<String>) {
 
             Initializer(file, properties).init()
         }
-        "script" -> {
-            if (args.size !=2) {
-                exit("You need only to provide a script file.")
-            }
-
-            val file = args[1]
-            if (!File(file).exists()) { exit("File <$file> cannot be found!") }
-            runscript(file)
-        }
         "js" -> {
             if (args.size != 2) {
                 exit("You need to provide the script file.")
