@@ -6,7 +6,6 @@ import net.kimleo.rec.loader.strategy.DefaultLoadingStrategy;
 import net.kimleo.rec.repository.RecRepository;
 import net.kimleo.rec.rule.Result;
 import net.kimleo.rec.rule.RuleLoader;
-import net.kimleo.rec.scripting.ScriptingKt;
 
 import java.io.File;
 import java.io.FileReader;
@@ -23,9 +22,10 @@ import java.util.stream.Stream;
 
 import static java.lang.System.exit;
 import static java.nio.file.Files.lines;
+import static net.kimleo.rec.scripting.Scripting.runjs;
 
 public class App {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         if (args.length == 0) {
             runOverPath(".");
             return;
@@ -61,7 +61,7 @@ public class App {
                     die("File <%s> cannot be found", file.getName());
                 }
 
-                ScriptingKt.runjs(new FileReader(file), file.getName());
+                runjs(new FileReader(file), file.getName());
                 break;
             default:
                 if (args.length != 1 || !Files.exists(Paths.get(args[0])))
@@ -85,12 +85,12 @@ public class App {
             Stream<String> lines = lines(Paths.get(basePath, "default.rule"));
 
             new RuleLoader().load(lines.collect(Collectors.toList())).stream()
-                    .map( ruleRunner -> ruleRunner.runOn(repo))
+                    .map(ruleRunner -> ruleRunner.runOn(repo))
                     .filter(((Predicate<Pair<Boolean, List<Result>>>) Pair::getFirst)
                             .negate())
                     .forEach(pair -> {
-                pair.getSecond().forEach(it -> System.out.println(it.getDetails()));
-            });
+                        pair.getSecond().forEach(it -> System.out.println(it.getDetails()));
+                    });
         }
     }
 }
