@@ -1,6 +1,5 @@
 package net.kimleo.rec
 
-import net.kimleo.rec.api.runscript
 import net.kimleo.rec.init.Initializer
 import net.kimleo.rec.loader.strategy.DefaultLoadingStrategy
 import net.kimleo.rec.rule.RuleLoader
