@@ -14,6 +14,5 @@ out.println(rec.from("Person").select(["first name", "last name"]).where(functio
 
 
 rec.rule("Person", function(it) {
-    out.println(it.get("first name"));
     return it.get("first name").length() > 3
 });

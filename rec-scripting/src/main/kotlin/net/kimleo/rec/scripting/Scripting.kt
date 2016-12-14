@@ -7,6 +7,7 @@ import org.mozilla.javascript.Context
 import org.mozilla.javascript.Function
 import org.mozilla.javascript.Scriptable
 import org.mozilla.javascript.ScriptableObject
+import java.io.Reader
 
 class Rec: ScriptableObject() {
     override fun getClassName(): String = "Rec"
@@ -56,6 +57,13 @@ class RecSet(val set: RecordSet, val context: Context, val scope: Scriptable){
             if (result is Boolean) result else false
         })
     }
+}
 
-
+fun runjs(reader: Reader, filename: String = "<rec>") {
+    val ctx = Context.enter()
+    val scope = ctx.initStandardObjects()
+    val wrappedOut = Context.javaToJS(System.out, scope)
+    ScriptableObject.defineClass(scope, Rec::class.java)
+    ScriptableObject.putProperty(scope, "out", wrappedOut)
+    ctx.evaluateReader(scope, reader, filename, 1, null)
 }
