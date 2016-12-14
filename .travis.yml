@@ -5,4 +5,3 @@ script:
   - gradle build
   - gradle fatJar
   - ./testrec.sh
-  - ./testscript.sh
