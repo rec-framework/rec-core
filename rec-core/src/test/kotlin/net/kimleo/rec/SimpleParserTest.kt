@@ -34,4 +34,11 @@ class SimpleParserTest {
         assertEquals(tuple[2], "123456")
         assertEquals(tuple[3], "\"I have a dream\"")
     }
+
+    @Test
+    fun should_parse_record_format() {
+        val tuple = SimpleParser().parse("first name, last name, {2}, ID, ..., comment")
+
+        assertNotNull(tuple)
+    }
 }
