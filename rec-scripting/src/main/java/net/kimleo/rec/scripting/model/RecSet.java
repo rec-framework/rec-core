@@ -5,35 +5,10 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
 
-/*
-
-class RecSet(val set: RecordSet, val context: Context, val scope: Scriptable){
-    val name = set.config.name
-
-    fun where(fn: Function): RecSet {
-        return RecSet(set.where( {
-            val result = fn.call(context, scope, null, arrayOf(it))
-            if (result is Boolean) result else false
-        }), context, scope)
-    }
-
-    fun select(attrs: Array<String>): RecSet {
-        return RecSet(set.select(attrs.asList()), context, scope)
-    }
-
-    fun verify(fn: Function) {
-        set.verify({
-            val result = fn.call(context, scope, null, arrayOf(it))
-            if (result is Boolean) result else false
-        })
-    }
-}
-
- */
 public class RecSet {
-    final RecordSet set;
-    final Context context;
-    final Scriptable scope;
+    private final RecordSet set;
+    private final Context context;
+    private final Scriptable scope;
 
     public RecSet(RecordSet set, Context context, Scriptable scope) {
         this.set = set;
