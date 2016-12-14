@@ -1,19 +1,10 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
-apply plugin: 'kotlin'
+apply plugin: "java"
 
 task fatJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Rec data processor',
                 'Implementation-Version': version,
-                'Main-Class': 'net.kimleo.rec.AppKt'
+                'Main-Class': 'net.kimleo.rec.App'
     }
     baseName = project.name
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -30,6 +21,5 @@ dependencies {
     compile project(":rec-initializer")
     compile project(":rec-scripting")
     testCompile 'junit:junit:4.11'
-    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 }
 

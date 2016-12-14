@@ -9,6 +9,6 @@ class RecTest {
     @Test
     fun runResource() {
         val resources = RecTest::class.java.classLoader.getResourceAsStream("test_intg.js")
-        runjs(resources.reader(Charset.defaultCharset()))
+        runjs(resources.reader(Charset.defaultCharset()), "<rec>")
     }
 }
