@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 import static java.lang.System.exit;
 import static java.nio.file.Files.lines;
 import static net.kimleo.rec.scripting.Scripting.runjs;
+import static net.kimleo.rec.util.Sys.die;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -73,10 +74,7 @@ public class App {
 
     }
 
-    private static void die(String format, String... args) {
-        System.err.println(new Formatter().format(format, (Object[]) args));
-        exit(-1);
-    }
+
 
     private static void runOverPath(String basePath) throws IOException {
         File path = new File(basePath);
