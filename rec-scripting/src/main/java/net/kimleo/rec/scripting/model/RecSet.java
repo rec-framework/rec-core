@@ -52,12 +52,6 @@ public class RecSet {
     }
 
     public boolean contains(String attr, String value) {
-        List<Record> records = set.get(attr).getRecords();
-        for (Record rec: records) {
-            if (rec.get(0).equals(value)) {
-                return true;
-            }
-        }
-        return false;
+        return set.contains(attr, value);
     }
 }

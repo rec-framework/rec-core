@@ -3,6 +3,8 @@ package net.kimleo.rec.repository
 import net.kimleo.rec.accessor.Accessor
 import net.kimleo.rec.accessor.RecordWrapper
 import net.kimleo.rec.bind
+import net.kimleo.rec.collection.LinkedMultiHashMap
+import net.kimleo.rec.collection.MultiMap
 import net.kimleo.rec.concept.QuerySelector
 import net.kimleo.rec.concept.Queryable
 import net.kimleo.rec.orElse
@@ -12,6 +14,21 @@ import net.kimleo.rec.record.toRecord
 import net.kimleo.rec.sepval.parser.SimpleParser
 
 class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Record>, Queryable<Record> {
+
+    val indices = buildIndex(records, config.accessor)
+
+    private fun buildIndex(records: List<Record>, accessor: Accessor<String>): Map<String, MultiMap<String, Record>> {
+        val indices = hashMapOf<String, MultiMap<String, Record>>()
+        for (key in accessor.fieldMap.keys) {
+            val index = LinkedMultiHashMap<String, Record>()
+            for (record in records) {
+                index.put1(accessor.of(record)[key], record)
+            }
+            indices[key] = index
+        }
+        return indices
+    }
+
     override fun where(selector: QuerySelector<Record>, fn: Record.() -> Boolean): RecordSet {
         throw NotImplementedError()
     }
@@ -75,15 +92,17 @@ class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Reco
         return records.toSet().size == records.size
     }
 
+    fun contains(key: String, value: String): Boolean {
+        return indices[key].bind { it.containsKey(value) }.orElse { false }
+    }
+
 
     operator fun get(name: String): RecordSet {
         return select(name)
     }
 
     private fun checkKeyExists(vararg keys: String) {
-        for (key in keys) {
-            assert(key in accessor.fieldMap.keys)
-        }
+        assert(indices.keys.containsAll(keys.asList()))
     }
 
     private fun newType(keys: List<String>, providedName: String? = null): RecConfig {
