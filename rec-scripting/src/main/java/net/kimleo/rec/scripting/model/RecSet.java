@@ -1,9 +1,12 @@
 package net.kimleo.rec.scripting.model;
 
+import net.kimleo.rec.record.Record;
 import net.kimleo.rec.repository.RecordSet;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
+
+import java.util.List;
 
 public class RecSet {
     private final RecordSet set;
@@ -40,5 +43,21 @@ public class RecSet {
                 return false;
             }
         });
+    }
+
+    public void each(Function fn) {
+        set.forEach(record -> {
+            fn.call(context, scope, null, new Object[]{set.getAccessor().of(record)});
+        });
+    }
+
+    public boolean contains(String attr, String value) {
+        List<Record> records = set.get(attr).getRecords();
+        for (Record rec: records) {
+            if (rec.get(0).equals(value)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -28,6 +28,8 @@ declare interface RecordSet {
     where(fn: (RecObj) => boolean): RecordSet
     select(fields: string[]): RecordSet
     verify(fn: (RecObj) => boolean): RecordSet
+    contains(key: string, value: string): boolean
+    each(fn: (RecObj) => void): void
 
     // TODO
     save(name: string)

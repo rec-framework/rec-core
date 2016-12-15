@@ -16,3 +16,11 @@ out.println(rec.from("Person").select(["first name", "last name"]).where(functio
 rec.rule("Person", function(it) {
     return it.get("first name").length() > 3
 });
+
+var persons = rec.from("Person");
+
+persons.each(function (rec) {
+    if (persons.contains("first name", rec.get("first name"))) {
+        out.println(rec);
+    }
+});
