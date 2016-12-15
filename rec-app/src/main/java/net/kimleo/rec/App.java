@@ -74,12 +74,10 @@ public class App {
 
     }
 
-
-
     private static void runOverPath(String basePath) throws IOException {
         File path = new File(basePath);
         if (path.exists()) {
-            RecRepository repo = DefaultLoadingStrategy.Companion.repo(basePath);
+            RecRepository repo = DefaultLoadingStrategy.repo(basePath);
             Stream<String> lines = lines(Paths.get(basePath, "default.rule"));
 
             new RuleLoader().load(lines.collect(Collectors.toList())).stream()

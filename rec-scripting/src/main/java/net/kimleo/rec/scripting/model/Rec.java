@@ -22,7 +22,7 @@ public class Rec extends ScriptableObject {
 
     public void jsConstructor(String basePath) {
         this.basePath = basePath;
-        this.repository = DefaultLoadingStrategy.Companion.repo(basePath);
+        this.repository = DefaultLoadingStrategy.repo(basePath);
         this.context = Context.getCurrentContext();
     }
 
