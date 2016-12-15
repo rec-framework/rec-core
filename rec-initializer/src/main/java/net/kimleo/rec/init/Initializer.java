@@ -17,7 +17,7 @@ public class Initializer {
         this.parameters = parameters;
     }
 
-    void init() throws IOException {
+    public void init() throws IOException {
         String recFile = file + ".rec";
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
