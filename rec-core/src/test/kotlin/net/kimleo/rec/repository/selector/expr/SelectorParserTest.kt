@@ -1,5 +1,6 @@
 package net.kimleo.rec.repository.selector.expr
 
+import net.kimleo.rec.repository.selector.AliasSelector
 import net.kimleo.rec.repository.selector.FieldSelector
 import net.kimleo.rec.repository.selector.expr.SelectorParser.lex
 import net.kimleo.rec.repository.selector.expr.SelectorParser.parse
@@ -16,5 +17,15 @@ class SelectorParserTest {
         assertTrue((parse[1] as FieldSelector).properties.size == 1)
         assertTrue((parse[1] as FieldSelector).properties[0] == "hello world")
         assertTrue((parse[2] as FieldSelector).properties.size == 2)
+    }
+
+    @Test
+    fun testAlias() {
+        val lex = lex("cust[name, age] as person")
+        val parse = parse(lex)
+
+        assertTrue(parse.size == 1)
+
+        assertEquals((parse[0] as AliasSelector).alias, "person")
     }
 }

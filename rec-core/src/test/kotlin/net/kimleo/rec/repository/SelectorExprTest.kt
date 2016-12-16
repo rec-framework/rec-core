@@ -6,7 +6,7 @@ import org.junit.Test
 class SelectorExprTest {
     @Test
     fun testLexer() {
-        val result = SelectorParser.lex("hello hello, hello.name, hello world[hahaha] | hello hello == 1, hello is 5")
+        val result = SelectorParser.lex("hello hello, hello.name, hello world[hahaha] as fuck, hello")
         println(result)
     }
 }

@@ -5,9 +5,7 @@ enum class SelectorTokenType(val repr: String) {
     DOT("."),
     LEFT_SQUARE("["),
     RIGHT_SQUARE("]"),
-    PIPE("|"),
-    EQUAL("="),
     COMMA(","),
-    IS("is"),
-    MATCHES("matches"),
+
+    AS("as")
 }
