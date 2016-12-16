@@ -19,6 +19,10 @@ data class Record(val cells: List<Cell>, val text: String, val original: Boolean
     override fun get(index: Int): String {
         return cells[index].value
     }
+
+    override fun toString(): String {
+        return text
+    }
 }
 
 fun SepValEntry.toRecord() = Record(this.values.map(::Cell), this.source)

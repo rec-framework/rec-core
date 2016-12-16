@@ -48,4 +48,9 @@ public class RecordWrapper<T> implements Indexible<T>, Mapped<T> {
     public List<String> keys() {
         return fieldNames.keySet().stream().collect(Collectors.toList());
     }
+
+    @Override
+    public String toString() {
+        return record.toString();
+    }
 }
