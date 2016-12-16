@@ -1,5 +1,6 @@
 package net.kimleo.rec.loader.strategy;
 
+import net.kimleo.rec.Pair;
 import net.kimleo.rec.loader.LoadingConfig;
 import net.kimleo.rec.loader.RecordLoader;
 import net.kimleo.rec.repository.RecRepository;
@@ -11,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static net.kimleo.rec.util.Sys.die;
@@ -26,17 +28,17 @@ public class DefaultLoadingStrategy implements LoadingStrategy {
     @Override
     public List<LoadingConfig> configs() {
         File[] files = new File(path).listFiles();
-        List<File> recs = Arrays.stream(files)
-                .filter(file -> file.getName().endsWith(".rec")).collect(Collectors.toList());
+        System.out.println(path);
+        if (files == null) {
+            die(String.format("Not a directory %s", path));
+        }
 
-        recs.forEach(file -> {
-            if (Files.exists(Paths.get(dataFileOf(file.getName())))) {
-                die(String.format("No data file fount for %s", file));
-            }
-        });
+        Map<String, File> recFiles = Arrays.stream(files)
+                .filter(it -> it.getName().endsWith(".rec")).collect(Collectors.toMap(File::getName, it -> it));
 
-        return recs.stream()
-                .map(file -> new LoadingConfig(dataFileOf(file.getAbsolutePath()), file.getAbsolutePath()))
+        return Arrays.stream(files)
+                .filter( file -> recFiles.containsKey(file.getName() + ".rec"))
+                .map(f -> new LoadingConfig(f.getAbsolutePath(), recFiles.get(f.getName() + ".rec").getAbsolutePath()))
                 .collect(Collectors.toList());
     }
 
@@ -50,8 +52,4 @@ public class DefaultLoadingStrategy implements LoadingStrategy {
         return new RecRepository(sets);
     }
 
-    @NotNull
-    private String dataFileOf(String file) {
-        return file.substring(0, file.length() - 4);
-    }
 }
