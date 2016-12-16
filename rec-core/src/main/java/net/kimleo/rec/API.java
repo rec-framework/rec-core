@@ -29,12 +29,12 @@ public class API {
         return RecordKt.toRecord(parsers.get(config).parse(input));
     }
 
-    public static Accessor accessor(String ...fields) {
-        return new Accessor(fields);
+    public static Accessor<String> accessor(String ...fields) {
+        return new Accessor<>(fields);
     }
 
-    public static Accessor accessor(Record record) {
-        return new Accessor(record.getCells().stream().map(Cell::getValue).collect(toList()).toArray(new String[record.getSize()]));
+    public static Accessor<String> accessor(Record record) {
+        return new Accessor<>(record.getCells().stream().map(Cell::getValue).collect(toList()).toArray(new String[record.getSize()]));
     }
 
     public static RecordSet collect(List<Record> records, RecConfig type) {
