@@ -1,5 +1,7 @@
 # Rec
 
+[![Join the chat at https://gitter.im/rec-jvm/rec-core](https://badges.gitter.im/rec-jvm/rec-core.svg)](https://gitter.im/rec-jvm/rec-core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 **Rec** is a simple framework to check and transform data record files(like CSV).
 It provides several DSL to describe the relationships and transformation rules
  to check the data correctness and integrity.
