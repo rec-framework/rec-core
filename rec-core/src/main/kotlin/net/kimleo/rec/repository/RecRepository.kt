@@ -4,11 +4,9 @@ import net.kimleo.rec.concept.QuerySelector
 import net.kimleo.rec.concept.Queryable
 import net.kimleo.rec.repository.selector.Selector
 import java.util.*
+import java.util.function.Function
 
-class RecRepository(val collections: List<RecordSet>): Iterable<RecordSet>, Queryable<RecordSet> {
-    override fun where(selector: QuerySelector<RecordSet>, fn: RecordSet.() -> Boolean): Queryable<RecordSet> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+class RecRepository(val collections: List<RecordSet>): Iterable<RecordSet> {
 
     override fun iterator(): Iterator<RecordSet> {
         return collections.iterator()
