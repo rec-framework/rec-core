@@ -82,10 +82,9 @@ public class App {
 
             new RuleLoader().load(lines.collect(Collectors.toList())).stream()
                     .map(ruleRunner -> ruleRunner.runOn(repo))
-                    .filter(((Predicate<Pair<Boolean, List<Result>>>) Pair::getFirst)
-                            .negate())
+                    .filter(pair -> !pair.getFirst())
                     .forEach(pair -> {
-                        pair.getSecond().forEach(it -> System.out.println(it.getDetails()));
+                        pair.getSecond().forEach(it -> System.out.println(it.details()));
                     });
         }
     }

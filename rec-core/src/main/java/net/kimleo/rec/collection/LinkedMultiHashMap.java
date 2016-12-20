@@ -1,6 +1,7 @@
 package net.kimleo.rec.collection;
 
 import java.util.*;
+import java.util.function.Function;
 
 public class LinkedMultiHashMap<K, V> implements MultiMap<K, V> {
 
@@ -117,6 +118,15 @@ public class LinkedMultiHashMap<K, V> implements MultiMap<K, V> {
             map.put(key, vs);
         }
         return value;
+    }
+
+    public static <V, U> MultiMap<V, U> from(Collection<V> collection, Function<V, U> transform) {
+        LinkedMultiHashMap<V, U> multiMap = new LinkedMultiHashMap<>();
+        collection.forEach(item -> {
+            multiMap.put1(item, transform.apply(item));
+        });
+
+        return multiMap;
     }
 }
 
