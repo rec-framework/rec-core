@@ -41,6 +41,7 @@ public class Record implements Indexible<String> {
     public String toString() { return text; }
 
     public Record parent() {
+        if (parent == null) return this;
         return parent;
     }
 
