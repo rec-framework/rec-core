@@ -5,14 +5,11 @@ import net.kimleo.rec.accessor.RecordWrapper
 import net.kimleo.rec.bind
 import net.kimleo.rec.collection.LinkedMultiHashMap
 import net.kimleo.rec.collection.MultiMap
-import net.kimleo.rec.concept.QuerySelector
-import net.kimleo.rec.concept.Queryable
 import net.kimleo.rec.orElse
 import net.kimleo.rec.record.Cell
 import net.kimleo.rec.record.Record
 import net.kimleo.rec.record.Record.toRecord
 import net.kimleo.rec.sepval.parser.SimpleParser
-import java.util.function.Function
 
 class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Record> {
 

@@ -1,10 +1,7 @@
 package net.kimleo.rec.repository
 
-import net.kimleo.rec.concept.QuerySelector
-import net.kimleo.rec.concept.Queryable
 import net.kimleo.rec.repository.selector.Selector
 import java.util.*
-import java.util.function.Function
 
 class RecRepository(val collections: List<RecordSet>): Iterable<RecordSet> {
 
