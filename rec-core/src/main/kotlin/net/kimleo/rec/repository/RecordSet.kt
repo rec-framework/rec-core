@@ -10,7 +10,7 @@ import net.kimleo.rec.concept.Queryable
 import net.kimleo.rec.orElse
 import net.kimleo.rec.record.Cell
 import net.kimleo.rec.record.Record
-import net.kimleo.rec.record.toRecord
+import net.kimleo.rec.record.Record.toRecord
 import net.kimleo.rec.sepval.parser.SimpleParser
 
 class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Record>, Queryable<Record> {
@@ -81,7 +81,7 @@ class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Reco
             val records = arrayListOf<Record>()
             for (line in lines) {
                 val record = parser.parse(line)
-                record.bind { records.add(it.toRecord()) }
+                record.bind { records.add(toRecord(it)) }
             }
 
             return RecordSet(records, config)

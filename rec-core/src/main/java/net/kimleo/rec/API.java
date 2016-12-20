@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
+import static net.kimleo.rec.record.Record.toRecord;
 
 public class API {
     private static final Map<ParseConfig, SimpleParser> parsers = new HashMap<>();
@@ -26,7 +27,7 @@ public class API {
         if (!parsers.containsKey(config)) {
             parsers.put(config, new SimpleParser(config));
         }
-        return RecordKt.toRecord(parsers.get(config).parse(input));
+        return toRecord(parsers.get(config).parse(input));
     }
 
     public static Accessor<String> accessor(String ...fields) {
