@@ -30,7 +30,7 @@ class RecRepositoryTest {
         val (unique2, result) = Unique().verify(listOf(collect.select("comment")))
 
         assertFalse(unique2)
-        assertTrue(result.size == 5)
+        assertTrue(result.size == 1)
 
         val names = repo["Person[first name], Person[comment]"]
 
@@ -44,6 +44,6 @@ class RecRepositoryTest {
 
         assert(ruleResult.size == 2)
 
-        assert(ruleResult[1].second.size == 5)
+        assert(ruleResult[1].second.size == 1)
     }
 }

@@ -5,15 +5,13 @@ import net.kimleo.rec.accessor.RecordWrapper
 import net.kimleo.rec.bind
 import net.kimleo.rec.collection.LinkedMultiHashMap
 import net.kimleo.rec.collection.MultiMap
-import net.kimleo.rec.concept.QuerySelector
-import net.kimleo.rec.concept.Queryable
 import net.kimleo.rec.orElse
 import net.kimleo.rec.record.Cell
 import net.kimleo.rec.record.Record
-import net.kimleo.rec.record.toRecord
+import net.kimleo.rec.record.Record.toRecord
 import net.kimleo.rec.sepval.parser.SimpleParser
 
-class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Record>, Queryable<Record> {
+class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Record> {
 
     val indices = buildIndex(records, config.accessor)
 
@@ -27,10 +25,6 @@ class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Reco
             indices[key] = index
         }
         return indices
-    }
-
-    override fun where(selector: QuerySelector<Record>, fn: Record.() -> Boolean): RecordSet {
-        throw NotImplementedError()
     }
 
     override fun iterator(): Iterator<Record> {
@@ -81,7 +75,7 @@ class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Reco
             val records = arrayListOf<Record>()
             for (line in lines) {
                 val record = parser.parse(line)
-                record.bind { records.add(it.toRecord()) }
+                record.bind { records.add(toRecord(it)) }
             }
 
             return RecordSet(records, config)

@@ -2,24 +2,22 @@ package net.kimleo.rec.repository.selector.expr
 
 import net.kimleo.rec.bind
 import net.kimleo.rec.orElse
+import net.kimleo.rec.repository.selector.AliasSelector
 import net.kimleo.rec.repository.selector.FieldSelector
 import net.kimleo.rec.repository.selector.Selector
 
 object SelectorParser {
 
     val keywordsMap: Map<String, SelectorTokenType> = mapOf(
-            Pair("is", SelectorTokenType.IS),
-            Pair("matches", SelectorTokenType.MATCHES)
+            Pair("as", SelectorTokenType.AS)
     )
 
     fun lex(expr: String): List<SelectorToken> {
         val specialCharsMap = mapOf(
                 Pair('[', SelectorToken(SelectorTokenType.LEFT_SQUARE)),
                 Pair(']', SelectorToken(SelectorTokenType.RIGHT_SQUARE)),
-                Pair('|', SelectorToken(SelectorTokenType.PIPE)),
                 Pair(',', SelectorToken(SelectorTokenType.COMMA)),
-                Pair('.', SelectorToken(SelectorTokenType.DOT)),
-                Pair('=', SelectorToken(SelectorTokenType.EQUAL))
+                Pair('.', SelectorToken(SelectorTokenType.DOT))
         )
         var index = 0
         val tokens = arrayListOf<SelectorToken>()
@@ -87,6 +85,22 @@ object SelectorParser {
             val type = tokens[index]
 
             if (type.tokenType == SelectorTokenType.COMMA) {
+                index ++
+                continue
+            }
+
+            if (type.tokenType == SelectorTokenType.AS) {
+                if (selectors.isNotEmpty() && selectors.last() is FieldSelector) {
+                    index ++
+                    if (tokens[index].tokenType != SelectorTokenType.ID) {
+                        throw RuntimeException("Unexpected token ${type.tokenType}: ${type.repr}, should alias to an ID");
+                    }
+                    val last = selectors.last() as FieldSelector
+                    selectors.removeAt(selectors.lastIndex)
+                    selectors.add(AliasSelector(last, tokens[index].repr))
+                } else {
+                    throw RuntimeException("Only an field selector can be aliased")
+                }
                 index ++
                 continue
             }
