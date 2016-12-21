@@ -9,7 +9,6 @@ import net.kimleo.rec.rule.RuleLoader;
 import net.kimleo.rec.rule.RuleRunner;
 import org.junit.Test;
 
-import java.util.Collections;
 import java.util.List;
 
 import static java.util.Arrays.asList;

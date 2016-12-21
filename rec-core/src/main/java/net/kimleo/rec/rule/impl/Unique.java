@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Unique implements RecRule {
 
@@ -33,7 +32,7 @@ public class Unique implements RecRule {
                         @Override
                         public String details() {
                             return String.format("Duplicated %s in record [ %s ]",
-                                    set.getConfig().getFormat(),
+                                    set.getConfig().format(),
                                     items.getKey().parent().getText());
                         }
                     });

@@ -1,15 +1,11 @@
 package net.kimleo.rec.loader.strategy;
 
-import net.kimleo.rec.Pair;
 import net.kimleo.rec.loader.LoadingConfig;
 import net.kimleo.rec.loader.RecordLoader;
 import net.kimleo.rec.repository.RecRepository;
 import net.kimleo.rec.repository.RecordSet;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;

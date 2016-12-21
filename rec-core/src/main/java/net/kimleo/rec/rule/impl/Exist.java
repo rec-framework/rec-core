@@ -29,8 +29,8 @@ public class Exist implements RecRule {
             if (!set.contains(rec)) {
                 result.add(() -> String.format("%s of %s cannot be found in %s",
                         rec.getText(),
-                        image.getConfig().getName(),
-                        complete.getConfig().getName()));
+                        image.getConfig().name(),
+                        complete.getConfig().name()));
                 successful = false;
             }
         }

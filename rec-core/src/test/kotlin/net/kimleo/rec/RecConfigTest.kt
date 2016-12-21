@@ -10,6 +10,16 @@ import kotlin.test.assertNotNull
 
 
 class RecConfigTest {
+
+    fun linesOfRes(file: String): List<String> {
+        val stream = RecConfigTest::class.java.classLoader.getResourceAsStream(file)
+        val reader = BufferedReader(InputStreamReader(stream))
+
+        val lines = reader.readLines()
+        reader.close()
+        return lines
+    }
+
     @Test
     fun shouldReturnType() {
         val lines = linesOfRes("person_test.txt.rec")
@@ -30,8 +40,8 @@ class RecConfigTest {
 
         assertNotNull(collect)
 
-        assertEquals(collect.where("first name"){contains("Kim")}.records.size, 3)
-        assertEquals(collect.where("first name"){contains("Kimm")}.records.size, 1)
+        assertEquals(collect.where("first name"){it.contains("Kim")}.records.size, 3)
+        assertEquals(collect.where("first name"){it.contains("Kimm")}.records.size, 1)
 
     }
 

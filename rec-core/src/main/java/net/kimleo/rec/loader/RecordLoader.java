@@ -4,7 +4,10 @@ import net.kimleo.rec.repository.DefaultRecConfig;
 import net.kimleo.rec.repository.RecConfig;
 import net.kimleo.rec.repository.RecordSet;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,9 +32,9 @@ public class RecordLoader {
             List<String> data = dataReader.lines().collect(Collectors.toList());
             List<String> rec = recReader.lines().collect(Collectors.toList());
 
-            RecConfig recConfig = DefaultRecConfig.Companion.makeTypeFrom(rec);
+            RecConfig recConfig = DefaultRecConfig.makeTypeFrom(rec);
 
-            return RecordSet.Companion.loadData(data, recConfig);
+            return RecordSet.loadData(data, recConfig);
         } catch (Exception ex) {
             die("Exception found: %s", ex.getMessage());
         }
