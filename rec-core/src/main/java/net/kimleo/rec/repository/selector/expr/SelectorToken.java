@@ -33,4 +33,9 @@ final public class SelectorToken {
         result = 31 * result + (repr != null ? repr.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s[%s]", tokenType.name(), repr);
+    }
 }
