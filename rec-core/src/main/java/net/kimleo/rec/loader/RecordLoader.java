@@ -29,7 +29,7 @@ public class RecordLoader {
             List<String> data = dataReader.lines().collect(Collectors.toList());
             List<String> rec = recReader.lines().collect(Collectors.toList());
 
-            RecConfig recConfig = DefaultRecConfig.Companion.makeTypeFrom(rec);
+            RecConfig recConfig = DefaultRecConfig.makeTypeFrom(rec);
 
             return RecordSet.Companion.loadData(data, recConfig);
         } catch (Exception ex) {

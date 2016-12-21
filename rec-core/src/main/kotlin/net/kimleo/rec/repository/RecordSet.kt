@@ -13,7 +13,7 @@ import net.kimleo.rec.sepval.parser.SimpleParser
 
 class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Record> {
 
-    val indices = buildIndex(records, config.accessor)
+    val indices = buildIndex(records, config.accessor())
 
     private fun buildIndex(records: List<Record>, accessor: Accessor<String>): Map<String, MultiMap<String, Record>> {
         val indices = hashMapOf<String, MultiMap<String, Record>>()
@@ -31,7 +31,7 @@ class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Reco
         return records.iterator()
     }
 
-    val accessor = config.accessor
+    val accessor = config.accessor()
 
     fun select(keys: List<String>, name: String? = null): RecordSet {
         checkKeyExists(*keys.toTypedArray())
@@ -71,7 +71,7 @@ class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Reco
 
     companion object {
         fun loadData(lines: List<String>, config: RecConfig): RecordSet {
-            val parser = SimpleParser(config.parseConfig)
+            val parser = SimpleParser(config.parseConfig())
             val records = arrayListOf<Record>()
             for (line in lines) {
                 val record = parser.parse(line)
@@ -101,11 +101,11 @@ class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Reco
 
     private fun newType(keys: List<String>, providedName: String? = null): RecConfig {
         return object: RecConfig {
-            override val name = providedName.orElse { "image of ${config.name}" }
-            override val parseConfig = config.parseConfig
-            override val key = config.key
-            override val format = keys.joinToString(config.parseConfig.delimiter.toString())
-            override val accessor = Accessor<String>(keys.toTypedArray())
+            override fun name() = providedName.orElse { "image of ${config.name()}" }
+            override fun parseConfig() = config.parseConfig()
+            override fun key() = config.key()
+            override fun format() = keys.joinToString(config.parseConfig().delimiter.toString())
+            override fun accessor() = Accessor<String>(keys.toTypedArray())
         }
     }
 

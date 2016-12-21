@@ -43,7 +43,7 @@ public class API {
     }
 
     public static RecConfig type(final String name, final String format) {
-        return DefaultRecConfig.Companion.create(name, format);
+        return DefaultRecConfig.create(name, format);
     }
 
     public static RecRepository repo(List<RecordSet> collects) {

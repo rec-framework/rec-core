@@ -33,7 +33,7 @@ public class Unique implements RecRule {
                         @Override
                         public String details() {
                             return String.format("Duplicated %s in record [ %s ]",
-                                    set.getConfig().getFormat(),
+                                    set.getConfig().format(),
                                     items.getKey().parent().getText());
                         }
                     });
