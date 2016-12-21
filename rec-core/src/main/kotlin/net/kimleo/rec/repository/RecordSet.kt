@@ -31,7 +31,7 @@ class RecordSet(val records: List<Record>, val config: RecConfig): Iterable<Reco
         return records.iterator()
     }
 
-    val accessor = config.accessor()
+    val accessor = config.accessor()!!
 
     fun select(keys: List<String>, name: String? = null): RecordSet {
         checkKeyExists(*keys.toTypedArray())

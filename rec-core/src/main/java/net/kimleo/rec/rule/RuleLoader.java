@@ -15,7 +15,7 @@ public class RuleLoader {
             String rule = pair[0];
             String selector = pair[1];
 
-            return new RuleRunner(repository.rule(rule), Selector.Companion.of(selector));
+            return new RuleRunner(repository.rule(rule), Selector.of(selector));
         }).collect(Collectors.toList());
     }
 }
