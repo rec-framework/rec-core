@@ -4,7 +4,8 @@ import net.kimleo.rec.repository.selector.AliasSelector
 import net.kimleo.rec.repository.selector.FieldSelector
 import net.kimleo.rec.repository.selector.expr.SelectorParser.lex
 import net.kimleo.rec.repository.selector.expr.SelectorParser.parse
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class SelectorParserTest {

@@ -1,12 +1,9 @@
 package net.kimleo.rec.scripting.model;
 
-import net.kimleo.rec.record.Record;
 import net.kimleo.rec.repository.RecordSet;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
-
-import java.util.List;
 
 public class RecSet {
     private final RecordSet set;

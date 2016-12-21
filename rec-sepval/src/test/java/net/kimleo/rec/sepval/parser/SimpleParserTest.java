@@ -3,7 +3,8 @@ package net.kimleo.rec.sepval.parser;
 import net.kimleo.rec.sepval.SepValEntry;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class SimpleParserTest {
 

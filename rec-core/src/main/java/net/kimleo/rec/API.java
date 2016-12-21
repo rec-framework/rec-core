@@ -1,13 +1,14 @@
 package net.kimleo.rec;
 
 import net.kimleo.rec.accessor.Accessor;
+import net.kimleo.rec.record.Cell;
+import net.kimleo.rec.record.Record;
 import net.kimleo.rec.repository.DefaultRecConfig;
-import net.kimleo.rec.repository.RecordSet;
 import net.kimleo.rec.repository.RecConfig;
-import net.kimleo.rec.record.*;
+import net.kimleo.rec.repository.RecRepository;
+import net.kimleo.rec.repository.RecordSet;
 import net.kimleo.rec.sepval.parser.ParseConfig;
 import net.kimleo.rec.sepval.parser.SimpleParser;
-import net.kimleo.rec.repository.RecRepository;
 
 import java.util.HashMap;
 import java.util.List;

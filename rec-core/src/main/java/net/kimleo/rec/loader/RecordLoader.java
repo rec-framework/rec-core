@@ -4,7 +4,10 @@ import net.kimleo.rec.repository.DefaultRecConfig;
 import net.kimleo.rec.repository.RecConfig;
 import net.kimleo.rec.repository.RecordSet;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.stream.Collectors;
 

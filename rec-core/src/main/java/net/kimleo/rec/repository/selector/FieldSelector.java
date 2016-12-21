@@ -3,8 +3,6 @@ package net.kimleo.rec.repository.selector;
 import net.kimleo.rec.repository.RecRepository;
 import net.kimleo.rec.repository.RecordSet;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static java.util.Collections.singletonList;

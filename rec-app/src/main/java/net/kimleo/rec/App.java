@@ -1,10 +1,8 @@
 package net.kimleo.rec;
 
-import kotlin.Pair;
 import net.kimleo.rec.init.Initializer;
 import net.kimleo.rec.loader.strategy.DefaultLoadingStrategy;
 import net.kimleo.rec.repository.RecRepository;
-import net.kimleo.rec.rule.Result;
 import net.kimleo.rec.rule.RuleLoader;
 
 import java.io.File;
@@ -13,14 +11,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Formatter;
 import java.util.HashMap;
-import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.lang.System.exit;
 import static java.nio.file.Files.lines;
 import static net.kimleo.rec.scripting.Scripting.runjs;
 import static net.kimleo.rec.util.Sys.die;

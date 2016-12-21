@@ -2,7 +2,6 @@ package net.kimleo.rec.sepval.parser;
 
 import net.kimleo.rec.sepval.SepValEntry;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 public class SimpleParser {

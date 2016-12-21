@@ -3,7 +3,6 @@ package net.kimleo.rec.repository;
 import net.kimleo.rec.accessor.Accessor;
 import net.kimleo.rec.sepval.parser.ParseConfig;
 import net.kimleo.rec.sepval.parser.SimpleParser;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,7 +1,5 @@
 package net.kimleo.rec.repository.selector.expr;
 
-import com.sun.javafx.fxml.expression.Expression;
-
 final public class SelectorToken {
 
     public final SelectorTokenType tokenType;

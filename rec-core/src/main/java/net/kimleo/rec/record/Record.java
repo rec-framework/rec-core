@@ -4,7 +4,6 @@ import net.kimleo.rec.concept.Indexible;
 import net.kimleo.rec.sepval.SepValEntry;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Record implements Indexible<String> {
