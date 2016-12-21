@@ -2,6 +2,7 @@ package net.kimleo.rec.collection;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 public class LinkedMultiHashMap<K, V> implements MultiMap<K, V> {
 
@@ -120,7 +121,7 @@ public class LinkedMultiHashMap<K, V> implements MultiMap<K, V> {
         return value;
     }
 
-    public static <V, U> MultiMap<V, U> from(Collection<V> collection, Function<V, U> transform) {
+    public static <V, U> MultiMap<V, U> from(Stream<V> collection, Function<V, U> transform) {
         LinkedMultiHashMap<V, U> multiMap = new LinkedMultiHashMap<>();
         collection.forEach(item -> {
             multiMap.put1(item, transform.apply(item));

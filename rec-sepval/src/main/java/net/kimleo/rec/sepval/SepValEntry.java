@@ -20,7 +20,7 @@ public class SepValEntry implements Indexible<String> {
     }
 
     @Override
-    public int getSize() {
+    public int size() {
         return values.size();
     }
 

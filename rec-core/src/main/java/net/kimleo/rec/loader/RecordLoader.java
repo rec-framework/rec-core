@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static net.kimleo.rec.util.Sys.die;
 
@@ -18,8 +19,8 @@ public class RecordLoader {
     private final File recFile;
 
     public RecordLoader(LoadingConfig config) {
-        this.dataFile = new File(config.getDataFile());
-        this.recFile = new File(config.getRecFile());
+        this.dataFile = new File(config.dataFile);
+        this.recFile = new File(config.recFile);
 
         if (! (dataFile.exists() && recFile.exists())) {
             die(String.format("Cannot found given file: <%s> or <%s>", dataFile.getName(), recFile.getName()));
@@ -29,7 +30,7 @@ public class RecordLoader {
     public RecordSet getRecords() {
         try(BufferedReader dataReader = new BufferedReader(new InputStreamReader(new FileInputStream(dataFile)));
             BufferedReader recReader = new BufferedReader(new InputStreamReader(new FileInputStream(recFile)))) {
-            List<String> data = dataReader.lines().collect(Collectors.toList());
+            Stream<String> data = dataReader.lines();
             List<String> rec = recReader.lines().collect(Collectors.toList());
 
             RecConfig recConfig = DefaultRecConfig.makeTypeFrom(rec);

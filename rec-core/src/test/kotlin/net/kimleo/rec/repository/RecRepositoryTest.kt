@@ -22,12 +22,12 @@ class RecRepositoryTest {
     @Test
     fun testRepository() {
         val type = DefaultRecConfig.makeTypeFrom(rec)
-        val collect = RecordSet.loadData(records, type)
+        val collect = RecordSet.loadData(records.stream(), type)
         val repo = RecRepository(listOf(collect))
 
         assertNotNull(repo)
 
-        assertTrue(repo.from("Person").where("first name") { it.contains("Kimmy") }.records.size == 1)
+        assertTrue(repo.from("Person").where("first name") { it.contains("Kimmy") }.records.count() == 1L)
 
         val (unique1) = Unique().verify(listOf(collect.select("first name")))
         assertTrue(unique1)
@@ -40,7 +40,7 @@ class RecRepositoryTest {
         val names = repo["Person[first name], Person[comment] as Comment"]
 
         assertTrue(names.size == 2)
-        assertTrue(names[1].records.size == 5)
+        assertTrue(names[1].records.count() == 5L)
 
         val ruleResult = RuleLoader()
                 .load(listOf("unique: Person[first name]", "unique: Person[comment]")).map {

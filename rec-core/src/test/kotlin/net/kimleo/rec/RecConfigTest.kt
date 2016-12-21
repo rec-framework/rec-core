@@ -36,12 +36,12 @@ class RecConfigTest {
 
         val type = DefaultRecConfig.makeTypeFrom(rec)
 
-        val collect = RecordSet.loadData(records, type)
+        val collect = RecordSet.loadData(records.stream(), type)
 
         assertNotNull(collect)
 
-        assertEquals(collect.where("first name"){it.contains("Kim")}.records.size, 3)
-        assertEquals(collect.where("first name"){it.contains("Kimm")}.records.size, 1)
+        assertEquals(collect.where("first name"){it.contains("Kim")}.records.count(), 3)
+        assertEquals(collect.where("first name"){it.contains("Kimm")}.records.count(), 1)
 
     }
 

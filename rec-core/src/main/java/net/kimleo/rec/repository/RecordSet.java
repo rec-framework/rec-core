@@ -4,7 +4,6 @@ import net.kimleo.rec.accessor.Accessor;
 import net.kimleo.rec.accessor.RecordWrapper;
 import net.kimleo.rec.collection.LinkedMultiHashMap;
 import net.kimleo.rec.collection.MultiMap;
-import net.kimleo.rec.record.Cell;
 import net.kimleo.rec.record.Record;
 import net.kimleo.rec.sepval.parser.ParseConfig;
 import net.kimleo.rec.sepval.parser.SimpleParser;
@@ -12,8 +11,10 @@ import net.kimleo.rec.sepval.parser.SimpleParser;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.Collections.singletonList;
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 public class RecordSet implements Iterable<Record> {
@@ -22,8 +23,8 @@ public class RecordSet implements Iterable<Record> {
     private final Map<String, MultiMap<String, Record>> indices;
     private final Accessor<String> accessor;
 
-    public List<Record> getRecords() {
-        return records;
+    public Stream<Record> getRecords() {
+        return records.stream();
     }
 
     public RecConfig getConfig() {
@@ -34,11 +35,11 @@ public class RecordSet implements Iterable<Record> {
         return accessor;
     }
 
-    public RecordSet(List<Record> records, RecConfig config) {
-        this.records = records;
+    public RecordSet(Stream<Record> records, RecConfig config) {
+        this.records = records.collect(toList());
         this.config = config;
         this.accessor = config.accessor();
-        this.indices = buildIndices(records, config.accessor());
+        this.indices = buildIndices(this.records, config.accessor());
     }
 
     private Map<String, MultiMap<String, Record>> buildIndices(List<Record> records, Accessor<String> accessor) {
@@ -46,9 +47,9 @@ public class RecordSet implements Iterable<Record> {
 
         for (String key : accessor.getFieldMap().keySet()) {
             LinkedMultiHashMap<String, Record> index = new LinkedMultiHashMap<>();
-            for (Record record : records) {
-                index.put1(accessor.of(record).get(key), record);
-            }
+            records.forEach(rec -> {
+                index.put1(accessor.of(rec).get(key), rec);
+            });
             indices.put(key, index);
         }
         return indices;
@@ -63,17 +64,12 @@ public class RecordSet implements Iterable<Record> {
         checkKeyExists(keys);
 
         RecConfig newType = newType(keys, name);
-        ArrayList<Record> newRecords = new ArrayList<>();
-        for (Record record : this.records) {
-            ArrayList<String> fields = new ArrayList<>();
-            RecordWrapper<String> acc = accessor.of(record);
-            for (String key : keys) {
-                fields.add(acc.get(key));
-            }
-            newRecords.add(new Record(fields.stream().map(Cell::new).collect(Collectors.toList()), record.parent()));
-        }
+        Stream<Record> recs = this.records.stream().map(rec -> {
+            RecordWrapper<String> acc = accessor.of(rec);
+            return new Record(keys.stream().map(acc::get).collect(toList()), rec.parent());
+        });
 
-        return new RecordSet(newRecords, newType);
+        return new RecordSet(recs, newType);
     }
 
     public RecordSet select(String... keys) {
@@ -82,22 +78,21 @@ public class RecordSet implements Iterable<Record> {
 
     public RecordSet where(String key, Function<String, Boolean> fn) {
         checkKeyExists(singletonList(key));
-        List<Record> filtered = records.stream().filter(rec -> fn.apply(accessor.of(rec).get(key))).collect(Collectors.toList());
+        Stream<Record> filtered = records.stream().filter(rec -> fn.apply(accessor.of(rec).get(key)));
 
         return new RecordSet(filtered, config);
     }
 
     public RecordSet where(Function<RecordWrapper<String>, Boolean> fn) {
-        List<Record> filtered = records.stream().filter(rec -> fn.apply(accessor.of(rec))).collect(Collectors.toList());
+        Stream<Record> filtered = records.stream().filter(rec -> fn.apply(accessor.of(rec)));
 
         return new RecordSet(filtered, config);
     }
 
-    public static RecordSet loadData(List<String> lines, RecConfig config) {
+    public static RecordSet loadData(Stream<String> lines, RecConfig config) {
         SimpleParser parser = new SimpleParser(config.parseConfig());
-        List<Record> records = lines.stream()
-                .map(line -> Record.toRecord(parser.parse(line)))
-                .collect(Collectors.toList());
+        Stream<Record> records = lines
+                .map(line -> Record.toRecord(parser.parse(line)));
         return new RecordSet(records, config);
     }
 
@@ -149,6 +144,11 @@ public class RecordSet implements Iterable<Record> {
             public Accessor<String> accessor() {
                 return new Accessor<>(keys.toArray(new String[] {}));
             }
+
+            @Override
+            public boolean keepOrigin() {
+                return config.keepOrigin();
+            }
         };
     }
 
@@ -159,6 +159,6 @@ public class RecordSet implements Iterable<Record> {
     }
 
     public boolean isUnique() {
-        return records.stream().collect(toSet()).size() == records.size();
+        return records.size() == records.stream().distinct().count();
     }
 }

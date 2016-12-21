@@ -9,14 +9,6 @@ public class LoadingConfig {
         this.recFile = recFile;
     }
 
-    public String getDataFile() {
-        return dataFile;
-    }
-
-    public String getRecFile() {
-        return recFile;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

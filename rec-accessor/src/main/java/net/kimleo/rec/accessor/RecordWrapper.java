@@ -24,8 +24,8 @@ public class RecordWrapper<T> implements Indexible<T>, Mapped<T> {
     }
 
     @Override
-    public int getSize() {
-        return record.getSize();
+    public int size() {
+        return record.size();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class RecordWrapper<T> implements Indexible<T>, Mapped<T> {
         if (index >= 0) {
             return record.get(index);
         } else {
-            return record.get(record.getSize() + index);
+            return record.get(record.size() + index);
         }
     }
 

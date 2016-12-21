@@ -9,4 +9,5 @@ public interface RecConfig {
     String key();
     String format();
     Accessor<String> accessor();
+    boolean keepOrigin();
 }

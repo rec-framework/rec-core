@@ -1,7 +1,6 @@
 package net.kimleo.rec;
 
 import net.kimleo.rec.accessor.Accessor;
-import net.kimleo.rec.record.Cell;
 import net.kimleo.rec.record.Record;
 import net.kimleo.rec.repository.DefaultRecConfig;
 import net.kimleo.rec.repository.RecConfig;
@@ -36,11 +35,11 @@ public class API {
     }
 
     public static Accessor<String> accessor(Record record) {
-        return new Accessor<>(record.getCells().stream().map(Cell::getValue).collect(toList()).toArray(new String[record.getSize()]));
+        return new Accessor<>(record.getCells().stream().collect(toList()).toArray(new String[record.size()]));
     }
 
     public static RecordSet collect(List<Record> records, RecConfig type) {
-        return new RecordSet(records, type);
+        return new RecordSet(records.stream(), type);
     }
 
     public static RecConfig type(final String name, final String format) {
