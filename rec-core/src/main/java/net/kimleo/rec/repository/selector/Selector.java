@@ -11,7 +11,7 @@ public interface Selector {
 
 
     static Selector of(String expr) {
-        List<Selector> selectors = SelectorParser.INSTANCE.parse(SelectorParser.INSTANCE.lex(expr));
+        List<Selector> selectors = SelectorParser.parse(SelectorParser.lex(expr));
         return new CombinedSelector(selectors);
     }
 }

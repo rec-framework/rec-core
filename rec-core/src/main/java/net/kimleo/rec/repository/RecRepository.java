@@ -34,7 +34,7 @@ public class RecRepository implements Iterable<RecordSet> {
     public RecordSet from(String name) {
         RecordSet set = repo.get(name);
         if (set == null) {
-            throw new NoSuchElementException(String.format("Cannot found collection%s", name));
+            throw new NoSuchElementException(String.format("Cannot found collection %s", name));
         }
         return set;
     }
