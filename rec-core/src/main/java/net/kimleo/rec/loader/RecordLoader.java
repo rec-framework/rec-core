@@ -31,7 +31,7 @@ public class RecordLoader {
 
             RecConfig recConfig = DefaultRecConfig.makeTypeFrom(rec);
 
-            return RecordSet.Companion.loadData(data, recConfig);
+            return RecordSet.loadData(data, recConfig);
         } catch (Exception ex) {
             die("Exception found: %s", ex.getMessage());
         }

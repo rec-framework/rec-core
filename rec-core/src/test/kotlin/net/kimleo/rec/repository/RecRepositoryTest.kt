@@ -1,8 +1,5 @@
 package net.kimleo.rec.repository
 
-import net.kimleo.rec.linesOfRes
-import net.kimleo.rec.repository.DefaultRecConfig
-import net.kimleo.rec.repository.RecordSet
 import net.kimleo.rec.rule.RuleLoader
 import net.kimleo.rec.rule.impl.Unique
 import org.junit.Assert.*
@@ -14,6 +11,14 @@ class RecRepositoryTest {
     val records = linesOfRes("person_test.txt")
     val rec = linesOfRes("person_test.txt.rec")
 
+    fun linesOfRes(file: String): List<String> {
+        val stream = RecRepositoryTest::class.java.classLoader.getResourceAsStream(file)
+        val reader = BufferedReader(InputStreamReader(stream))
+
+        val lines = reader.readLines()
+        reader.close()
+        return lines
+    }
     @Test
     fun testRepository() {
         val type = DefaultRecConfig.makeTypeFrom(rec)
@@ -22,7 +27,7 @@ class RecRepositoryTest {
 
         assertNotNull(repo)
 
-        assertTrue(repo.from("Person").where("first name") { contains("Kimmy") }.records.size == 1)
+        assertTrue(repo.from("Person").where("first name") { it.contains("Kimmy") }.records.size == 1)
 
         val (unique1) = Unique().verify(listOf(collect.select("first name")))
         assertTrue(unique1)
