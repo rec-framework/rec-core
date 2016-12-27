@@ -2,10 +2,7 @@ package net.kimleo.rec.accessor.lexer;
 
 import net.kimleo.rec.Pair;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,7 +13,7 @@ public class Lexer {
 
 
     public static Pair<Map<String, Integer>, Integer> buildFieldMapPair(String... fields) {
-        final HashMap<String, Integer> accessorMap = new HashMap<>();
+        final Map<String, Integer> accessorMap = new LinkedHashMap<>();
         final Pair<List<FieldType>, Integer> lex = lex(fields);
         final List<FieldType> accessors = lex.getFirst();
         final Integer leastCapacity = lex.getSecond();

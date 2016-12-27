@@ -15,7 +15,7 @@ public class SimpleParserTest {
     public void shouldParseSimpleCSV() throws Exception {
         SepValEntry tuple = parser.parse("a, b, c");
 
-        assertEquals(tuple.getSize(), 3);
+        assertEquals(tuple.size(), 3);
         assertEquals(tuple.get(1), "b");
 
     }
@@ -24,7 +24,7 @@ public class SimpleParserTest {
     public void shouldParseQuotedString() throws Exception {
         SepValEntry tuple = parser.parse("\"abc\",    \" \"\" \t\r\n\\\b def \"    , g");
 
-        assertEquals(tuple.getSize(), 3);
+        assertEquals(tuple.size(), 3);
         assertEquals(tuple.get(1), " \" \t\r\n\\\b def ");
         assertEquals(tuple.get(2), "g");
 
@@ -35,7 +35,7 @@ public class SimpleParserTest {
         SepValEntry tuple = new SimpleParser(new ParseConfig('|'))
                 .parse("hello|world|    123456|\"\"\"I have a dream\"\"\"");
 
-        assertEquals(tuple.getSize(), 4);
+        assertEquals(tuple.size(), 4);
         assertEquals(tuple.get(0), "hello");
         assertEquals(tuple.get(2), "123456");
         assertEquals(tuple.get(3), "\"I have a dream\"");

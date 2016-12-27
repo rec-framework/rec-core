@@ -1,13 +1,15 @@
 package net.kimleo.rec.record;
 
 import net.kimleo.rec.concept.Indexible;
+import net.kimleo.rec.repository.RecConfig;
 import net.kimleo.rec.sepval.SepValEntry;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Record implements Indexible<String> {
-    private final List<Cell> cells;
+    private final List<String> cells;
 
     private final String text;
 
@@ -15,24 +17,24 @@ public class Record implements Indexible<String> {
 
     private Record parent = null;
 
-    Record(List<Cell> cells, String text, boolean original) {
+    Record(List<String> cells, String text, boolean original) {
         this.cells = cells;
         this.text = text;
         this.original = original;
     }
 
-    public Record(List<Cell> cells, Record original) {
-        this(cells, cells.stream().map(Cell::getValue).collect(Collectors.joining(", ")), false);
+    public Record(List<String> cells, Record original) {
+        this(cells, cells.stream().collect(Collectors.joining(", ")), false);
         this.parent = original;
     }
 
     @Override
     public String get(int index) {
-        return cells.get(index).getValue();
+        return cells.get(index);
     }
 
     @Override
-    public int getSize() {
+    public int size() {
         return cells.size();
     }
 
@@ -58,7 +60,7 @@ public class Record implements Indexible<String> {
         return text;
     }
 
-    public List<Cell> getCells() {
+    public List<String> getCells() {
         return cells;
     }
 
@@ -69,6 +71,7 @@ public class Record implements Indexible<String> {
 
 
     public static Record toRecord(SepValEntry sepVal) {
-        return new Record(sepVal.getValues().stream().map(Cell::new).collect(Collectors.toList()), sepVal.getSource(), true);
+        return new Record(sepVal.getValues(), sepVal.getSource(), true);
+
     }
 }

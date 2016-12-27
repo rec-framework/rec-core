@@ -23,7 +23,7 @@ public class Exist implements RecRule {
         RecordSet image = recs.get(0);
         RecordSet complete = recs.get(1);
 
-        Set<Record> set = complete.getRecords().stream().collect(Collectors.toSet());
+        Set<Record> set = complete.getRecords().collect(Collectors.toSet());
 
         for (Record rec: image) {
             if (!set.contains(rec)) {

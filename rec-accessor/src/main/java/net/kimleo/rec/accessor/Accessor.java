@@ -26,7 +26,7 @@ public class Accessor<T> {
     }
 
     public RecordWrapper<T> create(Indexible<T> record) {
-        assert (record.getSize() >= leastCapacity);
+        assert (record.size() >= leastCapacity);
 
         return new RecordWrapper<>(fieldMap, record);
     }
