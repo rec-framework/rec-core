@@ -1,6 +1,6 @@
 out.println("hello world");
 
-var rec = new Rec("rec-scripting/src/test/resources");
+var rec = new Rec(".");
 
 out.println(rec.basePath);
 

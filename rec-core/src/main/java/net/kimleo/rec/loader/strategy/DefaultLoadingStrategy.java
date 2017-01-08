@@ -24,7 +24,6 @@ public class DefaultLoadingStrategy implements LoadingStrategy {
     @Override
     public List<LoadingConfig> configs() {
         File[] files = new File(path).listFiles();
-        System.out.println(path);
         if (files == null) {
             die(String.format("Not a directory %s", path));
         }
