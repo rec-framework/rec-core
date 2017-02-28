@@ -11,3 +11,6 @@ loadData/
 .DS_Store
 build
 classes/
+
+*.txt
+*.bin

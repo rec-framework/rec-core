@@ -1,0 +1,28 @@
+package net.kimleo.rec.v2.model.impl;
+
+import net.kimleo.rec.concept.Mapped;
+import net.kimleo.rec.v2.model.Tee;
+
+import java.util.function.Predicate;
+
+public class ItemCounterTee implements Tee {
+
+    private final Predicate<Mapped<String>> predicate;
+    private int count;
+
+    ItemCounterTee(Predicate<Mapped<String>> predicate) {
+        this.predicate = predicate;
+        this.count = 0;
+    }
+
+    @Override
+    public void emit(Mapped<String> record) {
+        if(predicate.test(record)) {
+            count ++;
+        }
+    }
+
+    public int count() {
+        return count;
+    }
+}

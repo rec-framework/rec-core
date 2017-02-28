@@ -18,11 +18,4 @@ public class Pair<K, V> {
         return second;
     }
 
-    public K component1() {
-        return first;
-    }
-
-    public V component2() {
-        return second;
-    }
 }

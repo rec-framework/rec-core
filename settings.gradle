@@ -5,4 +5,6 @@ include("common",
         "rec-scripting",
         "rec-app",
         "rec-initializer",
-        "rec-multipass")
+        "rec-multipass",
+        "rec-v2")
+rootProject.name = 'Rec the data framework'
