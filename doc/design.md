@@ -1,32 +1,36 @@
 Rec
 ======
 
-## Features
+## Main components:
+- Source
+- Tee
+- Target
+- Re-enterable
+- Cached
 
- - Data pipelining
- - Scripting using JavaScript/Rhino
- - Multiple data source support
- - Least dependencies required
+## Techs:
+- Stream
+- Bytebuffers (Direct, Mapped)
 
-## Concept
+## Interfaces:
+```typescript
+interface Record {}
 
- - Mapped
- - Indexible
- - RecordSource
- - Pipeline
-   - Joining
-   - Splitting
-   - Combine
+interface Source {
+    stream(): Stream<Record>
+    to(target: Target)
+    tee(tee: Tee): Source
+}
 
-## Entities
+interface Tee {
+    emit(record: Record)
+    source(): Source
+    to(target: Target) = source().to(target)
+}
 
- - Repository
- - DataSet
- - Record
- - Processor
-
-## Utilities
-
- - Accessor
- - Scripting utils
- - Initializer
+interface Target {
+    put(record: Record);
+    tee(tee: Tee): Target
+    putAll(source: Source) = source.stream.forEach(this::put)
+}
+```

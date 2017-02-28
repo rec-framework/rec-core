@@ -1,6 +1,5 @@
 package net.kimleo.rec;
 
-import net.kimleo.rec.init.Initializer;
 import net.kimleo.rec.loader.strategy.DefaultLoadingStrategy;
 import net.kimleo.rec.repository.RecRepository;
 import net.kimleo.rec.rule.RuleLoader;
@@ -9,8 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,24 +23,6 @@ public class App {
         }
 
         switch (args[0]) {
-            case "init":
-                if (args.length < 2) {
-                    die("You need provide a file to initialize!");
-                }
-                String fileName = args[1];
-                if (Files.exists(Paths.get(fileName))) {
-                    die("File %s cannot be found", fileName);
-                }
-
-                HashMap<String, String> properties = new HashMap<>();
-                Arrays.stream(args).skip(2).forEach(property -> {
-                    if (!property.contains("=")) die("Unexpected parameter format, should be <param>=<value>.");
-                    String[] parts = property.split("=");
-                    properties.put(parts[0].trim(), parts[1].trim());
-                });
-
-                new Initializer(fileName, properties).init();
-                break;
             case "js":
                 if (args.length != 2) {
                     die("You need to provide the script file.");

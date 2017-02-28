@@ -18,7 +18,6 @@ repositories {
 dependencies {
     compile project(":common")
     compile project(":rec-core")
-    compile project(":rec-initializer")
     compile project(":rec-scripting")
     testCompile 'junit:junit:4.11'
 }
