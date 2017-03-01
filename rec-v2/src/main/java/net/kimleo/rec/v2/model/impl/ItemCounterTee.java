@@ -10,7 +10,7 @@ public class ItemCounterTee implements Tee {
     private final Predicate<Mapped<String>> predicate;
     private int count;
 
-    ItemCounterTee(Predicate<Mapped<String>> predicate) {
+    public ItemCounterTee(Predicate<Mapped<String>> predicate) {
         this.predicate = predicate;
         this.count = 0;
     }

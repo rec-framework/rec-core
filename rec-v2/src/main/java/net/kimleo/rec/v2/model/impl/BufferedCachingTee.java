@@ -28,7 +28,7 @@ public class BufferedCachingTee implements Tee {
     private List<String> keys;
     private int writePos;
 
-    BufferedCachingTee(int size) {
+    public BufferedCachingTee(int size) {
         try {
             tempFile = Files.createTempFile(Paths.get("."),"rec-caching", ".bin");
             buffer = ByteBuffer.allocateDirect(size);

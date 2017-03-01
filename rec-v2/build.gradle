@@ -4,9 +4,21 @@ repositories {
     mavenCentral()
 }
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Rec v2',
+                'Implementation-Version': version,
+                'Main-Class': 'net.kimleo.rec.v2.App'
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 dependencies {
     compile project(":common")
     compile project(":rec-sepval")
     compile project(":rec-accessor")
+    compile "org.mozilla:rhino:1.7.7.1"
     testCompile 'junit:junit:4.11'
 }
