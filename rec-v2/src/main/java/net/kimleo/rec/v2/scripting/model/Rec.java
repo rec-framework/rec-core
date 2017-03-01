@@ -11,9 +11,10 @@ import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
 
 import java.nio.file.Paths;
-import java.util.Collection;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Rec {
@@ -28,7 +29,7 @@ public class Rec {
     }
 
     // Wrappers
-    public Consumer<Mapped<String>> func(Function function) {
+    public Consumer<Mapped<String>> action(Function function) {
         return (mapped) -> {
             function.call(context, function.getParentScope(), null, new Object[]{ mapped });
         };
@@ -71,6 +72,10 @@ public class Rec {
     }
 
     // Targets
+    public Target dummy() {
+        return record -> {};
+    }
+
     public Target target(Function function) {
         return (record) -> {
             function.call(context, function.getParentScope(), null, new Object[] {record});
@@ -92,5 +97,24 @@ public class Rec {
 
     public Tee collect(Collection<Mapped<String>> collect) {
         return new CollectTee(collect);
+    }
+
+    public Tee unique(String... keys) {
+        HashSet<List<String>> sets = new HashSet<>();
+
+        return record -> {
+            List<String> fields = Arrays.stream(keys)
+                    .map(record::get)
+                    .collect(Collectors.toList());
+
+            if (sets.contains(fields)) {
+                throw new IllegalStateException(
+                        String.format("Uniqueness checking failed for fields: [%s]; values: [%s]",
+                                Arrays.stream(keys).collect(Collectors.joining(", ")),
+                                fields.stream().collect(Collectors.joining(", "))));
+            } else {
+                sets.add(fields);
+            }
+        };
     }
 }
