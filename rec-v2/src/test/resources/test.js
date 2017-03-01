@@ -1,10 +1,9 @@
 var map = new java.util.HashMap();
 
 rec
-    .csv("BufferedCachingTeeTest.csv", "name, type, age").stream()
-    .forEach(rec.action(function (x) {
-        rec.println(x.get("name"));
-        map.put(x.get("name"), x.get("age"));
+    .csv("BufferedCachingTeeTest.csv", "name, type, age").to(rec.target(function (record) {
+        map.put(record.get("name"), record.get("age"));
+        rec.println(record.get("name"))
     }));
 
 rec.println("==================");
@@ -17,6 +16,10 @@ rec
 
 rec.println(map.size());
 
+map.entrySet().forEach(rec.action(function (entry) {
+    rec.println([entry.key, entry.value].join("=> "))
+}));
+
 rec.println("==================");
 
 var counter = rec.counter(function (it) {
@@ -24,9 +27,9 @@ var counter = rec.counter(function (it) {
 });
 
 
-rec.stream(rec.csv("BufferedCachingTeeTest.csv", "name, type, age").stream().filter(rec.pred(function (rec) {
+rec.csv("BufferedCachingTeeTest.csv", "name, type, age").filter(rec.pred(function (rec) {
     return rec.get("name").length() > 4
-}))).tee(counter).to(rec.target(function (record) {
+})).tee(counter).to(rec.target(function (record) {
     rec.println(record.get("name"));
 }));
 

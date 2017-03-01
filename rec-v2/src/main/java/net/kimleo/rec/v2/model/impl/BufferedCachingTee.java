@@ -38,7 +38,7 @@ public class BufferedCachingTee implements Tee {
     }
 
     @Override
-    public void emit(Mapped<String> record) {
+    public Mapped<String> emit(Mapped<String> record) {
         if (keys == null) keys = record.keys();
         ByteBuffer bytes = encode(record, keys);
         bytes.position(0);
@@ -46,6 +46,7 @@ public class BufferedCachingTee implements Tee {
         buffer.put(bytes);
 
         writePos = buffer.position();
+        return record;
     }
 
     @Override

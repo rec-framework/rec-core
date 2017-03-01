@@ -29,13 +29,13 @@ public class Rec {
     }
 
     // Wrappers
-    public Consumer<Mapped<String>> action(Function function) {
-        return (mapped) -> {
-            function.call(context, function.getParentScope(), null, new Object[]{ mapped });
+    public <T> Consumer<T> action(Function function) {
+        return (object) -> {
+            function.call(context, function.getParentScope(), null, new Object[]{ object });
         };
     }
 
-    public Predicate<Mapped<String>> pred(Function function) {
+    public <T> Predicate<T> pred(Function function) {
         return (record) ->
                 (boolean) function.call(context, function.getParentScope(), null, new Object[]{ record });
     }
@@ -115,6 +115,7 @@ public class Rec {
             } else {
                 sets.add(fields);
             }
+            return record;
         };
     }
 }

@@ -6,17 +6,11 @@ public interface Target {
     void put(Mapped<String> record);
 
     default Target tee(Tee tee) {
-        return record -> {
-            tee.emit(record);
-            this.put(record);
-        };
+        return record -> this.put(tee.emit(record));
     }
 
     default void putAll(Source source) {
         source.stream().forEach(this::put);
     }
 
-    default void close() {
-
-    }
 }

@@ -16,10 +16,11 @@ public class ItemCounterTee implements Tee {
     }
 
     @Override
-    public void emit(Mapped<String> record) {
+    public Mapped<String> emit(Mapped<String> record) {
         if(predicate.test(record)) {
             count ++;
         }
+        return record;
     }
 
     public int count() {

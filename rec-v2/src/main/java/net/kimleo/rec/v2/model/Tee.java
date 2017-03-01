@@ -5,7 +5,7 @@ import net.kimleo.rec.concept.Mapped;
 import java.util.stream.Stream;
 
 public interface Tee {
-    void emit(Mapped<String> record);
+    Mapped<String> emit(Mapped<String> record);
 
     default Source source() {
         return Source.from(Stream.empty());

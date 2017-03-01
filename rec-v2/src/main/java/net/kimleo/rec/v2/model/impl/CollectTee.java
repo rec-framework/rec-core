@@ -19,8 +19,9 @@ public class CollectTee implements Tee {
     }
 
     @Override
-    public void emit(Mapped<String> record) {
+    public Mapped<String> emit(Mapped<String> record) {
         collection.add(record);
+        return record;
     }
 
     @Override

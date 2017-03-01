@@ -5,13 +5,14 @@ import net.kimleo.rec.v2.exception.ResourceAccessException;
 import net.kimleo.rec.v2.model.Source;
 import net.kimleo.rec.v2.model.Target;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.stream.Collectors;
 
-public class FlatFileTarget implements Target {
+public class FlatFileTarget implements Target, Closeable {
 
     private final PrintWriter writer;
 
@@ -36,7 +37,7 @@ public class FlatFileTarget implements Target {
     }
 
     @Override
-    public void close() {
+    public void close() throws IOException {
         writer.flush();
         writer.close();
     }
