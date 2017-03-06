@@ -23,8 +23,6 @@ public class CSVFileSourceTest {
         CollectTee collector = new CollectTee(new ArrayList<>());
         HashSet<String> strings = new HashSet<>();
 
-        FlatFileTarget flatFileTarget = new FlatFileTarget(new File("Hello.txt"));
-
         ItemCounterTee counter = new ItemCounterTee(it -> true);
 
         Target target = record ->

@@ -14,3 +14,7 @@ classes/
 
 *.txt
 *.bin
+
+logs/
+
+*.log
