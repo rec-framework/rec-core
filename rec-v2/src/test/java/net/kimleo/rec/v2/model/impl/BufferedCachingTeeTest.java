@@ -1,8 +1,6 @@
 package net.kimleo.rec.v2.model.impl;
 
-import net.kimleo.rec.concept.Mapped;
 import net.kimleo.rec.sepval.parser.ParseConfig;
-import net.kimleo.rec.v2.model.Target;
 import org.junit.Test;
 
 import java.io.File;
@@ -33,7 +31,7 @@ public class BufferedCachingTeeTest {
         // Re-enterrable
         catching.source().tee(counter).to((record) -> {});
 
-        assertThat(counter.count(), is(166656));
+        assertThat(counter.getCount(), is(166656));
     }
 
     private void sum(String str) {

@@ -23,7 +23,7 @@ public class ItemCounterTee implements Tee {
         return record;
     }
 
-    public int count() {
+    public int getCount() {
         return count;
     }
 }

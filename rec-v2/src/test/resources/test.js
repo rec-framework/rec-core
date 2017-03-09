@@ -1,43 +1,57 @@
-var map = new java.util.HashMap();
+const map = new java.util.HashMap();
+const format = java.lang.String.format;
+const {csv, counter, println, action, pred, target, unique, stateful} = rec;
 
-rec
-    .csv("BufferedCachingTeeTest.csv", "name, type, age").to(rec.target(function (record) {
-        map.put(record.get("name"), record.get("age"));
-        rec.println(record.get("name"))
+csv("BufferedCachingTeeTest.csv", "name, type, age")
+    .to(target(function ({name, age}) {
+        map.put(name, age);
     }));
 
-rec.println("==================");
+println("==================");
 
-rec
-    .csv("BufferedCachingTeeTest.csv", "name, type, age")
-    .to(rec.target(function (record) {
-        rec.println(record.get("age"));
+csv("BufferedCachingTeeTest.csv", "name, type, age")
+    .to(target(function ({type}) {
+        println(type);
     }));
 
-rec.println(map.size());
+println(map.size());
 
-map.entrySet().forEach(rec.action(function (entry) {
-    rec.println([entry.key, entry.value].join("=> "))
-}));
+map.entrySet()
+    .forEach(action(function ({key, value}) {
+        println(format("%s => %s", key, value))
+    }));
 
-rec.println("==================");
+println("==================");
 
-var counter = rec.counter(function (it) {
-    return true
-});
+const alwaysCounter =
+    counter(function () {
+        return true
+    });
+
+csv("BufferedCachingTeeTest.csv", "name, type, age")
+    .filter(pred(function ({name}) {
+        return name.length > 4
+    }))
+    .tee(alwaysCounter)
+    .to(target(function (record) {
+        println(JSON.stringify(record));
+    }));
 
 
-rec.csv("BufferedCachingTeeTest.csv", "name, type, age").filter(rec.pred(function (rec) {
-    return rec.get("name").length() > 4
-})).tee(counter).to(rec.target(function (record) {
-    rec.println(record.get("name"));
-}));
+println(alwaysCounter.count);
 
-rec.println(counter.count());
+println("================");
 
-rec.println("================");
 
-rec
-    .csv("BufferedCachingTeeTest.csv", "name, type, age")
-    .tee(rec.unique("name", "type"))
-    .to(rec.dummy());
+let counter2 = stateful({count: 0},
+    function ({name, type}, {count}) {
+        println(format("%s: %s", name, type));
+        return {count: count + 1};
+    });
+
+csv("BufferedCachingTeeTest.csv", "name, type, age")
+    .tee(unique("name", "type"))
+    .to(rec.dummy()
+        .tee(counter2));
+
+println(counter2.state.count);

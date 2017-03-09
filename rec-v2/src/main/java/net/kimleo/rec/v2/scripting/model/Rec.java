@@ -26,45 +26,52 @@ import static java.lang.String.format;
 
 public class Rec {
     private static final Logger LOGGER = LogManager.logger(Rec.class.getName());
-    private String scriptPath;
-    private final Context context;
-    private final Scriptable scope;
+    private static String scriptPath;
+    private static Context context;
+    private static Scriptable scope;
 
 
     public Rec(Context context, Scriptable scope) {
         scriptPath = (String) context.getThreadLocal("SCRIPT_PATH");
-        this.context = context;
-        this.scope = scope;
+        Rec.context = context;
+        Rec.scope = scope;
         LOGGER.info("Initialized Rec context at " + scriptPath);
     }
 
     // Wrappers
-    public <T> Consumer<T> action(Function function) {
+    public static <T> Consumer<T> action(Function function) {
         LOGGER.info(format("Action wrapper created for Function #[%d]", function.hashCode()));
         return (object) -> {
-            function.call(context, function.getParentScope(), null, new Object[]{ object });
+            function.call(context, function.getParentScope(), null, new Object[]{ wrap(object) });
         };
     }
 
-    public <T> Predicate<T> pred(Function function) {
+    public static  <T> Predicate<T> pred(Function function) {
         LOGGER.info(format("Predicate wrapper created for Function #[%d]", function.hashCode()));
-        return (record) ->
-                (boolean) function.call(context, function.getParentScope(), null, new Object[]{ record });
+        return (func) ->
+                (boolean) function.call(context, function.getParentScope(), null, new Object[]{ wrap(func) });
     }
 
-    public void println(Object... objs) {
+    private static <T> Object wrap(T obj) {
+        if (obj instanceof Mapped) {
+            return new JSRecord((Mapped<String>) obj);
+        }
+        return obj;
+    }
+
+    public static void println(Object... objs) {
         for (Object obj : objs) {
             System.out.println(obj);
         }
     }
 
     // Sources
-    public Source stream(Stream<Mapped<String>> stream) {
+    public static Source stream(Stream<Mapped<String>> stream) {
         LOGGER.info(format("Created source from Stream #[%d]", stream.hashCode()));
         return () -> stream;
     }
 
-    public Source csv(String file, String accessors) {
+    public static Source csv(String file, String accessors) {
         LOGGER.info(format("Loading file #[%s] with accessors: [%s]", file, accessors));
 
         ParseConfig config;
@@ -89,37 +96,54 @@ public class Rec {
     }
 
     // Targets
-    public Target dummy() {
+    public static Target dummy() {
         LOGGER.info("Dummy target created");
         return record -> {};
     }
 
-    public Target target(Function function) {
+    public static Target target(Function function) {
         LOGGER.info(String.format("Wrapper target created with Function #[%d]", function.hashCode()));
         return (record) -> {
-            function.call(context, function.getParentScope(), null, new Object[] {record});
+            function.call(context, function.getParentScope(), null, new Object[] { wrap(record)});
         };
     }
 
-    public Target flat(String filename) {
+    public static Target flat(String filename) {
         LOGGER.info(String.format("FlatFileTarget created under name: #[%s]", filename));
         return new FlatFileTarget(Paths.get(scriptPath, filename).toFile());
     }
 
     // Tees
-    public Tee counter(Function predicate) {
+    public static Tee counter(Function predicate) {
         return new ItemCounterTee(pred(predicate));
     }
 
-    public Tee cache(int size) {
+    public static Tee stateless(Function function) {
+        return record -> {
+            function.call(context, function.getParentScope(), null, new Object[] { wrap(record)} );
+            return record;
+        };
+    }
+
+    public static Tee stateful(Scriptable initial, Function function) {
+        State state = new State(initial);
+
+        return new StatefulTee(state, function);
+    }
+
+    private static Scriptable toScriptable(Object state) {
+        return state instanceof Scriptable ? (Scriptable) state : null;
+    }
+
+    public static Tee cache(int size) {
         return new BufferedCachingTee(size);
     }
 
-    public Tee collect(Collection<Mapped<String>> collect) {
+    public static Tee collect(Collection<Mapped<String>> collect) {
         return new CollectTee(collect);
     }
 
-    public Tee unique(String... keys) {
+    public static Tee unique(String... keys) {
         HashSet<List<String>> sets = new HashSet<>();
 
         return record -> {
@@ -137,5 +161,32 @@ public class Rec {
             }
             return record;
         };
+    }
+
+    public static class StatefulTee implements Tee {
+        private final State state;
+        private final Function function;
+
+        StatefulTee(State state, Function function) {
+            this.state = state;
+            this.function = function;
+        }
+
+        @Override
+        public Mapped<String> emit(Mapped<String> record) {
+            synchronized (state) {
+                Object value = state.get();
+                Object result = function.call(context,
+                        function.getParentScope(),
+                        toScriptable(value),
+                        new Object[]{wrap(record), value});
+                state.set(result);
+            }
+            return record;
+        }
+
+        public Object getState() {
+            return state.get();
+        }
     }
 }

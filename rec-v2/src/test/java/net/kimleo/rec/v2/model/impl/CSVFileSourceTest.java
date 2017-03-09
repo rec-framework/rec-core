@@ -29,7 +29,7 @@ public class CSVFileSourceTest {
                 strings.add(String.format("%s - %s", record.get("id"), record.get("name")));
         source.tee(counter).to(target.tee(collector));
 
-        assertThat(collector.collect().size(), is(counter.count()));
+        assertThat(collector.collect().size(), is(counter.getCount()));
 
     }
 }
