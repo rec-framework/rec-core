@@ -4,7 +4,7 @@ import net.kimleo.rec.accessor.Accessor;
 import net.kimleo.rec.concept.Mapped;
 import net.kimleo.rec.sepval.parser.ParseConfig;
 import net.kimleo.rec.sepval.parser.SimpleParser;
-import net.kimleo.rec.v2.exception.ResourceAccessException;
+import net.kimleo.rec.exception.ResourceAccessException;
 import net.kimleo.rec.v2.model.Source;
 
 import java.io.File;

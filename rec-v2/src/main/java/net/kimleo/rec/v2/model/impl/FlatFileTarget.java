@@ -1,7 +1,7 @@
 package net.kimleo.rec.v2.model.impl;
 
 import net.kimleo.rec.concept.Mapped;
-import net.kimleo.rec.v2.exception.ResourceAccessException;
+import net.kimleo.rec.exception.ResourceAccessException;
 import net.kimleo.rec.v2.model.Source;
 import net.kimleo.rec.v2.model.Target;
 

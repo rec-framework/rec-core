@@ -1,4 +1,4 @@
-package net.kimleo.rec.v2.logging;
+package net.kimleo.rec.logging;
 
 public enum LoggingLevel {
     TRACE(0),

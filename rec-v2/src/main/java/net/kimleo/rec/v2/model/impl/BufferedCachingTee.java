@@ -2,9 +2,9 @@ package net.kimleo.rec.v2.model.impl;
 
 import net.kimleo.rec.Pair;
 import net.kimleo.rec.concept.Mapped;
-import net.kimleo.rec.v2.exception.ResourceAccessException;
-import net.kimleo.rec.v2.logging.Logger;
-import net.kimleo.rec.v2.logging.impl.LogManager;
+import net.kimleo.rec.exception.ResourceAccessException;
+import net.kimleo.rec.logging.Logger;
+import net.kimleo.rec.logging.impl.LogManager;
 import net.kimleo.rec.v2.model.Source;
 import net.kimleo.rec.v2.model.Tee;
 import net.kimleo.rec.v2.stream.adapter.GeneratingSpliteratorAdapter;

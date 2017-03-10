@@ -1,7 +1,7 @@
-package net.kimleo.rec.v2.logging.impl;
+package net.kimleo.rec.logging.impl;
 
-import net.kimleo.rec.v2.exception.InitializationException;
-import net.kimleo.rec.v2.logging.LogAppender;
+import net.kimleo.rec.exception.InitializationException;
+import net.kimleo.rec.logging.LogAppender;
 
 import java.io.*;
 import java.nio.file.Files;

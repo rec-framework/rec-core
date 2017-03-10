@@ -1,6 +1,6 @@
-package net.kimleo.rec.v2.logging;
+package net.kimleo.rec.logging;
 
-import static net.kimleo.rec.v2.logging.LoggingLevel.*;
+import static net.kimleo.rec.logging.LoggingLevel.*;
 
 public interface Logger {
     default void trace(String msg) {
