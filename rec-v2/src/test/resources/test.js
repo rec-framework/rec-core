@@ -1,8 +1,11 @@
 const map = new java.util.HashMap();
 const format = java.lang.String.format;
+
+// or you can use with(rec) { }
 const {csv, counter, println, action, pred, target, unique, stateful} = rec;
 
-csv("BufferedCachingTeeTest.csv", "name, type, age")
+
+csv("CSVFileSource.csv", "name, type, age")
     .to(target(function ({name, age}) {
         map.put(name, age);
     }));
@@ -28,7 +31,7 @@ const alwaysCounter =
         return true
     });
 
-csv("BufferedCachingTeeTest.csv", "name, type, age")
+csv("CSVFileSource.csv", "name, type, age")
     .filter(pred(function ({name}) {
         return name.length > 4
     }))

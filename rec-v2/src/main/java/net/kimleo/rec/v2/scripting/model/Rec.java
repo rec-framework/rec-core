@@ -87,7 +87,7 @@ public class Rec {
                 config = new ParseConfig(':');
                 break;
             default:
-                String msg = String.format("Unexpected extension of file: [%s]", file);
+                String msg = format("Unexpected extension of file: [%s]", file);
                 LOGGER.error(msg);
                 throw new IllegalArgumentException(msg);
         }
@@ -102,14 +102,14 @@ public class Rec {
     }
 
     public static Target target(Function function) {
-        LOGGER.info(String.format("Wrapper target created with Function #[%d]", function.hashCode()));
+        LOGGER.info(format("Wrapper target created with Function #[%d]", function.hashCode()));
         return (record) -> {
             function.call(context, function.getParentScope(), null, new Object[] { wrap(record)});
         };
     }
 
     public static Target flat(String filename) {
-        LOGGER.info(String.format("FlatFileTarget created under name: #[%s]", filename));
+        LOGGER.info(format("FlatFileTarget created under name: #[%s]", filename));
         return new FlatFileTarget(Paths.get(scriptPath, filename).toFile());
     }
 
@@ -186,6 +186,7 @@ public class Rec {
         }
 
         public Object getState() {
+            LOGGER.info(format("Getting Stateful Tee #[%s]", toString()));
             return state.get();
         }
     }
