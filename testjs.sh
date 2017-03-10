@@ -1,2 +1,2 @@
 #/bin/bash
-java -jar rec-app/build/libs/rec-app-0.1.3.jar js rec-scripting/src/test/resources/test_exec.js
+java -jar rec-v2/build/libs/rec-v2-*.jar js rec-v2/src/test/resources/test.js

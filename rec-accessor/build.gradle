@@ -7,7 +7,6 @@ repositories {
 
 dependencies {
     compile project(":common")
-    testCompile project(":rec-core")
     testCompile 'junit:junit:4.11'
 }
 
