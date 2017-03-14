@@ -1,6 +1,6 @@
 package net.kimleo.rec.v2.model.impl;
 
-import net.kimleo.rec.accessor.Accessor;
+import net.kimleo.rec.v2.accessor.Accessor;
 import net.kimleo.rec.concept.Mapped;
 import net.kimleo.rec.sepval.parser.ParseConfig;
 import net.kimleo.rec.sepval.parser.SimpleParser;
@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.stream.Stream;
 
-import static net.kimleo.rec.sepval.parser.ParseConfig.DEFAULT;
-
 public class CSVFileSource implements Source {
 
     private final Stream<String> lines;
@@ -21,7 +19,7 @@ public class CSVFileSource implements Source {
     private final SimpleParser csvParser;
 
     public CSVFileSource(File file, String accessors, ParseConfig config) {
-        accessor = new Accessor<>(new SimpleParser(DEFAULT).parse(accessors).getValues().toArray(new String[]{}));
+        accessor = new Accessor<>(new SimpleParser().parse(accessors).getValues().toArray(new String[]{}));
         csvParser = new SimpleParser(config);
         try {
             lines = Files.lines(file.toPath());

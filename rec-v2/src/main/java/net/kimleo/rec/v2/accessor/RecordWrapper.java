@@ -1,4 +1,4 @@
-package net.kimleo.rec.accessor;
+package net.kimleo.rec.v2.accessor;
 
 import net.kimleo.rec.concept.Indexible;
 import net.kimleo.rec.concept.Mapped;

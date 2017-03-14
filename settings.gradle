@@ -1,5 +1,4 @@
 include("common",
-        "rec-accessor",
         "rec-sepval",
         "rec-v2")
 rootProject.name = 'Rec the data framework'

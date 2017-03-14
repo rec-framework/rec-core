@@ -1,7 +1,7 @@
-package net.kimleo.rec.accessor;
+package net.kimleo.rec.v2.accessor;
 
 import net.kimleo.rec.Pair;
-import net.kimleo.rec.accessor.lexer.Lexer;
+import net.kimleo.rec.v2.accessor.lexer.Lexer;
 import net.kimleo.rec.concept.Indexible;
 
 import java.util.Map;

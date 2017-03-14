@@ -1,9 +1,9 @@
-package net.kimleo.rec.accessor.lexer;
+package net.kimleo.rec.v2.accessor.lexer;
 
-public class FieldName implements FieldType {
+public class Placeholder implements FieldType {
     private final String name;
 
-    FieldName(String name) {
+    public Placeholder(String name) {
         this.name = name;
     }
 
@@ -16,9 +16,9 @@ public class FieldName implements FieldType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        FieldName fieldName = (FieldName) o;
+        Placeholder that = (Placeholder) o;
 
-        return name != null ? name.equals(fieldName.name) : fieldName.name == null;
+        return name != null ? name.equals(that.name) : that.name == null;
     }
 
     @Override

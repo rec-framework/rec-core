@@ -1,4 +1,4 @@
-package net.kimleo.rec.accessor.lexer;
+package net.kimleo.rec.v2.accessor.lexer;
 
 import net.kimleo.rec.Pair;
 

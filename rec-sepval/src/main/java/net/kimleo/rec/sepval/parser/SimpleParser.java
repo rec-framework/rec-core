@@ -12,7 +12,7 @@ public class SimpleParser {
     }
 
     public SimpleParser() {
-        this(new ParseConfig());
+        this(ParseConfig.DEFAULT);
     }
 
     public SepValEntry parse(String input) {

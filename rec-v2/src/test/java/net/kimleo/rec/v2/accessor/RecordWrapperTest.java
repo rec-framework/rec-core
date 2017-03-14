@@ -1,11 +1,11 @@
-package net.kimleo.rec.accessor;
+package net.kimleo.rec.v2.accessor;
 
 import net.kimleo.rec.Pair;
 import org.junit.Test;
 
 import java.util.Map;
 
-import static net.kimleo.rec.accessor.lexer.Lexer.buildFieldMapPair;
+import static net.kimleo.rec.v2.accessor.lexer.Lexer.buildFieldMapPair;
 import static org.junit.Assert.assertTrue;
 
 public class RecordWrapperTest {

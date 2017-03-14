@@ -2,7 +2,7 @@ const map = new java.util.HashMap();
 const format = java.lang.String.format;
 
 // or you can use with(rec) { }
-const {csv, counter, println, action, pred, target, unique, stateful} = rec;
+const {csv, counter, println, action, pred, target, unique, stateful, flat} = rec;
 
 
 csv("CSVFileSource.csv", "name, type, age")

@@ -1,4 +1,4 @@
-package net.kimleo.rec.accessor.lexer;
+package net.kimleo.rec.v2.accessor.lexer;
 
 public class Padding implements FieldType {
     private final int size;
