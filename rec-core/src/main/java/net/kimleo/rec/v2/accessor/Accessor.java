@@ -2,7 +2,7 @@ package net.kimleo.rec.v2.accessor;
 
 import net.kimleo.rec.Pair;
 import net.kimleo.rec.v2.accessor.lexer.Lexer;
-import net.kimleo.rec.concept.Indexible;
+import net.kimleo.rec.concept.Accessible;
 
 import java.util.Map;
 
@@ -25,13 +25,13 @@ public class Accessor<T> {
         return leastCapacity;
     }
 
-    public RecordWrapper<T> create(Indexible<T> record) {
+    public RecordWrapper<T> create(Accessible<T> record) {
         assert (record.size() >= leastCapacity);
 
         return new RecordWrapper<>(fieldMap, record);
     }
 
-    public RecordWrapper<T> of(Indexible<T> record) {
+    public RecordWrapper<T> of(Accessible<T> record) {
         return create(record);
     }
 }

@@ -1,10 +1,10 @@
 package net.kimleo.rec.sepval;
 
-import net.kimleo.rec.concept.Indexible;
+import net.kimleo.rec.concept.Accessible;
 
 import java.util.List;
 
-public class SepValEntry implements Indexible<String> {
+public class SepValEntry implements Accessible<String> {
 
     private final List<String> values;
     private final String source;

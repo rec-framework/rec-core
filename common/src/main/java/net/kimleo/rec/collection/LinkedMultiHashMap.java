@@ -123,9 +123,7 @@ public class LinkedMultiHashMap<K, V> implements MultiMap<K, V> {
 
     public static <V, U> MultiMap<V, U> from(Stream<V> collection, Function<V, U> transform) {
         LinkedMultiHashMap<V, U> multiMap = new LinkedMultiHashMap<>();
-        collection.forEach(item -> {
-            multiMap.put1(item, transform.apply(item));
-        });
+        collection.forEach(item -> multiMap.put1(item, transform.apply(item)));
 
         return multiMap;
     }

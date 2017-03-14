@@ -3,8 +3,6 @@ package net.kimleo.rec.collection;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.hamcrest.CoreMatchers.is;

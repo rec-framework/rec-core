@@ -5,7 +5,7 @@ public class InitializationException extends RuntimeException {
         super(s, ex);
     }
 
-    public InitializationException(String s) {
-        super(s);
+    public InitializationException(String message) {
+        super(message);
     }
 }

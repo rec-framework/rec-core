@@ -1,10 +1,9 @@
 .idea/
 .gradle/
 out/
-loadData/
 
 /*.txt
-/*.net.kimleo.rec
+/*.rec
 /*.patch
 /default.rule
 

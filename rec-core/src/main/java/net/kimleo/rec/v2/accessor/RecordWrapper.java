@@ -1,19 +1,19 @@
 package net.kimleo.rec.v2.accessor;
 
-import net.kimleo.rec.concept.Indexible;
+import net.kimleo.rec.concept.Accessible;
 import net.kimleo.rec.concept.Mapped;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class RecordWrapper<T> implements Indexible<T>, Mapped<T> {
+public class RecordWrapper<T> implements Accessible<T>, Mapped<T> {
 
     private final Map<String, Integer> fieldNames;
 
-    private final Indexible<T> record;
+    private final Accessible<T> record;
 
-    public RecordWrapper(Map<String, Integer> fieldNames, Indexible<T> record) {
+    public RecordWrapper(Map<String, Integer> fieldNames, Accessible<T> record) {
         this.fieldNames = fieldNames;
         this.record = record;
     }
@@ -36,7 +36,7 @@ public class RecordWrapper<T> implements Indexible<T>, Mapped<T> {
         return null;
     }
 
-    private T getByIndex(Integer index, Indexible<T> record) {
+    private T getByIndex(Integer index, Accessible<T> record) {
         if (index >= 0) {
             return record.get(index);
         } else {

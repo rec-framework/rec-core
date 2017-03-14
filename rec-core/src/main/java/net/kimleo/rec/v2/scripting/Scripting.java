@@ -20,7 +20,7 @@ public class Scripting {
         runReader(filename, ctx, reader);
     }
 
-    public static void runReader(String filename, Context ctx, Reader reader) throws IllegalAccessException, InstantiationException, java.lang.reflect.InvocationTargetException, IOException {
+    public static void runReader(String filename, Context ctx, Reader reader) throws Exception {
         ScriptableObject scope = ctx.initStandardObjects();
         ctx.setLanguageVersion(VERSION_1_8);
 

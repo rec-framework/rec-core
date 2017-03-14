@@ -9,7 +9,7 @@ public class DefaultLogger implements Logger {
     private final String name;
     private final LoggingLevel loggingLevel;
     private final LogFormatter logFormatter;
-    private LogAppender appender;
+    private final LogAppender appender;
 
     public DefaultLogger(String name, LoggingLevel loggingLevel, LogFormatter logFormatter, LogAppender appender) {
         this.name = name;

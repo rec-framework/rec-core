@@ -14,8 +14,8 @@ import static org.hamcrest.core.Is.is;
 
 public class MergeIteratorTest {
 
-    private List<Integer> first = Arrays.asList(1, 2, 3, 4, 5);
-    private List<Integer> second = Arrays.asList(2, 4, 6, 8, 10);
+    private final List<Integer> first = Arrays.asList(1, 2, 3, 4, 5);
+    private final List<Integer> second = Arrays.asList(2, 4, 6, 8, 10);
 
     @Test
     public void shouldMerge() throws Exception {

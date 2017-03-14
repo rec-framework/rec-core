@@ -24,7 +24,7 @@ import static net.kimleo.rec.v2.utils.Records.encode;
 
 public class BufferedCachingTee implements Tee {
 
-    private static final Logger logger = LogManager.logger(BufferedCachingTee.class.getName());
+    private static final Logger LOGGER = LogManager.logger(BufferedCachingTee.class.getName());
 
     private final Path tempFile;
     private final ByteBuffer buffer;

@@ -41,9 +41,8 @@ public class Rec {
     // Wrappers
     public static <T> Consumer<T> action(Function function) {
         LOGGER.info(format("Action wrapper created for Function #[%d]", function.hashCode()));
-        return (object) -> {
-            function.call(context, function.getParentScope(), null, new Object[]{ wrap(object) });
-        };
+        return (object) ->
+                function.call(context, function.getParentScope(), null, new Object[]{ wrap(object) });
     }
 
     public static  <T> Predicate<T> pred(Function function) {
@@ -52,6 +51,7 @@ public class Rec {
                 (boolean) function.call(context, function.getParentScope(), null, new Object[]{ wrap(func) });
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> Object wrap(T obj) {
         if (obj instanceof Mapped) {
             return new JSRecord((Mapped<String>) obj);
@@ -103,9 +103,8 @@ public class Rec {
 
     public static Target target(Function function) {
         LOGGER.info(format("Wrapper target created with Function #[%d]", function.hashCode()));
-        return (record) -> {
-            function.call(context, function.getParentScope(), null, new Object[] { wrap(record)});
-        };
+        return (record) ->
+                function.call(context, function.getParentScope(), null, new Object[] { wrap(record)});
     }
 
     public static Target flat(String filename) {
