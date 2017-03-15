@@ -1,13 +1,19 @@
 .idea/
 .gradle/
 out/
-loadData/
 
 /*.txt
-/*.net.kimleo.rec
+/*.rec
 /*.patch
 /default.rule
 
 .DS_Store
 build
 classes/
+
+*.txt
+*.bin
+
+logs/
+
+*.log

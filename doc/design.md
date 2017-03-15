@@ -1,32 +1,17 @@
 Rec
 ======
 
-## Features
+## Main components:
+- Source
+- Tee
+- Target
+- Re-enterable
+- Cached
 
- - Data pipelining
- - Scripting using JavaScript/Rhino
- - Multiple data source support
- - Least dependencies required
+## Techs:
+- Stream
+- Bytebuffers (Direct, Mapped)
 
-## Concept
+## Interfaces:
 
- - Mapped
- - Indexible
- - RecordSource
- - Pipeline
-   - Joining
-   - Splitting
-   - Combine
-
-## Entities
-
- - Repository
- - DataSet
- - Record
- - Processor
-
-## Utilities
-
- - Accessor
- - Scripting utils
- - Initializer
+see `rec-v2/src/main/resources/Rec-v2.d.ts`

@@ -4,5 +4,5 @@ jdk:
 script:
   - gradle build
   - gradle fatJar
-  - ./testrec.sh
   - ./testjs.sh
+  - ./rec dump rec-core/src/test/resources/caching.bin.test 3
