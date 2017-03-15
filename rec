@@ -1,2 +1,2 @@
 #!/bin/bash
-java -jar rec-v2/build/libs/rec-v2-*.jar $*
+java -jar rec-core/build/libs/rec-v2-*.jar $*
