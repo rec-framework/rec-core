@@ -5,4 +5,4 @@ script:
   - gradle build
   - gradle fatJar
   - ./testjs.sh
-  - ./rec dump rec-v2/src/test/resources/caching.bin.test 3
+  - ./rec dump rec-core/src/test/resources/caching.bin.test 3
