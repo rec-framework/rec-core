@@ -13,10 +13,8 @@ import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
 
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.sql.ResultSet;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -69,6 +67,11 @@ public class Rec {
     public static Source stream(Stream<Mapped<String>> stream) {
         LOGGER.info(format("Created source from Stream #[%d]", stream.hashCode()));
         return () -> stream;
+    }
+
+    public static Source resultSet(ResultSet rs) {
+        LOGGER.info(format("Created source from ResultSet #[%d]", rs.hashCode()));
+        return new ResultSetSource(rs);
     }
 
     public static Source csv(String file, String accessors) {
@@ -189,4 +192,5 @@ public class Rec {
             return state.get();
         }
     }
+
 }
