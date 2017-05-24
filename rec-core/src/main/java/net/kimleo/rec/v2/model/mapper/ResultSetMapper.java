@@ -32,10 +32,10 @@ public class ResultSetMapper implements Mapped<String> {
         try {
             ResultSetMetaData metaData = rs.getMetaData();
             for (int i = 0; i < metaData.getColumnCount(); i++) {
-                keys.add(metaData.getColumnName(i));
+                keys.add(metaData.getColumnName(i + 1));
             }
         } catch (SQLException ignored) {
-
+            ignored.printStackTrace();
         }
         return keys;
     }
