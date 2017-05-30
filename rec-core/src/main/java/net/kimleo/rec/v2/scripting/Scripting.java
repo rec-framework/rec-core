@@ -28,12 +28,11 @@ public class Scripting {
     public static void runReader(String filename, Context ctx, Reader reader) throws Exception {
         ScriptableObject scope = ctx.initStandardObjects();
         ctx.setLanguageVersion(VERSION_1_8);
+        Rec.initializeContext(ctx, scope);
+
         Require require = new RequireBuilder()
                 .setModuleScriptProvider(new SoftCachingModuleScriptProvider(new RecModuleSourceProvider())).createRequire(ctx, scope);
         require.install(scope);
-
-        Object rec = Context.javaToJS(new Rec(ctx, scope), scope);
-        ScriptableObject.putConstProperty(scope, "rec", rec);
 
         ctx.evaluateReader(scope, reader, filename, 1, null);
     }

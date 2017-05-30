@@ -1,8 +1,7 @@
 const map = new java.util.HashMap();
 const format = java.lang.String.format;
 
-// or you can use with(rec) { }
-const {csv, counter, println, action, pred, target, unique, stateful} = rec;
+const {csv, counter, println, action, pred, target, unique, stateful, dummy} = require("rec");
 
 
 csv("CSVFileSource.csv", "name, type, age")
@@ -54,7 +53,7 @@ let counter2 = stateful({count: 0},
 
 csv("BufferedCachingTeeTest.csv", "name, type, age")
     .tee(unique("name", "type"))
-    .to(rec.dummy()
+    .to(dummy()
         .tee(counter2));
 
 println(counter2.state.count);

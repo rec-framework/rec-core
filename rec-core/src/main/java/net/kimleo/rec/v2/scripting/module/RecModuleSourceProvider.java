@@ -4,6 +4,8 @@ import org.mozilla.javascript.commonjs.module.provider.ModuleSource;
 import org.mozilla.javascript.commonjs.module.provider.ModuleSourceProviderBase;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,12 +30,18 @@ public class RecModuleSourceProvider extends ModuleSourceProviderBase {
 
     private Reader getReader(String moduleId) throws IOException {
         Reader reader = null;
-        if (moduleId.endsWith(".js"))
-            reader = Files.newBufferedReader(Paths.get(moduleId));
-        else if (Files.exists(Paths.get(moduleId + ".js")) && !Files.isDirectory(Paths.get(moduleId + ".js"))) {
+        if (moduleId.endsWith(".js")) {
+            try {
+                reader = Files.newBufferedReader(Paths.get(moduleId));
+            } catch (IOException ex) {
+                reader = new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream(moduleId));
+            }
+        } else if (Files.exists(Paths.get(moduleId + ".js")) && !Files.isDirectory(Paths.get(moduleId + ".js"))) {
             reader = Files.newBufferedReader(Paths.get(moduleId + ".js"));
         } else if (Files.exists(Paths.get(moduleId)) && Files.isDirectory(Paths.get(moduleId))) {
             reader = Files.newBufferedReader(Paths.get(moduleId, "index.js"));
+        } else {
+            reader = new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream(moduleId + ".js"));
         }
         return reader;
     }

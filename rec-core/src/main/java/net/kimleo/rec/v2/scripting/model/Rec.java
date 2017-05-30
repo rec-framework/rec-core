@@ -31,7 +31,7 @@ public class Rec {
     private static Scriptable scope;
 
 
-    public Rec(Context context, Scriptable scope) {
+    public static void initializeContext(Context context, Scriptable scope) {
         scriptPath = (String) context.getThreadLocal("SCRIPT_PATH");
         Rec.context = context;
         Rec.scope = scope;
