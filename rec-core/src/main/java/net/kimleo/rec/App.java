@@ -1,4 +1,4 @@
-package net.kimleo.rec.v2;
+package net.kimleo.rec;
 
 import net.kimleo.rec.exception.InitializationException;
 import net.kimleo.rec.logging.Logger;
@@ -17,6 +17,7 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         LOGGER.info("Application started");
+        LOGGER.info("Args:" + Arrays.toString(args));
         System.out.println("=> Rec v2");
 
         if (args.length <= 0) {
