@@ -6,6 +6,6 @@
 It provides several DSL to describe the relationships and transformation rules
  to check the data correctness and integrity.
 
-Rec v2 is currently under design, and you can see `doc/design.md` for details.
+Rec v2 is currently under design, and you can see [website](http://rec.kimleo.net/) for details.
 
 For v1 document, see `doc/v1.md`.
