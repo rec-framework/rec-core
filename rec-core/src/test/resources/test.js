@@ -3,7 +3,6 @@ const format = java.lang.String.format;
 
 const {csv, counter, println, action, pred, target, unique, stateful, dummy} = require("rec");
 
-
 csv("CSVFileSource.csv", "name, type, age")
     .to(target(function ({name, age}) {
         map.put(name, age);
@@ -57,3 +56,10 @@ csv("BufferedCachingTeeTest.csv", "name, type, age")
         .tee(counter2));
 
 println(counter2.state.count);
+
+println(require("./test2").hello);
+
+
+const {one} = require("./test2");
+
+println(one());
