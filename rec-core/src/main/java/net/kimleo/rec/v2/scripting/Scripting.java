@@ -1,17 +1,15 @@
 package net.kimleo.rec.v2.scripting;
 
-import net.kimleo.rec.v2.scripting.model.Rec;
+import net.kimleo.rec.v2.scripting.module.Rec;
 import net.kimleo.rec.v2.scripting.module.RecModuleSourceProvider;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ScriptableObject;
 import org.mozilla.javascript.commonjs.module.Require;
 import org.mozilla.javascript.commonjs.module.RequireBuilder;
-import org.mozilla.javascript.commonjs.module.provider.MultiModuleScriptProvider;
 import org.mozilla.javascript.commonjs.module.provider.SoftCachingModuleScriptProvider;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.Reader;
 
 import static org.mozilla.javascript.Context.VERSION_1_8;

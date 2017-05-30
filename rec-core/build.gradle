@@ -8,7 +8,7 @@ task fatJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Rec v2',
                 'Implementation-Version': version,
-                'Main-Class': 'net.kimleo.rec.v2.App'
+                'Main-Class': 'net.kimleo.rec.App'
     }
     baseName = project.name
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }

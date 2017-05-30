@@ -1,13 +1,15 @@
-package net.kimleo.rec.v2.scripting.model;
+package net.kimleo.rec.v2.scripting.module;
 
 import net.kimleo.rec.concept.Mapped;
-import net.kimleo.rec.sepval.parser.ParseConfig;
 import net.kimleo.rec.logging.Logger;
 import net.kimleo.rec.logging.impl.LogManager;
+import net.kimleo.rec.sepval.parser.ParseConfig;
 import net.kimleo.rec.v2.model.Source;
 import net.kimleo.rec.v2.model.Target;
 import net.kimleo.rec.v2.model.Tee;
 import net.kimleo.rec.v2.model.impl.*;
+import net.kimleo.rec.v2.scripting.model.JSRecord;
+import net.kimleo.rec.v2.scripting.model.State;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
