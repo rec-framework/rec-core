@@ -28,13 +28,11 @@ public class Rec {
     private static final Logger LOGGER = LogManager.logger(Rec.class.getName());
     private static String scriptPath;
     private static Context context;
-    private static Scriptable scope;
 
 
-    public static void initializeContext(Context context, Scriptable scope) {
+    public static void initializeContext(Context context) {
         scriptPath = (String) context.getThreadLocal("SCRIPT_PATH");
         Rec.context = context;
-        Rec.scope = scope;
         LOGGER.info("Initialized Rec context at " + scriptPath);
     }
 

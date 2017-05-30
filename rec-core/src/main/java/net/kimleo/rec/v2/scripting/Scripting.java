@@ -17,21 +17,20 @@ import static org.mozilla.javascript.Context.VERSION_1_8;
 public class Scripting {
     public static void runfile(File file, String filename) throws Exception {
         Context ctx = Context.enter();
-        Reader reader = new FileReader(file);
         ctx.putThreadLocal("SCRIPT_PATH", file.getAbsoluteFile().getParent());
 
-        runReader(filename, ctx, reader);
+        runReader(filename, ctx);
     }
 
-    public static void runReader(String filename, Context ctx, Reader reader) throws Exception {
+    public static void runReader(String filename, Context ctx) throws Exception {
         ScriptableObject scope = ctx.initStandardObjects();
         ctx.setLanguageVersion(VERSION_1_8);
-        Rec.initializeContext(ctx, scope);
+        Rec.initializeContext(ctx);
 
         Require require = new RequireBuilder()
-                .setModuleScriptProvider(new SoftCachingModuleScriptProvider(new RecModuleSourceProvider())).createRequire(ctx, scope);
+                .setModuleScriptProvider(new SoftCachingModuleScriptProvider(new RecModuleSourceProvider()))
+                .createRequire(ctx, scope);
         require.install(scope);
-
-        ctx.evaluateReader(scope, reader, filename, 1, null);
+        require.requireMain(ctx, filename);
     }
 }
