@@ -10,10 +10,18 @@ interface Stream {
 
 }
 
+interface Consumer<T> {
+    consume(t: T)
+}
+
+interface Predicate<T> {
+    test(t: T): boolean
+}
+
 interface Source {
     tee(tee: Tee): Source;
     to(target: Target);
-    filter(predicate: WrappedPredicate<Record>): Source
+    filter(predicate: Predicate<Record>): Source
 }
 
 interface Target {
@@ -36,18 +44,10 @@ interface CollectTee<T> extends Tee {
     collect(): T;
 }
 
-interface WrappedPredicate<T> {
-    test(value: T): boolean
-}
-
-interface WrappedAction<T> {
-    apply(value: T): void
-}
-
 export module rec {
-    function pred<T>(pred: (any: T) => boolean): WrappedPredicate<T>;
+    function pred<T>(pred: (any: T) => boolean): Predicate<T>;
 
-    function action<T>(func: (any: T) => void): WrappedAction<T>;
+    function action<T>(func: (any: T) => void): Consumer<T>;
 
     function println(...args: any[]);
 
@@ -76,3 +76,30 @@ export module rec {
 
     function collect<T>(collection: T): CollectTee<T>;
 }
+
+module rec.logging {
+
+    interface Logger {
+        error(message: string);
+        warn(message: string);
+        info(message: string);
+        debug(message: string);
+        trace(message: string);
+    }
+
+    function logger(name: string): Logger;
+}
+
+module rec.assert {
+    function assertTrue(test: boolean)
+    function assertEquals(left: any, right: any)
+    function assertNotNull(obj: any)
+    function fail()
+}
+
+interface CommonJSModule {
+    id: string
+    exports: any
+}
+
+declare const module: CommonJSModule;
