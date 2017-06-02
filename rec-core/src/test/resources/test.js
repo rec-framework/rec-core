@@ -1,65 +1,53 @@
-const map = new java.util.HashMap();
-const format = java.lang.String.format;
+'use strict';
 
-const {csv, counter, println, action, pred, target, unique, stateful, dummy} = require("rec");
+const map = new java.util.HashMap();
+
+const {csv, counter, action, pred, target, unique, stateful, dummy} = require("rec");
+const {assertTrue, assertEquals, fail} = require("rec/assert");
 
 csv("CSVFileSource.csv", "name, type, age")
-    .to(target(function ({name, age}) {
-        map.put(name, age);
-    }));
-
-println("==================");
+    .to(target(function ({name, age})
+        map.put(name, age)));
 
 csv("BufferedCachingTeeTest.csv", "name, type, age")
-    .to(target(function ({type}) {
-        println(type);
-    }));
+    .to(target(function ({type})
+        assertTrue(type.length <= 5)));
 
-println(map.size());
+assertTrue(map.size() == 1);
 
 map.entrySet()
-    .forEach(action(function ({key, value}) {
-        println(format("%s => %s", key, value))
-    }));
-
-println("==================");
+    .forEach(action(function ({value})
+        assertEquals(value, "1999/99/99")));
 
 const alwaysCounter =
-    counter(function () {
-        return true
-    });
+    counter(function () true);
 
 csv("CSVFileSource.csv", "name, type, age")
-    .filter(pred(function ({name}) {
-        return name.length > 4
-    }))
+    .filter(pred(function ({name})
+                    name.length > 4))
     .tee(alwaysCounter)
-    .to(target(function (record) {
-        println(JSON.stringify(record));
-    }));
+    .to(target(function () fail()));
 
 
-println(alwaysCounter.count);
+assertTrue(alwaysCounter.count == 0);
 
-println("================");
-
-
-let counter2 = stateful({count: 0},
-    function ({name, type}, {count}) {
-        println(format("%s: %s", name, type));
-        return {count: count + 1};
-    });
+let statefulCounter = stateful({count: 0},
+    function (obj, {count})
+        ({count: count + 1}));
 
 csv("BufferedCachingTeeTest.csv", "name, type, age")
     .tee(unique("name", "type"))
     .to(dummy()
-        .tee(counter2));
+        .tee(statefulCounter));
 
-println(counter2.state.count);
+assertEquals(statefulCounter.state.count, 3);
 
-println(require("./test2").hello);
-
+assertEquals(require("./test2").hello, "hello world");
 
 const {one} = require("./test2");
 
-println(one());
+assertTrue(one() == 1);
+
+assertTrue(true);
+
+assertEquals(1, 1);
