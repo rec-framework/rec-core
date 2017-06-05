@@ -2,7 +2,7 @@ package net.kimleo.rec.sepval.parser;
 
 public class ParseState {
     private final String input;
-    int index = 0;
+    private int index = 0;
 
     public ParseState(String input) {
         this.input = input;
@@ -23,5 +23,12 @@ public class ParseState {
     public Character next() {
         index ++;
         return current();
+    }
+
+    public Character of(int index) {
+        if (index >= getSize()) {
+            return null;
+        }
+        return input.charAt(index);
     }
 }

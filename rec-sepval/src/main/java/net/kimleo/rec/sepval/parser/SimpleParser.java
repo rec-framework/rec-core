@@ -1,11 +1,15 @@
 package net.kimleo.rec.sepval.parser;
 
+import net.kimleo.rec.logging.Logger;
+import net.kimleo.rec.logging.impl.LogManager;
 import net.kimleo.rec.sepval.SepValEntry;
 
 import java.util.ArrayList;
 
 public class SimpleParser {
     private final ParseConfig config;
+
+    private final static Logger LOGGER = LogManager.logger(SimpleParser.class.getName());
 
     public SimpleParser(ParseConfig config) {
         this.config = config;
@@ -20,6 +24,11 @@ public class SimpleParser {
         ArrayList<String> fields = new ArrayList<>();
         while (!state.eof()) {
             fields.add(parseField(state));
+        }
+
+        if (state.of(state.getSize() - 1) == config.delimiter) {
+            LOGGER.warn(String.format("Found delimiter [%s] at end of record", config.delimiter));
+            fields.add("");
         }
 
         return new SepValEntry(fields, input);
