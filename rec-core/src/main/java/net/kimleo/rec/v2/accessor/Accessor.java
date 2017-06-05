@@ -1,10 +1,13 @@
 package net.kimleo.rec.v2.accessor;
 
 import net.kimleo.rec.Pair;
+import net.kimleo.rec.exception.Assert;
 import net.kimleo.rec.v2.accessor.lexer.Lexer;
 import net.kimleo.rec.concept.Accessible;
 
 import java.util.Map;
+
+import static net.kimleo.rec.exception.Assert.assertTrue;
 
 public class Accessor<T> {
 
@@ -26,7 +29,7 @@ public class Accessor<T> {
     }
 
     public RecordWrapper<T> create(Accessible<T> record) {
-        assert (record.size() >= leastCapacity);
+        assertTrue (record.size() >= leastCapacity);
 
         return new RecordWrapper<>(fieldMap, record);
     }
