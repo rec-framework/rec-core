@@ -2,7 +2,10 @@ package net.kimleo.rec.v2.accessor.lexer;
 
 import net.kimleo.rec.Pair;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,37 +20,31 @@ public class Lexer {
         final Pair<List<FieldType>, Integer> lex = lex(fields);
         final List<FieldType> accessors = lex.getFirst();
         final Integer leastCapacity = lex.getSecond();
-        final Iterable<FieldType> reversedAccessors = reversed(accessors);
-        boolean reversed = false;
-        int index = 0;
-        for (FieldType accessor : accessors) {
-            if (accessor instanceof FieldName) {
-                accessorMap.put(((FieldName) accessor).getName(), index);
-                index++;
-            } else if (accessor instanceof Padding) {
-                index += ((Padding) accessor).getSize();
-            } else if (accessor instanceof Placeholder) {
-                    reversed = true;
-                break;
-            }
-        }
-
-        index = -1;
+        boolean reversed = buildFieldMaps(accessorMap, accessors, 0, 1);
 
         if (reversed) {
-            for (FieldType accessor : reversedAccessors) {
-                if (accessor instanceof FieldName) {
-                    accessorMap.put(((FieldName) accessor).getName(), index);
-                    index--;
-                } else if (accessor instanceof Padding) {
-                    index -= ((Padding) accessor).getSize();
-                } else if (accessor instanceof Placeholder) {
-                    break;
-                }
-            }
+            buildFieldMaps(accessorMap, reversed(accessors), -1,-1);
         }
 
         return new Pair<>(accessorMap, leastCapacity);
+    }
+
+    private static boolean buildFieldMaps(Map<String, Integer> accessorMap,
+                                          Iterable<FieldType> accessors,
+                                          int index, int factor) {
+        boolean reversed = false;
+        for (FieldType accessor : accessors) {
+            if (accessor instanceof FieldName) {
+                accessorMap.put(((FieldName) accessor).getName(), index);
+                index += factor;
+            } else if (accessor instanceof Padding) {
+                index += factor * ((Padding) accessor).getSize();
+            } else if (accessor instanceof Placeholder) {
+                reversed = true;
+                break;
+            }
+        }
+        return reversed;
     }
 
     public static Pair<List<FieldType>, Integer> lex(String[] fields) {

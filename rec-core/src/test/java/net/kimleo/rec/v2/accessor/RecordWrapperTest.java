@@ -11,7 +11,8 @@ import static org.junit.Assert.assertTrue;
 public class RecordWrapperTest {
     @Test
     public void shouldBuildMapPairSuccessfully() throws Exception {
-        Pair<Map<String, Integer>, Integer> pair = buildFieldMapPair("name", "age", "...", "email", "{1}", "comment");
+        Pair<Map<String, Integer>, Integer> pair = buildFieldMapPair(
+                "name", "age", "...", "email", "{1}", "comment");
 
         Map<String, Integer> map1 = pair.getFirst();
 
@@ -21,7 +22,8 @@ public class RecordWrapperTest {
 
         assertTrue(pair.getSecond() == 3);
 
-        Pair<Map<String, Integer>, Integer> pair2 = buildFieldMapPair("hello", "{3}", "world", "...", "is", "{12}", "beep", "{6}", "end");
+        Pair<Map<String, Integer>, Integer> pair2 = buildFieldMapPair(
+                "hello", "{3}", "world", "...", "is", "{12}", "beep", "{6}", "end");
         Map<String, Integer> map2 = pair2.getFirst();
 
         assertTrue(map2.get("hello") == 0);

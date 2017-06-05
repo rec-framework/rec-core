@@ -14,6 +14,8 @@ import static net.kimleo.rec.util.Sys.die;
 public class App {
 
     private final static Logger LOGGER = LogManager.logger("RecApplication");
+    public static final String MSG_NO_SIZE_SPECIFIED =
+            "Cannot infer binary file column size, please specify one.";
 
     public static void main(String[] args) throws Exception {
         LOGGER.info("Application started");
@@ -29,34 +31,39 @@ public class App {
         }
 
         if (args.length >= 2) {
-            String command = args[0];
-            switch (command) {
-                case "js":
-                case "script":
-                    execute(args[1]);
-                    break;
-                case "dump":
-                    String fileName = args[1];
-                    File binFile = new File(fileName);
-                    int size;
-                    if (args.length == 3) {
-                        size = Integer.parseInt(args[2]);
-                    } else {
-                        size = inferSizeFromFileName(fileName);
-                    }
-                    Records.dump(binFile, size);
-                    break;
-            }
+            dispatch(args);
         }
 
         LOGGER.info("Application ended");
+    }
+
+    private static void dispatch(String[] args) throws Exception {
+        String command = args[0];
+        switch (command) {
+            case "js":
+            case "script":
+                execute(args[1]);
+                break;
+            case "dump":
+                String fileName = args[1];
+                File binFile = new File(fileName);
+                int size;
+                if (args.length == 3) {
+                    size = Integer.parseInt(args[2]);
+                } else {
+                    size = inferSizeFromFileName(fileName);
+                }
+                Records.dump(binFile, size);
+                break;
+        }
     }
 
     private static int inferSizeFromFileName(String fileName) {
         return Integer.parseInt(
                 Arrays.stream(fileName.split("\\."))
                         .findFirst()
-                        .orElseThrow(() -> new InitializationException("Cannot infer binary file column size, please specify one.")));
+                        .orElseThrow(() ->
+                                new InitializationException(MSG_NO_SIZE_SPECIFIED)));
     }
 
     private static void execute(String fileName) throws Exception {

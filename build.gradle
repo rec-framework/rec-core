@@ -1,3 +1,10 @@
+
 allprojects {
     version = '0.2.1'
+    apply plugin: 'checkstyle'
+    apply plugin: 'jacoco'
+
+    checkstyle {
+        configFile = file('../config/checkstyle/checkstyle.xml')
+    }
 }

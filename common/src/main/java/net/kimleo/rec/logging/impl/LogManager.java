@@ -24,14 +24,7 @@ public class LogManager {
 
     private LogManager() {
 
-        Properties properties = new Properties();
-        try {
-            InputStream ins = getClass().getClassLoader().getResourceAsStream("logging.properties");
-            properties.load(ins);
-        } catch (IOException e) {
-            throw new InitializationException("Unexpected exception when loading logger configs", e);
-        }
-
+        Properties properties = initializeProperties();
         try {
             level = LoggingLevel.valueOf(properties.getProperty("log.level", "INFO"));
             formatter = (LogFormatter) Class.forName(
@@ -41,6 +34,17 @@ public class LogManager {
             throw new InitializationException("Error when initialize LogManager", ex);
         }
         loggers = new LinkedHashMap<>();
+    }
+
+    private Properties initializeProperties() {
+        Properties properties = new Properties();
+        try {
+            InputStream ins = getClass().getClassLoader().getResourceAsStream("logging.properties");
+            properties.load(ins);
+        } catch (IOException e) {
+            throw new InitializationException("Unexpected exception when loading logger configs", e);
+        }
+        return properties;
     }
 
     private String getLoggingFile(Properties properties) {

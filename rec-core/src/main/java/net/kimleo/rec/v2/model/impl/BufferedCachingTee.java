@@ -65,10 +65,13 @@ public class BufferedCachingTee implements Tee {
             buffer.limit(writePos).position(0);
             byte[] bytes = new byte[writePos];
             buffer.get(bytes);
-            Files.newByteChannel(tempFile, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING).write(ByteBuffer.wrap(bytes));
+            Files.newByteChannel(tempFile,
+                    StandardOpenOption.WRITE,
+                    StandardOpenOption.TRUNCATE_EXISTING).write(ByteBuffer.wrap(bytes));
             buffer.limit(original);
         } catch (IOException e) {
-            throw new ResourceAccessException(String.format("Cannot access temp file: [%s]", tempFile.getFileName()), e);
+            throw new ResourceAccessException(String.format("Cannot access temp file: [%s]",
+                    tempFile.getFileName()), e);
         }
     }
 

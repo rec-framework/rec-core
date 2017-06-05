@@ -20,7 +20,8 @@ public class MergeIteratorTest {
     @Test
     public void shouldMerge() throws Exception {
 
-        MergeIterator<Integer> merged = new MergeIterator<>(first.iterator(), second.iterator(), Integer::compareTo);
+        MergeIterator<Integer> merged = new MergeIterator<>(
+                first.iterator(), second.iterator(), Integer::compareTo);
 
         ArrayList<Integer> ints = new ArrayList<>();
 
