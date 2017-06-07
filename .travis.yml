@@ -1,8 +1,16 @@
 language: java
 jdk:
   - oraclejdk8
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database test;' -U postgres
 script:
   - ./gradlew clean check build 
   - ./gradlew clean fatJar 
-  - ./testjs.sh
+  - ./dependency.sh
+  - ./rec rec-core/src/test/resources/test.js
   - ./rec dump rec-core/src/test/resources/caching.bin.test 3
+  - psql -f example/script/test.sql test -U postgres
+  - ./rec example/db.js
+  - cat logs/*
