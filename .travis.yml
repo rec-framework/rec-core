@@ -2,7 +2,7 @@ language: java
 jdk:
   - oraclejdk8
 script:
-  - gradle clean check build -x checkstyleMain -x checkstyleTest
-  - gradle clean fatJar -x checkstyleMain -x checkstyleTest
+  - ./gradlew clean check build 
+  - ./gradlew clean fatJar 
   - ./testjs.sh
   - ./rec dump rec-core/src/test/resources/caching.bin.test 3
