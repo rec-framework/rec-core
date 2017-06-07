@@ -9,8 +9,6 @@ import org.mozilla.javascript.commonjs.module.RequireBuilder;
 import org.mozilla.javascript.commonjs.module.provider.SoftCachingModuleScriptProvider;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.Reader;
 
 import static org.mozilla.javascript.Context.VERSION_1_8;
 

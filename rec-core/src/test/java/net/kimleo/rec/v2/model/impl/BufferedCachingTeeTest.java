@@ -7,7 +7,7 @@ import java.io.File;
 import java.net.URL;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class BufferedCachingTeeTest {
     private int sum = 0;

@@ -11,7 +11,10 @@ public class DefaultLogger implements Logger {
     private final LogFormatter logFormatter;
     private final LogAppender appender;
 
-    public DefaultLogger(String name, LoggingLevel loggingLevel, LogFormatter logFormatter, LogAppender appender) {
+    public DefaultLogger(String name,
+                         LoggingLevel loggingLevel,
+                         LogFormatter logFormatter,
+                         LogAppender appender) {
         this.name = name;
         this.loggingLevel = loggingLevel;
         this.logFormatter = logFormatter;

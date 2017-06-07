@@ -3,7 +3,9 @@ package net.kimleo.rec.logging.impl;
 import net.kimleo.rec.exception.InitializationException;
 import net.kimleo.rec.logging.LogAppender;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -17,15 +19,26 @@ public class PlainFileAppender implements LogAppender {
             if (!logsDir.exists()) {
                 logsDir.mkdir();
             }
-            this.writer = new PrintWriter(Files.newBufferedWriter(Paths.get(logsDir.getName(), file.getName())));
-
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                writer.flush();
-                writer.close();
-            }));
+            this.writer = writer(file, logsDir);
+            closeOnShutdown(writer);
         } catch (IOException e) {
-            throw new InitializationException("Unable to initialize a file appender on: [" + file.getName() + "]", e);
+            throw new InitializationException(
+                    String.format("Unable to initialize a file appender on: [%s]",
+                            file.getName()), e);
         }
+    }
+
+    private void closeOnShutdown(final PrintWriter writer) {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            writer.flush();
+            writer.close();
+        }));
+    }
+
+    private PrintWriter writer(File file, File logsDir) throws IOException {
+        return new PrintWriter(
+                Files.newBufferedWriter(
+                        Paths.get(logsDir.getName(), file.getName())));
     }
 
     @Override
