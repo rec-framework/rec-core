@@ -153,7 +153,7 @@ public class Rec {
         return new CollectTee(collect);
     }
 
-    public static Tee unique(String... keys) {
+    public static Tee<Mapped<String>> unique(String... keys) {
         HashSet<List<String>> sets = new HashSet<>();
 
         return record -> {
@@ -173,7 +173,7 @@ public class Rec {
         };
     }
 
-    public static class StatefulTee implements Tee {
+    public static class StatefulTee<T> implements Tee<T> {
         private final State state;
         private final Function function;
 
@@ -183,7 +183,7 @@ public class Rec {
         }
 
         @Override
-        public Mapped<String> emit(Mapped<String> record) {
+        public T emit(T record) {
             synchronized (state) {
                 Object value = state.get();
                 Object result = function.call(context,

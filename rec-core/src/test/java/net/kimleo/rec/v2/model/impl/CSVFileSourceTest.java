@@ -1,5 +1,6 @@
 package net.kimleo.rec.v2.model.impl;
 
+import net.kimleo.rec.concept.Mapped;
 import net.kimleo.rec.sepval.parser.ParseConfig;
 import net.kimleo.rec.v2.model.Target;
 import org.junit.Test;
@@ -20,12 +21,12 @@ public class CSVFileSourceTest {
         File file = new File(resource.toURI());
         CSVFileSource source = new CSVFileSource(file, "id, name, dob, illegal", ParseConfig.DEFAULT);
 
-        CollectTee collector = new CollectTee(new ArrayList<>());
+        CollectTee<Mapped<String>> collector = new CollectTee<>(new ArrayList<>());
         HashSet<String> strings = new HashSet<>();
 
-        ItemCounterTee counter = new ItemCounterTee(it -> true);
+        ItemCounterTee<Mapped<String>> counter = new ItemCounterTee<>(it -> true);
 
-        Target target = record ->
+        Target<Mapped<String>> target = record ->
                 strings.add(String.format("%s - %s", record.get("id"), record.get("name")));
         source.tee(counter).to(target.tee(collector));
 

@@ -6,20 +6,20 @@ import net.kimleo.rec.v2.model.Tee;
 
 import java.util.Collection;
 
-public class CollectTee implements Tee {
-    private final Collection<Mapped<String>> collection;
+public class CollectTee<T> implements Tee<T> {
+    private final Collection<T> collection;
 
 
-    public CollectTee(Collection<Mapped<String>> collection) {
+    public CollectTee(Collection<T> collection) {
         this.collection = collection;
     }
 
-    public Collection<Mapped<String>> collect() {
+    public Collection<T> collect() {
         return collection;
     }
 
     @Override
-    public Mapped<String> emit(Mapped<String> record) {
+    public T emit(T record) {
         collection.add(record);
         return record;
     }

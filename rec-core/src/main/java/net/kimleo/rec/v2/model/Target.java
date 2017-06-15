@@ -1,15 +1,13 @@
 package net.kimleo.rec.v2.model;
 
-import net.kimleo.rec.concept.Mapped;
+public interface Target<T> {
+    void put(T record);
 
-public interface Target {
-    void put(Mapped<String> record);
-
-    default Target tee(Tee tee) {
+    default Target<T> tee(Tee<T> tee) {
         return record -> this.put(tee.emit(record));
     }
 
-    default void putAll(Source source) {
+    default void putAll(Source<T> source) {
         source.stream().forEach(this::put);
     }
 

@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.stream.Stream;
 
-public class CSVFileSource implements Source {
+public class CSVFileSource implements Source<Mapped<String>> {
 
     private final Stream<String> lines;
     private final Accessor<String> accessor;
