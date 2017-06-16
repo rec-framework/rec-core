@@ -4,10 +4,10 @@ import net.kimleo.rec.concept.Mapped;
 
 import java.util.stream.Stream;
 
-public interface Tee {
-    Mapped<String> emit(Mapped<String> record);
+public interface Tee<T> {
+    T emit(T record);
 
-    default Source source() {
+    default Source<T> source() {
         return Source.from(Stream.empty());
     }
     default void to(Target target) {

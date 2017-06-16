@@ -22,7 +22,7 @@ import java.util.stream.StreamSupport;
 import static net.kimleo.rec.v2.utils.Records.decode;
 import static net.kimleo.rec.v2.utils.Records.encode;
 
-public class BufferedCachingTee implements Tee {
+public class BufferedCachingTee implements Tee<Mapped<String>> {
 
     private static final Logger LOGGER = LogManager.logger(BufferedCachingTee.class.getName());
 
@@ -54,7 +54,7 @@ public class BufferedCachingTee implements Tee {
     }
 
     @Override
-    public Source source() {
+    public Source<Mapped<String>> source() {
         persist();
         return new BufferedCachingSource(this);
     }
@@ -75,7 +75,7 @@ public class BufferedCachingTee implements Tee {
         }
     }
 
-    static class BufferedCachingSource implements Source {
+    static class BufferedCachingSource implements Source<Mapped<String>> {
 
         private final BufferedCachingTee tee;
         private final ByteBuffer buffer;

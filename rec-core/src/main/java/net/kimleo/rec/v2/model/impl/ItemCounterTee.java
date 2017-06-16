@@ -5,18 +5,18 @@ import net.kimleo.rec.v2.model.Tee;
 
 import java.util.function.Predicate;
 
-public class ItemCounterTee implements Tee {
+public class ItemCounterTee<T> implements Tee<T> {
 
-    private final Predicate<Mapped<String>> predicate;
+    private final Predicate<T> predicate;
     private int count;
 
-    public ItemCounterTee(Predicate<Mapped<String>> predicate) {
+    public ItemCounterTee(Predicate<T> predicate) {
         this.predicate = predicate;
         this.count = 0;
     }
 
     @Override
-    public Mapped<String> emit(Mapped<String> record) {
+    public T emit(T record) {
         if(predicate.test(record)) {
             count ++;
         }

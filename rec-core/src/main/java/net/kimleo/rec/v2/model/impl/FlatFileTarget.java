@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.stream.Collectors;
 
-public class FlatFileTarget implements Target, Closeable {
+public class FlatFileTarget implements Target<Mapped<String>>, Closeable {
 
     private final PrintWriter writer;
 
@@ -31,7 +31,7 @@ public class FlatFileTarget implements Target, Closeable {
     }
 
     @Override
-    public void putAll(Source source) {
+    public void putAll(Source<Mapped<String>> source) {
         source.stream().forEach(this::put);
         writer.flush();
     }

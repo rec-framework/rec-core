@@ -5,16 +5,16 @@ import net.kimleo.rec.v2.model.Tee;
 
 import java.util.function.Function;
 
-public class TransformTee implements Tee{
+public class TransformTee<T> implements Tee<T>{
 
-    private final Function<Mapped<String>, Mapped<String>> transformer;
+    private final Function<T, T> transformer;
 
-    public TransformTee(Function<Mapped<String>, Mapped<String>> transformer) {
+    public TransformTee(Function<T, T> transformer) {
         this.transformer = transformer;
     }
 
     @Override
-    public Mapped<String> emit(Mapped<String> record) {
+    public T emit(T record) {
         return transformer.apply(record);
     }
 }

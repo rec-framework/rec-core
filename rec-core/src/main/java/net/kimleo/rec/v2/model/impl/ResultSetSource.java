@@ -14,7 +14,7 @@ import java.util.stream.StreamSupport;
 
 import static java.lang.String.format;
 
-public class ResultSetSource implements Source {
+public class ResultSetSource implements Source<Mapped<String>> {
     private final ResultSet rs;
     Logger LOGGER = LogManager.logger(ResultSetSource.class.getName());
 

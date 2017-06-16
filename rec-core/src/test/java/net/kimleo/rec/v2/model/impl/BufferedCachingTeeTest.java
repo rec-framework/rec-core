@@ -1,5 +1,6 @@
 package net.kimleo.rec.v2.model.impl;
 
+import net.kimleo.rec.concept.Mapped;
 import net.kimleo.rec.sepval.parser.ParseConfig;
 import org.junit.Test;
 
@@ -26,7 +27,7 @@ public class BufferedCachingTeeTest {
 
         assertThat(sum, is(1333248)); // 8 * 166656
 
-        ItemCounterTee counter = new ItemCounterTee(it -> true);
+        ItemCounterTee<Mapped<String>> counter = new ItemCounterTee<>(it -> true);
 
         // Re-enterrable
         catching.source().tee(counter).to((record) -> {});
