@@ -17,6 +17,14 @@ public class CSVFileSource implements Source<Mapped<String>> {
     private final Stream<String> lines;
     private final Accessor<String> accessor;
     private final SimpleParser csvParser;
+    private final int skipLimit;
+
+    private CSVFileSource(Stream<String> lines, Accessor<String> accessor, SimpleParser csvParser, int skipLimit) {
+        this.lines = lines;
+        this.accessor = accessor;
+        this.csvParser = csvParser;
+        this.skipLimit = skipLimit;
+    }
 
     public CSVFileSource(File file, String accessors, ParseConfig config) {
         accessor = new Accessor<>(new SimpleParser().parse(accessors).getValues().toArray(new String[]{}));
@@ -26,10 +34,18 @@ public class CSVFileSource implements Source<Mapped<String>> {
         } catch (IOException e) {
             throw new ResourceAccessException("CSV file cannot be found: [" + file.getName() + "]", e);
         }
+        skipLimit = 0;
     }
 
     @Override
     public Stream<Mapped<String>> stream() {
-        return lines.map(line -> accessor.of(csvParser.parse(line)));
+        return lines.skip(skipLimit).map(line -> {
+            return accessor.of(csvParser.parse(line));
+        });
+    }
+
+    @Override
+    public Source<Mapped<String>> skip(int n) {
+        return new CSVFileSource(lines, accessor, csvParser, n);
     }
 }

@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 public class PersistenceTest {
@@ -24,8 +23,7 @@ public class PersistenceTest {
                 (CountBasedExecutionContext)Persistence.loadObjectFromFile("file.out");
 
         assertThat(loadedContext.count(), is(1));
-        assertThat(loadedContext.baseCount(), is(15));
-        assertFalse(loadedContext.ready());
+        assertThat(loadedContext.state(), is(15));
 
         Files.delete(Paths.get("file.out"));
     }

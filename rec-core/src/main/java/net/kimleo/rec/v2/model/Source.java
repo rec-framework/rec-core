@@ -15,6 +15,10 @@ public interface Source<T> {
         return () -> this.stream().filter(predicate);
     }
 
+    default Source<T> skip(int n) {
+        return from(stream().skip(n));
+    }
+
     static <T> Source<T> from(Stream<T> records) {
         return () -> records;
     }

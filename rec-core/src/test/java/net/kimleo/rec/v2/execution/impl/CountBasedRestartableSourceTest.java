@@ -29,7 +29,6 @@ public class CountBasedRestartableSourceTest {
     }
 
     @Test
-    @Ignore
     public void restartabilityTest() throws Exception {
         Rec.setExecutionContext(new CountBasedExecutionContext(4));
         Scripting.runfile(new File("src/test/resources/restartability.js"), "restartability.js");

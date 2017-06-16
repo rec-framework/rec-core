@@ -30,6 +30,11 @@ public final class CountBasedExecutionContext implements ExecutionContext, Seria
     }
 
     @Override
+    public int state() {
+        return baseCount;
+    }
+
+    @Override
     public void commit() {
         count ++;
     }
@@ -44,20 +49,16 @@ public final class CountBasedExecutionContext implements ExecutionContext, Seria
             LOGGER.error(format("Unable to save execution context and the count is %d", count));
             throw new ResourceAccessException("Cannot persist execution context", e);
         }
-        throw new ResourceAccessException(format("Need retry on count %d", count), causedBy);
+        throw new ResourceAccessException(format("Need retry on count %d", baseCount + count), causedBy);
     }
 
     @Override
     public ExecutionContext restart() {
-        return new CountBasedExecutionContext(this.count);
+        return new CountBasedExecutionContext(count + baseCount);
     }
 
     public int count() {
         return count;
-    }
-
-    public int baseCount() {
-        return baseCount;
     }
 
     public static CountBasedExecutionContext initialContext() {

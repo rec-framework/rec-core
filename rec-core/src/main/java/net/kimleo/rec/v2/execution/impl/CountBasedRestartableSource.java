@@ -24,11 +24,15 @@ public class CountBasedRestartableSource<T> implements RestartableSource<T> {
     }
 
     @Override
+    public Source<T> skip(int n) {
+        return source.skip(n);
+    }
+
+    @Override
     public Stream<T> stream() {
-        return source.stream().filter(s -> {
-            boolean ready = context.ready();
+        return source.skip(context.state()).stream().map(it -> {
             context.commit();
-            return ready;
+            return it;
         });
     }
 

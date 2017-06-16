@@ -25,7 +25,7 @@ public class CollectTee<T> implements Tee<T> {
     }
 
     @Override
-    public Source source() {
+    public Source<T> source() {
         return Source.from(collection.stream());
     }
 }
