@@ -19,7 +19,10 @@ public class CSVFileSource implements Source<Mapped<String>> {
     private final SimpleParser csvParser;
     private final int skipLimit;
 
-    private CSVFileSource(Stream<String> lines, Accessor<String> accessor, SimpleParser csvParser, int skipLimit) {
+    private CSVFileSource(Stream<String> lines,
+                          Accessor<String> accessor,
+                          SimpleParser csvParser,
+                          int skipLimit) {
         this.lines = lines;
         this.accessor = accessor;
         this.csvParser = csvParser;

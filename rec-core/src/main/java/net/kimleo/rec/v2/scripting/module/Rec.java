@@ -149,7 +149,7 @@ public class Rec {
     }
 
     public static <T> Source<T> restartable(Source<T> source) {
-        return new CountBasedRestartableSource<T>(source,
+        return new CountBasedRestartableSource<>(source,
                 enableRetry ? executionContext : new CountBasedExecutionContext(0));
     }
 
