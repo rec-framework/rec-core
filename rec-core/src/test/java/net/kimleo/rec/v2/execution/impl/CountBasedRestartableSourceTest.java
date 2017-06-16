@@ -1,8 +1,12 @@
 package net.kimleo.rec.v2.execution.impl;
 
 import net.kimleo.rec.v2.model.Source;
+import net.kimleo.rec.v2.scripting.Scripting;
+import net.kimleo.rec.v2.scripting.module.Rec;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.stream.Stream;
 
 public class CountBasedRestartableSourceTest {
@@ -22,5 +26,12 @@ public class CountBasedRestartableSourceTest {
                 CountBasedRestartableSource.from(stream, new CountBasedExecutionContext(2));
 
         restartable.stream().findFirst().get().equals(3);
+    }
+
+    @Test
+    @Ignore
+    public void restartabilityTest() throws Exception {
+        Rec.setExecutionContext(new CountBasedExecutionContext(4));
+        Scripting.runfile(new File("src/test/resources/restartability.js"), "restartability.js");
     }
 }

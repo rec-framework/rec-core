@@ -188,10 +188,14 @@ public class Rec {
     public static void setExecutionContext(String retryfile) throws IOException, ClassNotFoundException {
         LOGGER.info(format("Loading execution context from %s", retryfile));
         if (retryfile != null && !retryfile.isEmpty()) {
-            Rec.enableRetry = true;
-            Rec.executionContext = ((ExecutionContext) Persistence.loadObjectFromFile(retryfile)).restart();
+            setExecutionContext(((ExecutionContext) Persistence.loadObjectFromFile(retryfile)).restart());
             LOGGER.info(format("Loaded execution context %s", executionContext));
         }
+    }
+
+    public static void setExecutionContext(ExecutionContext context) throws IOException, ClassNotFoundException {
+        Rec.enableRetry = true;
+        Rec.executionContext = context;
     }
 
     public static class StatefulTee<T> implements Tee<T> {
