@@ -4,6 +4,9 @@ import net.kimleo.rec.concept.Mapped;
 import net.kimleo.rec.logging.Logger;
 import net.kimleo.rec.logging.impl.LogManager;
 import net.kimleo.rec.sepval.parser.ParseConfig;
+import net.kimleo.rec.v2.execution.ExecutionContext;
+import net.kimleo.rec.v2.execution.impl.CountBasedExecutionContext;
+import net.kimleo.rec.v2.execution.impl.CountBasedRestartableSource;
 import net.kimleo.rec.v2.model.Source;
 import net.kimleo.rec.v2.model.Target;
 import net.kimleo.rec.v2.model.Tee;
@@ -15,10 +18,12 @@ import net.kimleo.rec.v2.model.impl.ItemCounterTee;
 import net.kimleo.rec.v2.model.impl.ResultSetSource;
 import net.kimleo.rec.v2.scripting.model.JSRecord;
 import net.kimleo.rec.v2.scripting.model.State;
+import net.kimleo.rec.v2.utils.Persistence;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.util.Arrays;
@@ -36,6 +41,8 @@ public class Rec {
     private static final Logger LOGGER = LogManager.logger(Rec.class.getName());
     private static String scriptPath;
     private static Context context;
+    private static ExecutionContext executionContext;
+    private static boolean enableRetry;
 
 
     public static void initializeContext(Context context) {
@@ -141,6 +148,11 @@ public class Rec {
         return new StatefulTee(state, function);
     }
 
+    public static <T> Source<T> restartable(Source<T> source) {
+        return new CountBasedRestartableSource<T>(source,
+                enableRetry ? executionContext : new CountBasedExecutionContext(0));
+    }
+
     private static Scriptable toScriptable(Object state) {
         return state instanceof Scriptable ? (Scriptable) state : null;
     }
@@ -171,6 +183,15 @@ public class Rec {
             }
             return record;
         };
+    }
+
+    public static void setExecutionContext(String retryfile) throws IOException, ClassNotFoundException {
+        LOGGER.info(format("Loading execution context from %s", retryfile));
+        if (retryfile != null && !retryfile.isEmpty()) {
+            Rec.enableRetry = true;
+            Rec.executionContext = ((ExecutionContext) Persistence.loadObjectFromFile(retryfile)).restart();
+            LOGGER.info(format("Loaded execution context %s", executionContext));
+        }
     }
 
     public static class StatefulTee<T> implements Tee<T> {

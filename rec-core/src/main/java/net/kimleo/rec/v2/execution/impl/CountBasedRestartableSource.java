@@ -1,6 +1,5 @@
 package net.kimleo.rec.v2.execution.impl;
 
-import net.kimleo.rec.concept.Mapped;
 import net.kimleo.rec.v2.execution.ExecutionContext;
 import net.kimleo.rec.v2.execution.RestartableSource;
 import net.kimleo.rec.v2.model.Source;

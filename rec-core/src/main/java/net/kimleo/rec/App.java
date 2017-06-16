@@ -4,6 +4,7 @@ import net.kimleo.rec.exception.InitializationException;
 import net.kimleo.rec.logging.Logger;
 import net.kimleo.rec.logging.impl.LogManager;
 import net.kimleo.rec.v2.scripting.Scripting;
+import net.kimleo.rec.v2.scripting.module.Rec;
 import net.kimleo.rec.v2.utils.Records;
 
 import java.io.File;
@@ -38,6 +39,10 @@ public class App {
     }
 
     private static void dispatch(String[] args) throws Exception {
+        int retry = Arrays.asList(args).indexOf("--retry");
+        if (retry > 0 && args.length >= retry) {
+            Rec.setExecutionContext(args[retry + 1]);
+        }
         String command = args[0];
         switch (command) {
             case "js":

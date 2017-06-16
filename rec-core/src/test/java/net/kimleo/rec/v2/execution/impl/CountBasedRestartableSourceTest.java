@@ -11,15 +11,16 @@ public class CountBasedRestartableSourceTest {
         Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5);
         Source<Integer> restartable = CountBasedRestartableSource.from(stream);
 
-        restartable.stream().findFirst().ifPresent(it -> it.equals(1));
+        restartable.stream().findFirst().get().equals(1);
     }
 
     @Test
     public void shouldReturnLastRun() throws Exception {
         Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5);
 
-        Source<Integer> restartable = CountBasedRestartableSource.from(stream, new CountBasedExecutionContext(2));
+        Source<Integer> restartable =
+                CountBasedRestartableSource.from(stream, new CountBasedExecutionContext(2));
 
-        restartable.stream().findFirst().ifPresent(it -> it.equals(1));
+        restartable.stream().findFirst().get().equals(3);
     }
 }
