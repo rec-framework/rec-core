@@ -1,2 +1,2 @@
 
-module.exports = net.kimleo.rec.v2.scripting.module.Rec;
+module.exports = context.isNative() ? require("rec/native") : require("rec/cloud");

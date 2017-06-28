@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -19,7 +20,8 @@ public class CSVFileSourceTest {
         URL resource = this.getClass().getClassLoader().getResource("CSVFileSource.csv");
         assert resource != null;
         File file = new File(resource.toURI());
-        CSVFileSource source = new CSVFileSource(file, "id, name, dob, illegal", ParseConfig.DEFAULT);
+        CSVFileSource source = new CSVFileSource(Files.newBufferedReader(file.toPath()),
+                "id, name, dob, illegal", ParseConfig.DEFAULT);
 
         CollectTee<Mapped<String>> collector = new CollectTee<>(new ArrayList<>());
         HashSet<String> strings = new HashSet<>();

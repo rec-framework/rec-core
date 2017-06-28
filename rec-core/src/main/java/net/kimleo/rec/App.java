@@ -4,7 +4,6 @@ import net.kimleo.rec.exception.InitializationException;
 import net.kimleo.rec.logging.Logger;
 import net.kimleo.rec.logging.impl.LogManager;
 import net.kimleo.rec.v2.scripting.Scripting;
-import net.kimleo.rec.v2.scripting.module.Rec;
 import net.kimleo.rec.v2.utils.Records;
 
 import java.io.File;
@@ -28,7 +27,7 @@ public class App {
         }
 
         if (args.length == 1) {
-            execute(args[0]);
+            execute(args[0], false, "");
         }
 
         if (args.length >= 2) {
@@ -39,15 +38,17 @@ public class App {
     }
 
     private static void dispatch(String[] args) throws Exception {
+        String retryFile = null;
         int retry = Arrays.asList(args).indexOf("--retry");
         if (retry > 0 && args.length >= retry) {
-            Rec.setExecutionContext(args[retry + 1]);
+
+            retryFile = args[retry + 1];
         }
         String command = args[0];
         switch (command) {
             case "js":
             case "script":
-                execute(args[1]);
+                execute(args[1], retryFile != null, retryFile);
                 break;
             case "dump":
                 String fileName = args[1];
@@ -71,10 +72,10 @@ public class App {
                                 new InitializationException(MSG_NO_SIZE_SPECIFIED)));
     }
 
-    private static void execute(String fileName) throws Exception {
+    private static void execute(String fileName, boolean b, String retryFile) throws Exception {
         File file = new File(fileName);
 
         if (!file.exists()) die("File %s not found!", fileName);
-        Scripting.runfile(file, fileName);
+        Scripting.runfile(file, fileName, b, retryFile);
     }
 }
