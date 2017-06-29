@@ -14,6 +14,7 @@ var createCommonObject = function (rec) {
         , stateful: function (obj, fn) rec.stateful(obj, fn)
         , collect: function (col) rec.collect(col)
         , unique: function (keys) rec.unique.apply(rec, arguments)
+        , reactive: function () rec.reactive()
     };
 };
 

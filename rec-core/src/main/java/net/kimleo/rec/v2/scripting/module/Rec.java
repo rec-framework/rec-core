@@ -5,27 +5,17 @@ import net.kimleo.rec.logging.Logger;
 import net.kimleo.rec.logging.impl.LogManager;
 import net.kimleo.rec.sepval.parser.ParseConfig;
 import net.kimleo.rec.v2.execution.ExecutionContext;
-import net.kimleo.rec.v2.execution.impl.NativeExecutionContext;
-import net.kimleo.rec.v2.execution.impl.CountBasedRestartableSource;
 import net.kimleo.rec.v2.model.Source;
 import net.kimleo.rec.v2.model.Target;
 import net.kimleo.rec.v2.model.Tee;
-import net.kimleo.rec.v2.model.impl.BufferedCachingTee;
-import net.kimleo.rec.v2.model.impl.CSVFileSource;
-import net.kimleo.rec.v2.model.impl.CollectTee;
-import net.kimleo.rec.v2.model.impl.FlatFileTarget;
-import net.kimleo.rec.v2.model.impl.ItemCounterTee;
-import net.kimleo.rec.v2.model.impl.ResultSetSource;
+import net.kimleo.rec.v2.model.impl.*;
 import net.kimleo.rec.v2.scripting.model.JSRecord;
 import net.kimleo.rec.v2.scripting.model.State;
-import net.kimleo.rec.v2.utils.Persistence;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
 
-import java.io.IOException;
 import java.io.Reader;
-import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.Collection;
@@ -41,7 +31,6 @@ import static java.lang.String.format;
 public class Rec {
     private static final Logger LOGGER = LogManager.logger(Rec.class.getName());
     protected Context jsContext;
-    protected ExecutionContext executionContext;
 
     public Rec(ExecutionContext context) {
         this.jsContext = context.jsContext();
@@ -82,7 +71,11 @@ public class Rec {
     public Source csv(Reader reader, String delimiter, String accessors) {
         LOGGER.info(format("Loading csv data with accessors: [%s]", accessors));
         ParseConfig config = new ParseConfig(delimiter.charAt(0));
-        return new CSVFileSource(reader, accessors, config);
+        return new CSVSource(reader, accessors, config);
+    }
+
+    public <T> Source<T> reactive() {
+        return new ReactiveTee<>(null);
     }
 
     // Targets
@@ -114,17 +107,8 @@ public class Rec {
         return new StatefulTee(state, function);
     }
 
-    @Override
-    public String toString() {
-        return "Rec{}";
-    }
-
-    private Scriptable toScriptable(Object state) {
-        return state instanceof Scriptable ? (Scriptable) state : null;
-    }
-
-    public Tee collect(Collection<Mapped<String>> collect) {
-        return new CollectTee(collect);
+    public <T> Tee<T> collect(Collection<T> collect) {
+        return new CollectTee<>(collect);
     }
 
     public Tee<Mapped<String>> unique(String... keys) {
@@ -148,14 +132,14 @@ public class Rec {
     }
 
     public class StatefulTee<T> implements Tee<T> {
-        private final State state;
-        private final Function function;
 
+        private final State state;
+
+        private final Function function;
         StatefulTee(State state, Function function) {
             this.state = state;
             this.function = function;
         }
-
         @Override
         public T emit(T record) {
             synchronized (state) {
@@ -173,6 +157,16 @@ public class Rec {
             LOGGER.info(format("Getting Stateful Tee #[%s]", toString()));
             return state.get();
         }
+
+    }
+
+    @Override
+    public String toString() {
+        return "Rec{}";
+    }
+
+    private Scriptable toScriptable(Object state) {
+        return state instanceof Scriptable ? (Scriptable) state : null;
     }
 
 }

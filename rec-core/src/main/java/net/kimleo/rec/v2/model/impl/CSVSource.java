@@ -10,24 +10,24 @@ import java.io.BufferedReader;
 import java.io.Reader;
 import java.util.stream.Stream;
 
-public class CSVFileSource implements Source<Mapped<String>> {
+public class CSVSource implements Source<Mapped<String>> {
 
     private final BufferedReader reader;
     private final Accessor<String> accessor;
     private final SimpleParser csvParser;
     private final int skipLimit;
 
-    private CSVFileSource(BufferedReader reader,
-                          Accessor<String> accessor,
-                          SimpleParser csvParser,
-                          int skipLimit) {
+    private CSVSource(BufferedReader reader,
+                      Accessor<String> accessor,
+                      SimpleParser csvParser,
+                      int skipLimit) {
         this.reader = reader;
         this.accessor = accessor;
         this.csvParser = csvParser;
         this.skipLimit = skipLimit;
     }
 
-    public CSVFileSource(Reader reader, String accessors, ParseConfig config) {
+    public CSVSource(Reader reader, String accessors, ParseConfig config) {
         accessor = new Accessor<>(new SimpleParser().parse(accessors).getValues().toArray(new String[]{}));
         csvParser = new SimpleParser(config);
         this.reader = new BufferedReader(reader);
@@ -43,6 +43,6 @@ public class CSVFileSource implements Source<Mapped<String>> {
 
     @Override
     public Source<Mapped<String>> skip(int n) {
-        return new CSVFileSource(reader, accessor, csvParser, n);
+        return new CSVSource(reader, accessor, csvParser, n);
     }
 }

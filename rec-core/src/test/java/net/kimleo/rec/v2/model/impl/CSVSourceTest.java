@@ -14,13 +14,13 @@ import java.util.HashSet;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class CSVFileSourceTest {
+public class CSVSourceTest {
     @Test
     public void shouldSuccessfullyParseAStream() throws Exception {
         URL resource = this.getClass().getClassLoader().getResource("CSVFileSource.csv");
         assert resource != null;
         File file = new File(resource.toURI());
-        CSVFileSource source = new CSVFileSource(Files.newBufferedReader(file.toPath()),
+        CSVSource source = new CSVSource(Files.newBufferedReader(file.toPath()),
                 "id, name, dob, illegal", ParseConfig.DEFAULT);
 
         CollectTee<Mapped<String>> collector = new CollectTee<>(new ArrayList<>());

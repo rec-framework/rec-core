@@ -10,7 +10,7 @@ public interface Tee<T> {
     default Source<T> source() {
         return Source.from(Stream.empty());
     }
-    default void to(Target target) {
+    default void to(Target<T> target) {
         source().to(target);
     }
 }
