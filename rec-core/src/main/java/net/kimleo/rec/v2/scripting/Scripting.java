@@ -1,7 +1,7 @@
 package net.kimleo.rec.v2.scripting;
 
 import net.kimleo.rec.v2.execution.impl.NativeExecutionContext;
-import net.kimleo.rec.v2.scripting.module.RecModuleSourceProvider;
+import net.kimleo.rec.v2.scripting.module.NativeModuleSourceProvider;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ScriptableObject;
 import org.mozilla.javascript.commonjs.module.Require;
@@ -30,12 +30,11 @@ public class Scripting {
                 retryFile,
                 ctx);
 
-        javaToJS(executionContext, scope);
-        scope.putConst("context", scope, executionContext);
+        scope.putConst("context", scope, javaToJS(executionContext, scope));
 
         ctx.setLanguageVersion(VERSION_1_8);
         Require require = new RequireBuilder()
-                .setModuleScriptProvider(new SoftCachingModuleScriptProvider(new RecModuleSourceProvider()))
+                .setModuleScriptProvider(new SoftCachingModuleScriptProvider(new NativeModuleSourceProvider()))
                 .createRequire(ctx, scope);
         require.install(scope);
         require.requireMain(ctx, filename);

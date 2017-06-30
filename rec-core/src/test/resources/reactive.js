@@ -1,6 +1,10 @@
 const {println, reactive, csv, file, dummy, target, pred, stateless} = require("rec");
 
 const rxTee = reactive()
+    .tee(stateless(function ({first}) {
+        println(first);
+    }))
+    .skip(1)
     .filter(pred(function ({first}) {
         return first.length > 5
     }));

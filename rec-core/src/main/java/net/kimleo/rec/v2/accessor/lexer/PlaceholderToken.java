@@ -1,9 +1,9 @@
 package net.kimleo.rec.v2.accessor.lexer;
 
-public class Placeholder implements FieldType {
+public class PlaceholderToken implements FieldType {
     private final String name;
 
-    public Placeholder(String name) {
+    public PlaceholderToken(String name) {
         this.name = name;
     }
 
@@ -16,7 +16,7 @@ public class Placeholder implements FieldType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Placeholder that = (Placeholder) o;
+        PlaceholderToken that = (PlaceholderToken) o;
 
         return name != null ? name.equals(that.name) : that.name == null;
     }

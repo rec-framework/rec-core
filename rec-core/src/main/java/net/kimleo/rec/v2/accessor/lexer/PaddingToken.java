@@ -1,9 +1,9 @@
 package net.kimleo.rec.v2.accessor.lexer;
 
-public class Padding implements FieldType {
+public class PaddingToken implements FieldType {
     private final int size;
 
-    public Padding(int size) {
+    public PaddingToken(int size) {
         this.size = size;
     }
 
@@ -16,7 +16,7 @@ public class Padding implements FieldType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Padding padding = (Padding) o;
+        PaddingToken padding = (PaddingToken) o;
 
         return size == padding.size;
     }
