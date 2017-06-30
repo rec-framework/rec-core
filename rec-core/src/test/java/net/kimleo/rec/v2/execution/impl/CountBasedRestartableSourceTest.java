@@ -2,7 +2,7 @@ package net.kimleo.rec.v2.execution.impl;
 
 import net.kimleo.rec.v2.model.Source;
 import net.kimleo.rec.v2.scripting.Scripting;
-import net.kimleo.rec.v2.scripting.module.Rec;
+import net.kimleo.rec.v2.utils.Persistence;
 import org.junit.Test;
 
 import java.io.File;
@@ -30,25 +30,23 @@ public class CountBasedRestartableSourceTest {
         Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5);
 
         Source<Integer> restartable =
-                CountBasedRestartableSource.from(stream, new CountBasedExecutionContext(2));
+                CountBasedRestartableSource.from(stream, new NativeExecutionContext(2));
 
         restartable.stream().findFirst().get().equals(3);
     }
 
     @Test
     public void restartabilityTest() throws Exception {
-        Rec.setExecutionContext(new CountBasedExecutionContext(4));
         Scripting.runfile(new File("src/test/resources/restartability.js"),
-                "restartability.js");
+                "restartability.js", true, "src/test/resources/restartability.retry");
     }
 
     @Test
     public void shouldGenerateRetryFile() throws Exception {
-        Rec.setExecutionContext(CountBasedExecutionContext.initialContext());
         Files.list(Paths.get(".")).filter(path -> path.toString().endsWith(".retry")).forEach(deleteFile());
         try {
             Scripting.runfile(new File("src/test/resources/restartability.js"),
-                    "restartability.js");
+                    "restartability.js", false, "");
             fail();
         } catch (Exception ex) {
             assertTrue(ex instanceof RuntimeException);
@@ -57,6 +55,17 @@ public class CountBasedRestartableSourceTest {
         assertTrue(Files.find(Paths.get("."), 1,
                         (file, attr) -> file.toString().endsWith(".retry"))
                 .count() == 1);
+    }
+
+    @Test
+    public void persisit() throws Exception {
+        NativeExecutionContext context = NativeExecutionContext.initialContext();
+        context.commit();
+        context.commit();
+        context.commit();
+        context.commit();
+        Persistence.saveObjectToFile(context, "default.retry");
+
     }
 
     private Consumer<Path> deleteFile() {

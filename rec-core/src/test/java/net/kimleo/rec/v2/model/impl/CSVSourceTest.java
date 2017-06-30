@@ -7,19 +7,21 @@ import org.junit.Test;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class CSVFileSourceTest {
+public class CSVSourceTest {
     @Test
     public void shouldSuccessfullyParseAStream() throws Exception {
         URL resource = this.getClass().getClassLoader().getResource("CSVFileSource.csv");
         assert resource != null;
         File file = new File(resource.toURI());
-        CSVFileSource source = new CSVFileSource(file, "id, name, dob, illegal", ParseConfig.DEFAULT);
+        CSVSource source = new CSVSource(Files.newBufferedReader(file.toPath()),
+                "id, name, dob, illegal", ParseConfig.DEFAULT);
 
         CollectTee<Mapped<String>> collector = new CollectTee<>(new ArrayList<>());
         HashSet<String> strings = new HashSet<>();

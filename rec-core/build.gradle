@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'jacoco'
 
 repositories {
     mavenCentral()
@@ -20,4 +21,39 @@ dependencies {
     compile project(":rec-sepval")
     compile "org.mozilla:rhino:1.7.7.1"
     testCompile 'junit:junit:4.11'
+    testCompile "org.mockito:mockito-core:2.+"
 }
+
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.83
+            }
+        }
+    }
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['**/scripting/**',
+                              '**/lexer/*Token*',
+                              '**/rec/App**'])
+        })
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml {
+            enabled true
+        }
+
+        html {
+            enabled true
+        }
+    }
+}
+
+
+check.dependsOn jacocoTestCoverageVerification
