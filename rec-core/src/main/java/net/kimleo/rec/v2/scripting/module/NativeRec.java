@@ -57,7 +57,8 @@ public class NativeRec extends Rec {
         if (executionContext.enableRetry()) {
             try {
                 loadRetryContext(executionContext.retryFile());
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                throw new ResourceAccessException("Unable to load restry context", e);
             }
         }
         return new CountBasedRestartableSource<>(source, executionContext);
@@ -67,7 +68,8 @@ public class NativeRec extends Rec {
     private void loadRetryContext(String retryfile) throws IOException, ClassNotFoundException {
         LOGGER.info(format("Loading execution context from %s", retryfile));
         if (retryfile != null && !retryfile.isEmpty()) {
-            NativeExecutionContext executionContext = (NativeExecutionContext) Persistence.loadObjectFromFile(retryfile);
+            NativeExecutionContext executionContext =
+                    (NativeExecutionContext) Persistence.loadObjectFromFile(retryfile);
             executionContext.setJsContext(jsContext);
             executionContext.setScriptPath(scriptPath);
             this.executionContext = (NativeExecutionContext) executionContext.restart();

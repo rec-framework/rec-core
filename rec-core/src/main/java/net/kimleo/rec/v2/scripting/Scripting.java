@@ -15,7 +15,10 @@ import static org.mozilla.javascript.Context.VERSION_1_8;
 import static org.mozilla.javascript.Context.javaToJS;
 
 public class Scripting {
-    public static void runfile(File file, String filename, boolean enableRetry, String retryFile) throws Exception {
+    public static void runfile(File file,
+                               String filename,
+                               boolean enableRetry,
+                               String retryFile) throws Exception {
         Context ctx = Context.enter();
         ctx.putThreadLocal("SCRIPT_PATH", file.getAbsoluteFile().getParent());
 
