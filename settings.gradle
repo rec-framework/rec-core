@@ -1,4 +1,1 @@
-include("common",
-        "rec-sepval",
-        "rec-core")
 rootProject.name = 'Rec the data framework'
