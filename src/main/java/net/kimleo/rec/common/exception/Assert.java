@@ -1,4 +1,4 @@
-package net.kimleo.rec.exception;
+package net.kimleo.rec.common.exception;
 
 import static java.lang.String.format;
 

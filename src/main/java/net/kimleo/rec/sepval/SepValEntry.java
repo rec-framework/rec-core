@@ -1,6 +1,6 @@
 package net.kimleo.rec.sepval;
 
-import net.kimleo.rec.concept.Accessible;
+import net.kimleo.rec.common.concept.Accessible;
 
 import java.util.List;
 

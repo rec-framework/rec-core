@@ -1,6 +1,6 @@
 package net.kimleo.rec.logging.impl;
 
-import net.kimleo.rec.exception.InitializationException;
+import net.kimleo.rec.common.exception.InitializationException;
 import net.kimleo.rec.logging.LogAppender;
 
 import java.io.File;

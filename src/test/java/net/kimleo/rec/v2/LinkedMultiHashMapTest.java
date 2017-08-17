@@ -1,7 +1,7 @@
 package net.kimleo.rec.v2;
 
-import net.kimleo.rec.collection.LinkedMultiHashMap;
-import net.kimleo.rec.collection.MultiMap;
+import net.kimleo.rec.common.collection.LinkedMultiHashMap;
+import net.kimleo.rec.common.collection.MultiMap;
 import org.junit.Test;
 
 import java.util.Arrays;

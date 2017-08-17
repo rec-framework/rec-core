@@ -1,4 +1,4 @@
-package net.kimleo.rec;
+package net.kimleo.rec.common;
 
 public class Pair<K, V> {
     public final K first;

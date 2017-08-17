@@ -1,10 +1,10 @@
 package net.kimleo.rec.v2.model.impl;
 
 import net.kimleo.rec.v2.accessor.Accessor;
-import net.kimleo.rec.concept.Mapped;
+import net.kimleo.rec.common.concept.Mapped;
 import net.kimleo.rec.sepval.parser.ParseConfig;
 import net.kimleo.rec.sepval.parser.SimpleParser;
-import net.kimleo.rec.exception.ResourceAccessException;
+import net.kimleo.rec.common.exception.ResourceAccessException;
 import net.kimleo.rec.v2.model.Source;
 
 import java.io.File;

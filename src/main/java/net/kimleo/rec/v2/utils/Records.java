@@ -1,8 +1,8 @@
 package net.kimleo.rec.v2.utils;
 
-import net.kimleo.rec.Pair;
-import net.kimleo.rec.concept.Mapped;
-import net.kimleo.rec.exception.ResourceAccessException;
+import net.kimleo.rec.common.Pair;
+import net.kimleo.rec.common.concept.Mapped;
+import net.kimleo.rec.common.exception.ResourceAccessException;
 
 import java.io.File;
 import java.io.IOException;

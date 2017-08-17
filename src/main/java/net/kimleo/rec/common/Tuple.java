@@ -1,4 +1,4 @@
-package net.kimleo.rec;
+package net.kimleo.rec.common;
 
 import java.util.Arrays;
 

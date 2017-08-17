@@ -1,7 +1,7 @@
 package net.kimleo.rec.v2.accessor;
 
-import net.kimleo.rec.concept.Accessible;
-import net.kimleo.rec.concept.Mapped;
+import net.kimleo.rec.common.concept.Accessible;
+import net.kimleo.rec.common.concept.Mapped;
 
 import java.util.List;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package net.kimleo.rec.v2.accessor.lexer;
 
-import net.kimleo.rec.Pair;
+import net.kimleo.rec.common.Pair;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

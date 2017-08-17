@@ -1,6 +1,6 @@
 package net.kimleo.rec;
 
-import net.kimleo.rec.exception.InitializationException;
+import net.kimleo.rec.common.exception.InitializationException;
 import net.kimleo.rec.logging.Logger;
 import net.kimleo.rec.logging.impl.LogManager;
 import net.kimleo.rec.v2.scripting.Scripting;

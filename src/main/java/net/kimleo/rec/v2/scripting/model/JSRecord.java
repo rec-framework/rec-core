@@ -1,6 +1,6 @@
 package net.kimleo.rec.v2.scripting.model;
 
-import net.kimleo.rec.concept.Mapped;
+import net.kimleo.rec.common.concept.Mapped;
 import org.mozilla.javascript.Scriptable;
 
 import java.util.List;

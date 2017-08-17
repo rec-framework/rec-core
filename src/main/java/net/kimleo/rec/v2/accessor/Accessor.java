@@ -1,12 +1,12 @@
 package net.kimleo.rec.v2.accessor;
 
-import net.kimleo.rec.Pair;
+import net.kimleo.rec.common.Pair;
 import net.kimleo.rec.v2.accessor.lexer.Lexer;
-import net.kimleo.rec.concept.Accessible;
+import net.kimleo.rec.common.concept.Accessible;
 
 import java.util.Map;
 
-import static net.kimleo.rec.exception.Assert.assertTrue;
+import static net.kimleo.rec.common.exception.Assert.assertTrue;
 
 public class Accessor<T> {
 

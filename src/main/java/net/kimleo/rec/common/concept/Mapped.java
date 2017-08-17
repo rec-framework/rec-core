@@ -1,4 +1,4 @@
-package net.kimleo.rec.concept;
+package net.kimleo.rec.common.concept;
 
 import java.util.List;
 

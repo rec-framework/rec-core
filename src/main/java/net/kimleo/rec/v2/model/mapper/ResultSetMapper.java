@@ -1,6 +1,6 @@
 package net.kimleo.rec.v2.model.mapper;
 
-import net.kimleo.rec.concept.Mapped;
+import net.kimleo.rec.common.concept.Mapped;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;

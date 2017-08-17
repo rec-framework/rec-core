@@ -1,6 +1,6 @@
 package net.kimleo.rec.v2.accessor;
 
-import net.kimleo.rec.Pair;
+import net.kimleo.rec.common.Pair;
 import org.junit.Test;
 
 import java.util.Map;

@@ -1,4 +1,4 @@
-package net.kimleo.rec.collection;
+package net.kimleo.rec.common.collection;
 
 import java.util.Collection;
 import java.util.HashSet;

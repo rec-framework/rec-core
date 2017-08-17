@@ -1,4 +1,4 @@
-package net.kimleo.rec.exception;
+package net.kimleo.rec.common.exception;
 
 public class InitializationException extends RuntimeException {
     public InitializationException(String s, Exception ex) {

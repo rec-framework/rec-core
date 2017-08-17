@@ -1,2 +1,2 @@
 
-module.exports = net.kimleo.rec.exception.Assert;
+module.exports = net.kimleo.rec.common.exception.Assert;
