@@ -34,12 +34,12 @@ public class Lexer {
                                           int index, int factor) {
         boolean reversed = false;
         for (FieldType accessor : accessors) {
-            if (accessor instanceof FieldName) {
-                accessorMap.put(((FieldName) accessor).getName(), index);
+            if (accessor instanceof FieldNameToken) {
+                accessorMap.put(((FieldNameToken) accessor).getName(), index);
                 index += factor;
-            } else if (accessor instanceof Padding) {
-                index += factor * ((Padding) accessor).getSize();
-            } else if (accessor instanceof Placeholder) {
+            } else if (accessor instanceof PaddingToken) {
+                index += factor * ((PaddingToken) accessor).getSize();
+            } else if (accessor instanceof PlaceholderToken) {
                 reversed = true;
                 break;
             }
@@ -58,16 +58,16 @@ public class Lexer {
                 if (matcher.matches()) {
                     int amount = Integer.parseInt(matcher.group(1));
                     currentSegmentSize += amount;
-                    accessors.add(new Padding(amount));
+                    accessors.add(new PaddingToken(amount));
                 } else {
                     throw new UnsupportedOperationException("Unknown format for padding: " + field);
                 }
             } else if ("...".equals(field.trim())) {
-                accessors.add(new Placeholder(field.trim()));
+                accessors.add(new PlaceholderToken(field.trim()));
                 segmentSize = Math.max(currentSegmentSize, segmentSize);
                 currentSegmentSize = 0;
             } else {
-                accessors.add(new FieldName(field.trim()));
+                accessors.add(new FieldNameToken(field.trim()));
                 currentSegmentSize++;
             }
         }

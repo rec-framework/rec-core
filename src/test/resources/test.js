@@ -2,14 +2,14 @@
 
 const map = new java.util.HashMap();
 
-const {csv, counter, action, pred, target, unique, stateful, dummy} = require("rec");
+const {csv, counter, action, pred, target, unique, stateful, dummy, file} = require("rec");
 const {assertTrue, assertEquals, fail} = require("rec/assert");
 
-csv("CSVFileSource.csv", "name, type, age")
+csv(file("CSVFileSource.csv"), ",", "name, type, age")
     .to(target(function ({name, age})
         map.put(name, age)));
 
-csv("BufferedCachingTeeTest.csv", "name, type, age")
+csv(file("BufferedCachingTeeTest.csv"), ",", "name, type, age")
     .to(target(function ({type})
         assertTrue(type.length <= 5)));
 
@@ -22,7 +22,7 @@ map.entrySet()
 const alwaysCounter =
     counter(function () true);
 
-csv("CSVFileSource.csv", "name, type, age")
+csv(file("CSVFileSource.csv"), ",", "name, type, age")
     .filter(pred(function ({name})
                     name.length > 4))
     .tee(alwaysCounter)
@@ -35,7 +35,7 @@ let statefulCounter = stateful({count: 0},
     function (obj, {count})
         ({count: count + 1}));
 
-csv("BufferedCachingTeeTest.csv", "name, type, age")
+csv(file("BufferedCachingTeeTest.csv"), ",", "name, type, age")
     .tee(unique("name", "type"))
     .to(dummy()
         .tee(statefulCounter));

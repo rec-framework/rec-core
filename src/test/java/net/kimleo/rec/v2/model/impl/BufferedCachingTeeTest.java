@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Files;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -18,7 +19,8 @@ public class BufferedCachingTeeTest {
         URL resource = this.getClass().getClassLoader().getResource("CSVFileSource.csv");
         assert resource != null;
         File file = new File(resource.toURI());
-        CSVFileSource source = new CSVFileSource(file, "question, answer, duration", ParseConfig.DEFAULT);
+        CSVSource source = new CSVSource(Files.newBufferedReader(file.toPath()),
+                "question, answer, duration", ParseConfig.DEFAULT);
 
         BufferedCachingTee catching = new BufferedCachingTee(100 * 1024 * 1024);
         source.tee(catching).to(record -> sum(record.get("question")));

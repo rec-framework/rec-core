@@ -1,9 +1,9 @@
 package net.kimleo.rec.v2.accessor.lexer;
 
-public class FieldName implements FieldType {
+public class FieldNameToken implements FieldType {
     private final String name;
 
-    FieldName(String name) {
+    FieldNameToken(String name) {
         this.name = name;
     }
 
@@ -16,7 +16,7 @@ public class FieldName implements FieldType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        FieldName fieldName = (FieldName) o;
+        FieldNameToken fieldName = (FieldNameToken) o;
 
         return name != null ? name.equals(fieldName.name) : fieldName.name == null;
     }

@@ -6,14 +6,14 @@ import net.kimleo.rec.v2.model.Source;
 
 import java.util.stream.Stream;
 
-import static net.kimleo.rec.v2.execution.impl.CountBasedExecutionContext.initialContext;
+import static net.kimleo.rec.v2.execution.impl.NativeExecutionContext.initialContext;
 
 public class CountBasedRestartableSource<T> implements RestartableSource<T> {
 
     private final Source<T> source;
-    private final ExecutionContext context;
+    private final NativeExecutionContext context;
 
-    public CountBasedRestartableSource(Source<T> source, ExecutionContext context) {
+    public CountBasedRestartableSource(Source<T> source, NativeExecutionContext context) {
         this.source = source;
         this.context = context;
     }
@@ -40,7 +40,7 @@ public class CountBasedRestartableSource<T> implements RestartableSource<T> {
         return new CountBasedRestartableSource<>(() -> stream, initialContext());
     }
 
-    public static <T> Source<T> from(Stream<T> stream, CountBasedExecutionContext context) {
+    public static <T> Source<T> from(Stream<T> stream, NativeExecutionContext context) {
         return new CountBasedRestartableSource<>(() -> stream, context);
     }
 }

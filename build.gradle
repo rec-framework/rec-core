@@ -26,4 +26,5 @@ task fatJar(type: Jar) {
 dependencies {
     compile "org.mozilla:rhino:1.7.7.1"
     testCompile 'junit:junit:4.11'
+    testCompile 'org.mockito:mockito-core:2.8.47'
 }

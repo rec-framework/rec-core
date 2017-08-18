@@ -15,9 +15,9 @@ import java.nio.file.Paths;
 
 import static java.lang.String.format;
 
-public class RecModuleSourceProvider extends ModuleSourceProviderBase {
+public class NativeModuleSourceProvider extends ModuleSourceProviderBase {
 
-    private static final Logger LOGGER = LogManager.logger(RecModuleSourceProvider.class.getName());
+    private static final Logger LOGGER = LogManager.logger(NativeModuleSourceProvider.class.getName());
 
     @Override
     protected ModuleSource loadFromUri(URI uri, URI base, Object validator)
