@@ -18,3 +18,8 @@ logs/
 
 *.log
 *.jar
+
+*.iml
+*.ipr
+*.iws
+*.retry
