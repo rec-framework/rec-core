@@ -1,10 +1,10 @@
 package net.kimleo.rec;
 
 import net.kimleo.rec.common.exception.InitializationException;
-import net.kimleo.rec.logging.Logger;
-import net.kimleo.rec.logging.impl.LogManager;
 import net.kimleo.rec.v2.scripting.Scripting;
 import net.kimleo.rec.v2.utils.Records;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import static net.kimleo.rec.util.Sys.die;
 
 public class App {
 
-    private final static Logger LOGGER = LogManager.logger("RecApplication");
+    private final static Logger LOGGER = LoggerFactory.getLogger(App.class);
     public static final String MSG_NO_SIZE_SPECIFIED =
             "Cannot infer binary file column size, please specify one.";
 

@@ -1,8 +1,6 @@
 package net.kimleo.rec.v2.scripting.module;
 
 import net.kimleo.rec.common.exception.ResourceAccessException;
-import net.kimleo.rec.logging.Logger;
-import net.kimleo.rec.logging.impl.LogManager;
 import net.kimleo.rec.v2.execution.ExecutionContext;
 import net.kimleo.rec.v2.execution.impl.CountBasedRestartableSource;
 import net.kimleo.rec.v2.execution.impl.NativeExecutionContext;
@@ -12,6 +10,8 @@ import net.kimleo.rec.v2.model.Tee;
 import net.kimleo.rec.v2.model.impl.BufferedCachingTee;
 import net.kimleo.rec.v2.model.impl.FlatFileTarget;
 import net.kimleo.rec.v2.utils.Persistence;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -22,7 +22,7 @@ import static java.lang.String.format;
 
 public class NativeRec extends Rec {
 
-    private static final Logger LOGGER = LogManager.logger(NativeRec.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(NativeRec.class);
 
     private String scriptPath;
     private NativeExecutionContext executionContext;

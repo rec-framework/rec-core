@@ -1,15 +1,15 @@
 package net.kimleo.rec.sepval.parser;
 
-import net.kimleo.rec.logging.Logger;
-import net.kimleo.rec.logging.impl.LogManager;
 import net.kimleo.rec.sepval.SepValEntry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
 public class SimpleParser {
     private final ParseConfig config;
 
-    private final static Logger LOGGER = LogManager.logger(SimpleParser.class.getName());
+    private final static Logger LOGGER = LoggerFactory.getLogger(SimpleParser.class);
 
     public SimpleParser(ParseConfig config) {
         this.config = config;

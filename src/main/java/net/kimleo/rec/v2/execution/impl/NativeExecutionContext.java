@@ -1,11 +1,11 @@
 package net.kimleo.rec.v2.execution.impl;
 
 import net.kimleo.rec.common.exception.ResourceAccessException;
-import net.kimleo.rec.logging.Logger;
-import net.kimleo.rec.logging.impl.LogManager;
 import net.kimleo.rec.v2.execution.ExecutionContext;
 import net.kimleo.rec.v2.utils.Persistence;
 import org.mozilla.javascript.Context;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -18,7 +18,7 @@ public final class NativeExecutionContext implements ExecutionContext, Serializa
     private int count = 0;
     private final int baseCount;
 
-    private static Logger LOGGER = LogManager.logger(NativeExecutionContext.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(NativeExecutionContext.class);
     private String scriptPath;
     private transient Context jsContext;
     private transient boolean enableRetry;
