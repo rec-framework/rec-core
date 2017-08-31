@@ -1,8 +1,6 @@
 package net.kimleo.rec.v2.scripting.module;
 
 import net.kimleo.rec.common.concept.Mapped;
-import net.kimleo.rec.logging.Logger;
-import net.kimleo.rec.logging.impl.LogManager;
 import net.kimleo.rec.sepval.parser.ParseConfig;
 import net.kimleo.rec.v2.execution.ExecutionContext;
 import net.kimleo.rec.v2.model.Source;
@@ -18,6 +16,8 @@ import net.kimleo.rec.v2.scripting.model.State;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Reader;
 import java.sql.ResultSet;
@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 import static java.lang.String.format;
 
 public class Rec {
-    private static final Logger LOGGER = LogManager.logger(Rec.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(Rec.class);
     protected Context jsContext;
 
     public Rec(ExecutionContext context) {

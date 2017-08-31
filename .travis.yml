@@ -13,4 +13,3 @@ script:
   - ./rec dump src/test/resources/caching.bin.test 3
   - psql -f example/script/test.sql test -U postgres
   - ./rec example/db.js
-  - cat logs/*

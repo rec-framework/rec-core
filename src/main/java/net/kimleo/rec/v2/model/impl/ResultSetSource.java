@@ -1,11 +1,11 @@
 package net.kimleo.rec.v2.model.impl;
 
 import net.kimleo.rec.common.concept.Mapped;
-import net.kimleo.rec.logging.Logger;
-import net.kimleo.rec.logging.impl.LogManager;
 import net.kimleo.rec.v2.model.Source;
 import net.kimleo.rec.v2.model.mapper.ResultSetMapper;
 import net.kimleo.rec.v2.stream.adapter.GeneratingSpliteratorAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +16,7 @@ import static java.lang.String.format;
 
 public class ResultSetSource implements Source<Mapped<String>> {
     private final ResultSet rs;
-    Logger LOGGER = LogManager.logger(ResultSetSource.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResultSetSource.class);
 
     public ResultSetSource(ResultSet rs) {
         this.rs = rs;

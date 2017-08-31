@@ -1,2 +1,2 @@
 
-module.exports = net.kimleo.rec.logging.impl.LogManager;
+module.exports = org.slf4j.LoggerFactory;

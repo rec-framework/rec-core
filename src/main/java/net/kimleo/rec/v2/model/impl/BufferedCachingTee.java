@@ -3,11 +3,11 @@ package net.kimleo.rec.v2.model.impl;
 import net.kimleo.rec.common.Pair;
 import net.kimleo.rec.common.concept.Mapped;
 import net.kimleo.rec.common.exception.ResourceAccessException;
-import net.kimleo.rec.logging.Logger;
-import net.kimleo.rec.logging.impl.LogManager;
 import net.kimleo.rec.v2.model.Source;
 import net.kimleo.rec.v2.model.Tee;
 import net.kimleo.rec.v2.stream.adapter.GeneratingSpliteratorAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -24,7 +24,7 @@ import static net.kimleo.rec.v2.utils.Records.encode;
 
 public class BufferedCachingTee implements Tee<Mapped<String>> {
 
-    private static final Logger LOGGER = LogManager.logger(BufferedCachingTee.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(BufferedCachingTee.class);
 
     private final Path tempFile;
     private final ByteBuffer buffer;

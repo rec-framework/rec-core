@@ -1,9 +1,9 @@
 package net.kimleo.rec.v2.scripting.module;
 
-import net.kimleo.rec.logging.Logger;
-import net.kimleo.rec.logging.impl.LogManager;
 import org.mozilla.javascript.commonjs.module.provider.ModuleSource;
 import org.mozilla.javascript.commonjs.module.provider.ModuleSourceProviderBase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,7 +17,7 @@ import static java.lang.String.format;
 
 public class NativeModuleSourceProvider extends ModuleSourceProviderBase {
 
-    private static final Logger LOGGER = LogManager.logger(NativeModuleSourceProvider.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(NativeModuleSourceProvider.class);
 
     @Override
     protected ModuleSource loadFromUri(URI uri, URI base, Object validator)
