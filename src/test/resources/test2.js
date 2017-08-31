@@ -1,6 +1,6 @@
 'use strict';
 
-const LOGGER = require("rec/logging").logger(module.id);
+const LOGGER = require("rec/logging").getLogger(module.id);
 
 function one() {
     LOGGER.info("calling one() function");
