@@ -1,8 +1,8 @@
 package net.kimleo.rec.v2.accessor;
 
 import net.kimleo.rec.common.Pair;
-import net.kimleo.rec.v2.accessor.lexer.Lexer;
 import net.kimleo.rec.common.concept.Accessible;
+import net.kimleo.rec.v2.accessor.lexer.Lexer;
 
 import java.util.Map;
 
