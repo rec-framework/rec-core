@@ -3,6 +3,7 @@ package net.kimleo.rec.util;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.function.Predicate;
 
 public class CollectUtils {
     public static <T> Iterable<T> reversed(List<T> list) {
@@ -23,5 +24,9 @@ public class CollectUtils {
                 }
             };
         };
+    }
+
+    public static <E extends Enum<E>> Predicate<E> between(E left, E right) {
+        return (e) -> e.compareTo(left) > 0 && e.compareTo(right) < 0;
     }
 }

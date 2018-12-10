@@ -1,8 +1,10 @@
-apply plugin: 'java'
-
+plugins {
+    id 'java'
+    id 'net.ltgt.apt' version "0.16"
+    id "checkstyle"
+    id "jacoco"
+}
 version = '0.2.2'
-apply plugin: 'checkstyle'
-apply plugin: 'jacoco'
 
 checkstyle {
     configFile = file('config/checkstyle/checkstyle.xml')
@@ -24,10 +26,13 @@ task fatJar(type: Jar) {
 }
 
 dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.4'
     compile "org.slf4j:slf4j-api:1.7.25"
     runtime "org.slf4j:slf4j-log4j12:1.7.25"
     testCompile 'junit:junit:4.11'
     testCompile 'org.mockito:mockito-core:2.8.47'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.4'
 }
 
 
