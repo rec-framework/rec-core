@@ -1,5 +1,6 @@
 package net.kimleo.rec.v2.scripting.model;
 
+@Deprecated
 public class State {
     public Object state;
 

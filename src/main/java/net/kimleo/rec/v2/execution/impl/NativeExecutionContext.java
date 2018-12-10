@@ -13,6 +13,7 @@ import java.util.Date;
 
 import static java.lang.String.format;
 
+@Deprecated
 public final class NativeExecutionContext implements ExecutionContext, Serializable {
     public static final long serialVersionUID = 1453356753764L;
     private int count = 0;

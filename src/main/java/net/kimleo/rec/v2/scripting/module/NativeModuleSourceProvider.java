@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 
 import static java.lang.String.format;
 
+@Deprecated
 public class NativeModuleSourceProvider extends ModuleSourceProviderBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NativeModuleSourceProvider.class);

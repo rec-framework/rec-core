@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 
 import static java.lang.String.format;
 
+@Deprecated
 public class NativeRec extends Rec {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NativeRec.class);

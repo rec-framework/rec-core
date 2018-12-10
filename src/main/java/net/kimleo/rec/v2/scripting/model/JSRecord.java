@@ -5,6 +5,7 @@ import org.mozilla.javascript.Scriptable;
 
 import java.util.List;
 
+@Deprecated
 public class JSRecord implements Scriptable, Mapped<String> {
 
     private final Mapped<String> record;

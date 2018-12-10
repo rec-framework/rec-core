@@ -14,7 +14,9 @@ import static net.kimleo.rec.v2.execution.impl.NativeExecutionContext.initialCon
 import static org.mozilla.javascript.Context.VERSION_1_8;
 import static org.mozilla.javascript.Context.javaToJS;
 
+@Deprecated
 public class Scripting {
+    @Deprecated
     public static void runfile(File file,
                                String filename,
                                boolean enableRetry,

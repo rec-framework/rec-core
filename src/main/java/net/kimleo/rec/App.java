@@ -11,6 +11,7 @@ import java.util.Arrays;
 
 import static net.kimleo.rec.util.Sys.die;
 
+@Deprecated
 public class App {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(App.class);

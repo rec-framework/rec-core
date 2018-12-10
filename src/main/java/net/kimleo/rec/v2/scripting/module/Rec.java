@@ -32,6 +32,7 @@ import java.util.stream.Stream;
 
 import static java.lang.String.format;
 
+@Deprecated
 public class Rec {
     private static final Logger LOGGER = LoggerFactory.getLogger(Rec.class);
     protected Context jsContext;

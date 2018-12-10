@@ -42,9 +42,7 @@ public class CSVFileSource implements Source<Mapped<String>> {
 
     @Override
     public Stream<Mapped<String>> stream() {
-        return lines.skip(skipLimit).map(line -> {
-            return accessor.of(csvParser.parse(line));
-        });
+        return lines.skip(skipLimit).map(line -> accessor.of(csvParser.parse(line)));
     }
 
     @Override
