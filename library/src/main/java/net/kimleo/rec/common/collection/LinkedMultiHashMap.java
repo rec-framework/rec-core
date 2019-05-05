@@ -89,7 +89,7 @@ public class LinkedMultiHashMap<K, V> implements MultiMap<K, V> {
     }
 
     @Override
-    public Set<Entry<K, Collection<V>>> entrySet() {
+    public Set<Map.Entry<K, Collection<V>>> entrySet() {
         return map.entrySet();
     }
 
