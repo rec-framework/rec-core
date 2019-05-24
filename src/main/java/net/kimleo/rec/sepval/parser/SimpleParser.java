@@ -1,15 +1,13 @@
 package net.kimleo.rec.sepval.parser;
 
+import lombok.extern.slf4j.Slf4j;
 import net.kimleo.rec.sepval.SepValEntry;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
+@Slf4j
 public class SimpleParser {
     private final ParseConfig config;
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(SimpleParser.class);
 
     public SimpleParser(ParseConfig config) {
         this.config = config;
@@ -27,7 +25,7 @@ public class SimpleParser {
         }
 
         if (state.of(state.getSize() - 1) == config.delimiter) {
-            LOGGER.warn(String.format("Found delimiter [%s] at end of record", config.delimiter));
+            log.warn(String.format("Found delimiter [%s] at end of record", config.delimiter));
             fields.add("");
         }
 
