@@ -5,9 +5,8 @@ allprojects {
     }
     dependencies {
         compileOnly 'org.projectlombok:lombok:1.18.4'
-        testCompile 'junit:junit:4.11'
-        testCompile 'org.mockito:mockito-core:2.8.47'
-
+        testImplementation 'junit:junit:4.11'
+        testImplementation 'org.mockito:mockito-core:2.24.5'
         annotationProcessor 'org.projectlombok:lombok:1.18.4'
     }
 
@@ -33,7 +32,7 @@ task fatJar(type: Jar) {
 dependencies {
     implementation project(":parser")
     implementation project(":library")
-    compile "org.slf4j:slf4j-api:1.7.25"
+    implementation "org.slf4j:slf4j-api:1.7.25"
     runtime "org.slf4j:slf4j-log4j12:1.7.25"
 }
 

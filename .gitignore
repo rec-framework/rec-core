@@ -23,3 +23,6 @@ logs/
 *.ipr
 *.iws
 *.retry
+
+**/antlr/**/*.tokens
+**/antlr/**/*.java
