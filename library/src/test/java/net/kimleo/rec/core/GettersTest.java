@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static net.kimleo.rec.core.Cell.cell;
-import static net.kimleo.rec.core.Cell.empty;
 import static net.kimleo.rec.core.Record.rec;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

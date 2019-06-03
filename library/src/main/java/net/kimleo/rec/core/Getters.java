@@ -1,6 +1,9 @@
 package net.kimleo.rec.core;
 
+import net.kimleo.rec.common.collection.MappedIterator;
+
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.PrimitiveIterator;
@@ -10,7 +13,7 @@ import java.util.stream.IntStream;
 
 public class Getters {
 
-    private Map<String, Integer> headerPositions;
+    private final Map<String, Integer> headerPositions;
 
     public static final Getters NO_HEADER = from(Collections.emptyList());
 
@@ -21,6 +24,10 @@ public class Getters {
 
     public Getter of(Record record) {
         return new Getter(record::at, headerPositions::get);
+    }
+
+    public static TableGetter from(Table table) {
+        return new TableGetter(table);
     }
 
     public static Getters from(List<String> headers) {
@@ -53,6 +60,26 @@ public class Getters {
                 return Cell.empty();
             }
             return get(index);
+        }
+    }
+
+    public static class TableGetter implements Iterable<Getter> {
+
+        final Getters getters;
+        final Table table;
+
+        TableGetter(Table table) {
+            this.getters = table.getters();
+            this.table = table;
+        }
+
+        public Getter at(int cursor) {
+            return getters.of(table.at(cursor));
+        }
+
+        @Override
+        public Iterator<Getter> iterator() {
+            return new MappedIterator<>(table, getters::of);
         }
     }
 
