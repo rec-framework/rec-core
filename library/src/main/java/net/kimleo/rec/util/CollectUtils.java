@@ -3,6 +3,7 @@ package net.kimleo.rec.util;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class CollectUtils {
@@ -21,6 +22,24 @@ public class CollectUtils {
                 @Override
                 public T next() {
                     return li.previous();
+                }
+            };
+        };
+    }
+
+    public static <T, U> Iterable<U> mapped(Iterable<T> it, Function<T, U> mapper) {
+        return () -> {
+            Iterator<T> iterator = it.iterator();
+
+            return new Iterator<U>() {
+                @Override
+                public boolean hasNext() {
+                    return iterator.hasNext();
+                }
+
+                @Override
+                public U next() {
+                    return mapper.apply(iterator.next());
                 }
             };
         };

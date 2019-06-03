@@ -1,6 +1,6 @@
 package net.kimleo.rec.core;
 
-import net.kimleo.rec.common.collection.MappedIterator;
+import net.kimleo.rec.util.CollectUtils;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -79,7 +79,7 @@ public class Getters {
 
         @Override
         public Iterator<Getter> iterator() {
-            return new MappedIterator<>(table, getters::of);
+            return CollectUtils.mapped(table, getters::of).iterator();
         }
     }
 
