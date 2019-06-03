@@ -1,7 +1,7 @@
 package net.kimleo.rec.v2.model.impl;
 
 import net.kimleo.rec.common.concept.Mapped;
-import net.kimleo.rec.sepval.parser.ParseConfig;
+import net.kimleo.rec.sepval.ParseConfig;
 import org.junit.Test;
 
 import java.io.File;

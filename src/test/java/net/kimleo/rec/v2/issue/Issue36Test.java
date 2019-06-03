@@ -2,7 +2,7 @@ package net.kimleo.rec.v2.issue;
 
 
 import net.kimleo.rec.sepval.SepValEntry;
-import net.kimleo.rec.sepval.parser.SimpleParser;
+import net.kimleo.rec.sepval.SimpleParser;
 import net.kimleo.rec.v2.accessor.Accessor;
 import net.kimleo.rec.v2.accessor.RecordWrapper;
 import org.junit.Test;

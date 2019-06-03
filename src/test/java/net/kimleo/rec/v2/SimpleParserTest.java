@@ -1,8 +1,8 @@
 package net.kimleo.rec.v2;
 
+import net.kimleo.rec.sepval.ParseConfig;
 import net.kimleo.rec.sepval.SepValEntry;
-import net.kimleo.rec.sepval.parser.ParseConfig;
-import net.kimleo.rec.sepval.parser.SimpleParser;
+import net.kimleo.rec.sepval.SimpleParser;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

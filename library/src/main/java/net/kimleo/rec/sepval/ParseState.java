@@ -1,4 +1,4 @@
-package net.kimleo.rec.sepval.parser;
+package net.kimleo.rec.sepval;
 
 public class ParseState {
     private final String input;

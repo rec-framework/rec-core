@@ -1,6 +1,6 @@
 package net.kimleo.rec.v2;
 
-import net.kimleo.rec.sepval.parser.ParseConfig;
+import net.kimleo.rec.sepval.ParseConfig;
 import net.kimleo.rec.v2.model.impl.CSVSource;
 
 import java.io.BufferedReader;

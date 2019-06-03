@@ -1,7 +1,6 @@
-package net.kimleo.rec.sepval.parser;
+package net.kimleo.rec.sepval;
 
 import lombok.extern.slf4j.Slf4j;
-import net.kimleo.rec.sepval.SepValEntry;
 
 import java.util.ArrayList;
 
