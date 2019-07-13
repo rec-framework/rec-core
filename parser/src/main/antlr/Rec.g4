@@ -29,14 +29,16 @@ emitClause : EMIT selector (COMMA selector)*
     | EMIT LPAREN selector (COMMA selector)* RPAREN;
 
 
-matching : MATCH LPAREN selector RPAREN LBRACE (CASE value COLUMN (SKIP_ | emitClause))+ matchElseClause? RBRACE;
+matching : MATCH LPAREN selector RPAREN LBRACE caseClause+ matchElseClause? RBRACE;
+
+caseClause : (CASE value COLUMN (SKIP_ | emitClause));
 
 matchElseClause : ELSE COLUMN (SKIP_ | emitClause);
 
 
 condition : selector relation (selector | value);
 
-relation : '>' | '<' | '=' | '>=' | '<=' | 'in';
+relation : '>' | '<' | '=' | '>=' | '<=' | 'in' | '!=';
 
 selector : (ID | IT) (DOT value)?;
 

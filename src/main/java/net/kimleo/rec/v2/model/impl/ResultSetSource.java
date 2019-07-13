@@ -23,7 +23,7 @@ public class ResultSetSource implements Source<Mapped<String>> {
 
     @Override
     public Stream<Mapped<String>> stream() {
-        return StreamSupport.stream(new GeneratingSpliteratorAdapter<Mapped<String>>(() -> {
+        return StreamSupport.stream(new GeneratingSpliteratorAdapter<>(() -> {
             try {
                 if (rs.next()) {
                     log.info(format("Get next item in result set #[%d]", rs.hashCode()));
@@ -32,7 +32,7 @@ public class ResultSetSource implements Source<Mapped<String>> {
                     return null;
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Exception found when retrieving ResourceSet: ", e);
             }
             return null;
         }),false);

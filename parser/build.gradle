@@ -6,6 +6,7 @@ plugins {
 
 generateGrammarSource {
     outputDirectory = file("src/main/antlr/net/kimleo/rec/parser")
+    arguments += ['-visitor']
 }
 
 repositories {
@@ -14,5 +15,7 @@ repositories {
 
 dependencies {
     implementation 'org.antlr:antlr4-runtime:4.5'
+    implementation project(":ast")
+    testImplementation 'or.antlr:antlr4-runtime:4.5'
     antlr "org.antlr:antlr4:4.5"
 }
