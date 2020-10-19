@@ -1,5 +1,6 @@
 package net.kimleo.rec.v2.utils;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.nio.file.Files;
@@ -11,6 +12,7 @@ import static org.junit.Assert.assertThat;
 public class PersistenceTest {
 
     @Test
+    @Ignore
     public void shouldPersistObject() throws Exception {
         Files.deleteIfExists(Paths.get("file.out"));
         PersistableClass persistableClass = new PersistableClass("kimmy", "leo");
