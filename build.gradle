@@ -1,14 +1,24 @@
 allprojects {
     apply plugin: 'java'
     repositories {
+        maven {
+            url "https://maven.aliyun.com/repository/central"
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/jcenter"
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/google"
+        }
         mavenCentral()
+        jcenter()
     }
     dependencies {
-        compileOnly 'org.projectlombok:lombok:1.18.4'
-        testImplementation 'junit:junit:4.11'
-        testImplementation 'org.mockito:mockito-core:2.24.5'
-        annotationProcessor 'org.projectlombok:lombok:1.18.4'
-        implementation "org.slf4j:slf4j-api:1.7.25"
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        testImplementation "junit:junit:${junit4Version}"
+        testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     }
 
 }
@@ -16,6 +26,15 @@ allprojects {
 version = '0.2.2'
 
 repositories {
+    maven {
+        url "https://maven.aliyun.com/repository/central"
+    }
+    maven {
+        url "https://maven.aliyun.com/repository/jcenter"
+    }
+    maven {
+        url "https://maven.aliyun.com/repository/google"
+    }
     mavenCentral()
 }
 
@@ -33,6 +52,6 @@ task fatJar(type: Jar) {
 dependencies {
     implementation project(":parser")
     implementation project(":library")
-    implementation "org.slf4j:slf4j-api:1.7.25"
-    runtime "ch.qos.logback:logback-classic:1.2.3"
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    runtime "ch.qos.logback:logback-classic:${logbackVersion}"
 }

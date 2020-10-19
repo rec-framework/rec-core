@@ -26,3 +26,7 @@ logs/
 
 **/antlr/**/*.tokens
 **/antlr/**/*.java
+
+*.interp
+
+*.out

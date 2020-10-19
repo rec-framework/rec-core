@@ -1,21 +1,23 @@
 
-plugins {
-    id "antlr"
-    id "java-library"
-}
+
+apply plugin: "antlr"
 
 generateGrammarSource {
     outputDirectory = file("src/main/antlr/net/kimleo/rec/parser")
-    arguments += ['-visitor']
+    arguments += ["-visitor"]
 }
 
-repositories {
-    mavenCentral()
+sourceSets {
+    main {
+        java {
+            srcDirs += "src/main/antlr"
+        }
+    }
 }
 
 dependencies {
-    implementation 'org.antlr:antlr4-runtime:4.5'
+    implementation "org.antlr:antlr4-runtime:${antlrVersion}"
     implementation project(":ast")
-    testImplementation 'or.antlr:antlr4-runtime:4.5'
-    antlr "org.antlr:antlr4:4.5"
+    testImplementation "org.antlr:antlr4-runtime:${antlrVersion}"
+    antlr "org.antlr:antlr4:${antlrVersion}"
 }
