@@ -14,44 +14,49 @@ public class SpiExtensionLoader {
 
         List<RecModule> modules = StreamSupport.stream(iter.spliterator(), false).collect(Collectors.toList());
 
-        List<SpiModuleInstance> instances = modules.stream().map(module -> {
-            SpiModuleInstance instance = new SpiModuleInstance();
-            instance.setModule(module);
+        return modules.stream()
+                .map(this::loadModule)
+                .collect(Collectors.toList());
+    }
 
-            String annotatedPackage = module.getClass().getAnnotation(Package.class).value();
+    private SpiModuleInstance loadModule(RecModule module) {
+        SpiModuleInstance instance = new SpiModuleInstance();
+        instance.setModule(module);
 
-            if (isNullOrEmpty(annotatedPackage)) {
-                annotatedPackage = module.getClass().getPackage().getName();
+        Class<? extends RecModule> moduleClass = module.getClass();
+        instance.setPackageName(moduleClass.getPackage().getName());
+
+        if (moduleClass.isAnnotationPresent(Package.class)) {
+            String aliasPackageName = moduleClass.getAnnotation(Package.class).value();
+            if (!aliasPackageName.equals("")) {
+                instance.setPackageName(aliasPackageName);
             }
-            instance.setPackageName(annotatedPackage);
+        }
 
-            List<SpiDefinedOperator> operators = Arrays.stream(module.getClass().getDeclaredMethods())
-                    .filter(method -> method.isAnnotationPresent(Operator.class))
-                    .map(method -> {
-                        SpiDefinedOperator operator = new SpiDefinedOperator();
+        List<SpiDefinedOperator> operators = Arrays.stream(moduleClass.getDeclaredMethods())
+                .filter(method -> method.isAnnotationPresent(Operator.class))
+                .map(method -> loadOperator(module, instance, method))
+                .collect(Collectors.toList());
 
-                        operator.setModule(module);
-                        operator.setMethod(method);
-                        String annotatedMethodName = method.getAnnotation(Operator.class).value();
-                        if (annotatedMethodName.isEmpty()) {
-                            annotatedMethodName = method.getName();
-                        }
-                        operator.setOperatorName(annotatedMethodName);
-                        operator.setPackageName(instance.getPackageName());
+        instance.setOperators(operators);
 
-                        return operator;
-                    })
-                    .collect(Collectors.toList());
-
-            instance.setOperators(operators);
-
-            return instance;
-        }).collect(Collectors.toList());
-
-        return instances;
+        return instance;
     }
 
-    private boolean isNullOrEmpty(String string) {
-        return string == null || string.isEmpty();
+    private SpiDefinedOperator loadOperator(RecModule module, SpiModuleInstance instance, java.lang.reflect.Method method) {
+        SpiDefinedOperator operator = new SpiDefinedOperator();
+
+        operator.setModule(module);
+        operator.setMethod(method);
+        String aliasOperatorName = method.getAnnotation(Operator.class).value();
+        if (!aliasOperatorName.isEmpty()) {
+            operator.setOperatorName(aliasOperatorName);
+        } else {
+            operator.setOperatorName(method.getName());
+        }
+        operator.setPackageName(instance.getPackageName());
+
+        return operator;
     }
+
 }

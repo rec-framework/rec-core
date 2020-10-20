@@ -1,9 +1,8 @@
 package net.kimleo.rec.spi;
 
-@Package
 public class TestSpiModule implements RecModule {
 
-    @Operator
+    @Operator("the-operator-name")
     public void hello() {
         System.out.println("Hello world");
     }
