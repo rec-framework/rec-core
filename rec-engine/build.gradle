@@ -1,8 +1,8 @@
 
 dependencies {
-    implementation project(":api")
-    implementation project(":parser")
-    implementation project(":library")
+    implementation project(":rec:rec-api")
+    implementation project(":rec:rec-parser")
+    implementation project(":rec:rec-library")
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     runtime "ch.qos.logback:logback-classic:${logbackVersion}"
 }

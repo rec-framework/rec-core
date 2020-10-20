@@ -17,7 +17,7 @@ sourceSets {
 
 dependencies {
     implementation "org.antlr:antlr4-runtime:${antlrVersion}"
-    implementation project(":ast")
+    implementation project(":rec:rec-ast")
     testImplementation "org.antlr:antlr4-runtime:${antlrVersion}"
     antlr "org.antlr:antlr4:${antlrVersion}"
 }
