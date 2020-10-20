@@ -9,9 +9,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProcessorDefinition implements Node {
-    String name;
-    List<String> params;
+public class Script implements Node {
 
-    ProcessorBody body;
+    List<ImportDeclaration> imports;
+    List<ProcessStatement> process;
 }

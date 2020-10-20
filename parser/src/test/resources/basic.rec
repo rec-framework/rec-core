@@ -1,11 +1,3 @@
 import csv;
 
-stream source = csv("data.csv");
-
-processor cut(column) {
-  where it.name > 5
-  emit column
-}
-
-
-source | cut(2);
+stdin | parseCSV | columns(1, 3, 5) | stdout;

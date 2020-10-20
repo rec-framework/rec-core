@@ -12,24 +12,19 @@ importDecl : IMPORT (packageName)  SEMI_COLUMN;
 
 packageName : ID (DOT ID)*;
 
-process : source (PIPE processing)+ SEMI_COLUMN;
-
-source : STDIN | stream | invokeExpression;
+process : processing (PIPE processing)+ SEMI_COLUMN;
 
 processing : simpleProc | invokeExpression | parallelProc;
 
-simpleProc : STDOUT | STDERR | stream;
+simpleProc : STDIN | STDOUT | STDERR | stream;
 
-parallelProc : LPAREN simpleProc (COMMA simpleProc)* RPAREN;
+parallelProc : LPAREN processing (COMMA processing)* RPAREN;
 
 stream : ID;
 
 invokeExpression : ID LPAREN (value (COMMA value)* )? RPAREN;
 
 value : ID | NUM_VALUE | STRING;
-
-
-STREAM : 'stream';
 
 STDIN : 'stdin';
 STDOUT : 'stdout';

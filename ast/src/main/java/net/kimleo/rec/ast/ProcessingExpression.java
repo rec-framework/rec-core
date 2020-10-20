@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public interface ProcessingExpression extends Node {
 
@@ -13,26 +16,28 @@ public interface ProcessingExpression extends Node {
     @NoArgsConstructor
     class SimpleProcessing implements ProcessingExpression {
         String name;
+
+        @Override
+        public String repr() {
+            return name;
+        }
     }
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    class StdoutProcessing implements ProcessingExpression {
-        String name;
+    class EmptyProcessingExpression implements ProcessingExpression {
     }
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    class StderrProcessing implements ProcessingExpression {
-        String name;
-    }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     class ParallelProcessing implements ProcessingExpression {
         List<ProcessingExpression> processing;
+
+        @Override
+        public String repr() {
+            return "(" + processing.stream().
+                    map(Node::repr)
+                    .collect(Collectors.joining(",")) + ")";
+        }
     }
 }

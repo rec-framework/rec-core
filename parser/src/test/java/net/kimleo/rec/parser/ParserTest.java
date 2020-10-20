@@ -1,24 +1,24 @@
 package net.kimleo.rec.parser;
 
 import net.kimleo.rec.ast.Node;
-import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 public class ParserTest {
 
     @Test
     public void test() {
-        RecParser parser = parse("import hello;" +
+        RecPipeParser parser = parse("import hello;" +
                 "stdin | stdout;");
 
-        RecParser.StartContext start = parser.start();
+        RecPipeParser.StartContext start = parser.start();
 
 
-        Node accept = start.accept(new RecAstVisitor());
+        Node accept = start.accept(new RecPipeAstVisitor());
 
         System.out.println(accept);
 
@@ -26,33 +26,32 @@ public class ParserTest {
 
     @Test
     public void testByFile() {
-        RecParser parser = parseFile("basic.rec");
+        RecPipeParser parser = parseFile("basic.rec");
 
-        RecParser.StartContext start = parser.start();
+        RecPipeParser.StartContext start = parser.start();
 
-
-        Node accept = start.accept(new RecAstVisitor());
+        Node accept = start.accept(new RecPipeAstVisitor());
 
         System.out.println(accept);
     }
 
-    private RecParser parse(String input) {
-        ANTLRInputStream stream = new ANTLRInputStream(input);
+    private RecPipeParser parse(String input) {
+        CharStream stream = CharStreams.fromString(input);
 
 
-        RecLexer recLexer = new RecLexer(stream);
+        RecPipeLexer recLexer = new RecPipeLexer(stream);
 
         CommonTokenStream tokenStream = new CommonTokenStream(recLexer);
 
 
-        return new RecParser(tokenStream);
+        return new RecPipeParser(tokenStream);
     }
 
-    private RecParser parseFile(String resource) {
+    private RecPipeParser parseFile(String resource) {
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(resource);
 
         try {
-            return new RecParser(new CommonTokenStream(new RecLexer(new ANTLRInputStream(inputStream))));
+            return new RecPipeParser(new CommonTokenStream(new RecPipeLexer(CharStreams.fromStream(inputStream))));
         } catch (Exception e) {
             e.printStackTrace();
         }

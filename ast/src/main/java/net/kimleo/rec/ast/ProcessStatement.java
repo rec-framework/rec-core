@@ -10,8 +10,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProcessStatement implements Node {
-
-    SourceNode source;
-
     List<ProcessingExpression> processing;
 }
