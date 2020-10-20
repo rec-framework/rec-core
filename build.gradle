@@ -1,4 +1,4 @@
-allprojects {
+subprojects {
     apply plugin: 'java'
     repositories {
         maven {
@@ -21,37 +21,4 @@ allprojects {
         implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     }
 
-}
-
-version = '0.2.2'
-
-repositories {
-    maven {
-        url "https://maven.aliyun.com/repository/central"
-    }
-    maven {
-        url "https://maven.aliyun.com/repository/jcenter"
-    }
-    maven {
-        url "https://maven.aliyun.com/repository/google"
-    }
-    mavenCentral()
-}
-
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'Implementation-Title': 'Rec v2',
-                'Implementation-Version': version,
-                'Main-Class': 'net.kimleo.rec.App'
-    }
-    baseName = project.name
-    from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-dependencies {
-    implementation project(":parser")
-    implementation project(":library")
-    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
-    runtime "ch.qos.logback:logback-classic:${logbackVersion}"
 }

@@ -1,5 +1,8 @@
 rootProject.name = 'rec-core'
 
+
+include 'api'
 include 'ast'
 include 'parser'
 include 'library'
+include 'engine'

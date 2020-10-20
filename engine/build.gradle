@@ -1,0 +1,20 @@
+
+dependencies {
+    implementation project(":parser")
+    implementation project(":library")
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    runtime "ch.qos.logback:logback-classic:${logbackVersion}"
+}
+
+version = "0.2.2"
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Rec v2',
+                'Implementation-Version': version,
+                'Main-Class': 'net.kimleo.rec.App'
+    }
+    baseName = project.name
+    from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
