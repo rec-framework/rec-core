@@ -4,7 +4,7 @@ import net.kimleo.rec.v2.model.Tee;
 
 import java.util.function.Function;
 
-public class TransformTee<T> implements Tee<T>{
+public class TransformTee<T> implements Tee<T> {
 
     private final Function<T, T> transformer;
 

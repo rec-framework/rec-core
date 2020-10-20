@@ -1,5 +1,6 @@
 
 dependencies {
+    implementation project(":api")
     implementation project(":parser")
     implementation project(":library")
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
