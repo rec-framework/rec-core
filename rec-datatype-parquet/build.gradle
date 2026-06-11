@@ -1,0 +1,8 @@
+dependencies {
+    implementation project(':rec-core')
+    implementation project(':rec-scripting')
+    implementation "org.apache.parquet:parquet-hadoop:1.17.0"
+    implementation "org.apache.hadoop:hadoop-common:3.4.0"
+    implementation "org.apache.hadoop:hadoop-mapreduce-client-core:3.4.0"
+    implementation "org.slf4j:slf4j-api:1.7.25"
+}

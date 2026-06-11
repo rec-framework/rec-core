@@ -1,0 +1,69 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    implementation project(':rec-core')
+    implementation "org.mozilla:rhino:1.7.7.1"
+    implementation "org.slf4j:slf4j-api:2.0.17"
+    runtimeOnly "org.slf4j:slf4j-simple:2.0.17"
+    runtimeOnly project(':rec-cache')
+    runtimeOnly project(':rec-jdbi')
+    runtimeOnly project(':rec-reactive')
+    runtimeOnly project(':rec-datatype-jsonl')
+    runtimeOnly project(':rec-datatype-parquet')
+    runtimeOnly project(':rec-agent')
+}
+
+task mergeServiceFiles {
+    def outputDir = file("${buildDir}/merged-services")
+    inputs.files configurations.runtimeClasspath
+    outputs.dir outputDir
+    doLast {
+        def serviceFiles = [:] as LinkedHashMap<String, LinkedHashSet<String>>
+        configurations.runtimeClasspath.files.findAll { it.name.endsWith('.jar') }.each { jarFile ->
+            java.util.zip.ZipFile zip = new java.util.zip.ZipFile(jarFile)
+            zip.entries().each { entry ->
+                if (entry.name.startsWith('META-INF/services/') && !entry.isDirectory()) {
+                    def key = entry.name
+                    if (!serviceFiles.containsKey(key)) {
+                        serviceFiles[key] = new LinkedHashSet<String>()
+                    }
+                    serviceFiles[key].addAll(zip.getInputStream(entry).text.readLines().findAll { it.trim() })
+                }
+            }
+            zip.close()
+        }
+        serviceFiles.each { name, lines ->
+            def outputFile = new File(outputDir, name)
+            outputFile.parentFile.mkdirs()
+            outputFile.text = lines.join('\n') + '\n'
+        }
+    }
+}
+
+task fatJar(type: Jar, dependsOn: mergeServiceFiles) {
+    zip64 = true
+    manifest {
+        attributes 'Implementation-Title': 'Rec v2',
+                'Implementation-Version': version,
+                'Main-Class': 'net.kimleo.rec.App'
+    }
+    archiveBaseName = 'rec-core'
+    archiveClassifier = 'all'
+    from {
+        configurations.runtimeClasspath.collect {
+            zipTree(it).matching {
+                exclude 'META-INF/services/**'
+                exclude 'META-INF/*.SF'
+                exclude 'META-INF/*.DSA'
+                exclude 'META-INF/*.RSA'
+            }
+        }
+    }
+    from("${buildDir}/merged-services") {
+        include 'META-INF/services/*'
+    }
+    with jar
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

@@ -1,1 +1,3 @@
-rootProject.name = 'rec-core'
+rootProject.name = 'rec'
+include 'rec-core', 'rec-scripting', 'rec-cache', 'rec-jdbi', 'rec-reactive',
+        'rec-datatype-jsonl', 'rec-datatype-parquet', 'rec-agent'

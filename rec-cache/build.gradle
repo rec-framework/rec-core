@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(':rec-core')
+    implementation project(':rec-scripting')
+    implementation "org.slf4j:slf4j-api:1.7.25"
+}

@@ -1,0 +1,4 @@
+dependencies {
+    implementation project(':rec-core')
+    implementation project(':rec-scripting')
+}

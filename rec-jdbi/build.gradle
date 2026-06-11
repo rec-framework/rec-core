@@ -1,0 +1,7 @@
+dependencies {
+    implementation project(':rec-core')
+    implementation project(':rec-scripting')
+    implementation "org.jdbi:jdbi3-core:3.47.0"
+    implementation "org.slf4j:slf4j-api:1.7.25"
+    runtimeOnly "org.postgresql:postgresql:42.7.4"
+}

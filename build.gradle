@@ -1,48 +1,27 @@
-apply plugin: 'java'
-
 version = '0.2.2'
-apply plugin: 'checkstyle'
-apply plugin: 'jacoco'
 
-checkstyle {
-    configFile = file('config/checkstyle/checkstyle.xml')
-}
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'checkstyle'
+    apply plugin: 'jacoco'
 
-repositories {
-    mavenCentral()
-}
+    version = rootProject.version
 
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'Implementation-Title': 'Rec v2',
-                'Implementation-Version': version,
-                'Main-Class': 'net.kimleo.rec.App'
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    baseName = project.name
-    from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
 
-dependencies {
-    compile "org.mozilla:rhino:1.7.7.1"
-    compile "org.slf4j:slf4j-api:1.7.25"
-    runtime "org.slf4j:slf4j-log4j12:1.7.25"
-    testCompile 'junit:junit:4.11'
-    testCompile 'org.mockito:mockito-core:2.8.47'
-}
+    repositories {
+        mavenCentral()
+    }
 
+    checkstyle {
+        configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+    }
 
-task sourcesJar(type: Jar) {
-    from sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
+    dependencies {
+        testImplementation 'junit:junit:4.13.2'
+        testImplementation 'org.mockito:mockito-core:5.14.2'
+    }
 }

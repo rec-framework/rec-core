@@ -1,0 +1,8 @@
+dependencies {
+    implementation project(':rec-core')
+    implementation "com.openai:openai-java:4.39.1"
+    implementation "io.modelcontextprotocol.sdk:mcp:1.0.2"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.17.2"
+    implementation "org.jline:jline:3.26.1"
+    implementation "org.slf4j:slf4j-api:2.0.17"
+}

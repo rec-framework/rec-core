@@ -1,3 +1,24 @@
 #!/bin/bash
 
-"${JAVA_HOME}/bin/java" -cp "lib/*" net.kimleo.rec.App $*
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+JAR=$(ls "$SCRIPT_DIR"/rec-scripting/build/libs/rec-core-*-all.jar 2>/dev/null | head -1)
+
+if [ -z "$JAR" ] || [ "$1" = "--build" ]; then
+    echo "Building fat JAR..."
+    cd "$SCRIPT_DIR" && ./gradlew :rec-scripting:fatJar
+    JAR=$(ls "$SCRIPT_DIR"/rec-scripting/build/libs/rec-core-*-all.jar 2>/dev/null | head -1)
+    if [ "$1" = "--build" ]; then
+        shift
+    fi
+fi
+
+if [ -z "$JAR" ]; then
+    echo "Error: fat JAR not found. Run: ./gradlew :rec-scripting:fatJar" >&2
+    exit 1
+fi
+
+if [ -n "${JAVA_HOME}" ]; then
+    "${JAVA_HOME}/bin/java" -jar "$JAR" "$@"
+else
+    java -jar "$JAR" "$@"
+fi
