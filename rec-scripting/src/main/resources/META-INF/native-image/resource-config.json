@@ -1,0 +1,15 @@
+{
+  "resources":{
+  "includes":[
+    {"pattern":"rec/.*\\.js$"},
+    {"pattern":"simplelogger\\.properties$"},
+    {"pattern":"META-INF/services/.*"},
+    {"pattern":"skills/.*"},
+    {"pattern":"rec/.*"},
+    {"pattern":"org/mozilla/javascript/resources/.*"},
+    {"pattern":"org/mozilla/javascript/tools/resources/.*"}
+  ]},
+  "bundles":[
+    {"name":"org.mozilla.javascript.resources.Messages"}
+  ]
+}

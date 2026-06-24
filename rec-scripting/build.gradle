@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'org.graalvm.buildtools.native' version '0.10.6'
 }
 
 dependencies {
@@ -66,4 +67,97 @@ task fatJar(type: Jar, dependsOn: mergeServiceFiles) {
     }
     with jar
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+// --- GraalVM Native Image Configuration ---
+
+graalvmNative {
+    binaries {
+        main {
+            imageName = 'rec'
+            mainClass = 'net.kimleo.rec.App'
+            buildArgs.addAll([
+                '--no-fallback',
+                '--enable-http',
+                '--enable-https',
+                '-H:+ReportExceptionStackTraces',
+                '--initialize-at-build-time=org.slf4j',
+                '--initialize-at-build-time=org.slf4j.simple',
+                '--initialize-at-build-time=org.mozilla.javascript',
+                '--initialize-at-run-time=okhttp3',
+                '--initialize-at-run-time=org.jline',
+                '--initialize-at-run-time=org.apache.hadoop',
+                '--initialize-at-run-time=org.apache.parquet',
+                '--initialize-at-run-time=io.netty',
+                '--enable-all-security-services',
+                '--install-exit-handlers',
+            ])
+            configurationFileDirectories.from(
+                file('src/main/resources/META-INF/native-image')
+            )
+        }
+    }
+    metadataRepository {
+        enabled = true
+    }
+}
+
+// --- Tracing Agent Tasks ---
+
+def agentOutputDir = file("${buildDir}/native-agent-output")
+
+task agentRun(type: JavaExec, dependsOn: 'fatJar') {
+    description = 'Run the fat JAR with the GraalVM tracing agent to capture metadata'
+    group = 'native'
+
+    def graalHome = System.getenv('JAVA_HOME')
+    if (graalHome) {
+        executable = "${graalHome}/bin/java"
+    }
+
+    doFirst {
+        agentOutputDir.mkdirs()
+    }
+
+    jvmArgs = [
+        "-agentlib:native-image-agent=config-output-dir=${agentOutputDir}"
+    ]
+
+    classpath = files(fatJar.archiveFile)
+    mainClass = 'net.kimleo.rec.App'
+
+    args = project.hasProperty('agentArgs')
+        ? project.property('agentArgs').toString().split(' ')
+        : ['--help']
+}
+
+task agentRunInteractive(type: JavaExec, dependsOn: 'fatJar') {
+    description = 'Run the agent TUI with tracing agent (interactive mode)'
+    group = 'native'
+
+    def graalHome = System.getenv('JAVA_HOME')
+    if (graalHome) {
+        executable = "${graalHome}/bin/java"
+    }
+
+    doFirst {
+        agentOutputDir.mkdirs()
+    }
+
+    jvmArgs = [
+        "-agentlib:native-image-agent=config-output-dir=${agentOutputDir}"
+    ]
+
+    classpath = files(fatJar.archiveFile)
+    mainClass = 'net.kimleo.rec.App'
+    args = ['--agent']
+    standardInput = System.in
+}
+
+task copyAgentConfig(type: Copy) {
+    description = 'Copy agent-generated configs into the source tree for version control'
+    group = 'native'
+
+    from agentOutputDir
+    into 'src/main/resources/META-INF/native-image'
 }
